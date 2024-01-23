@@ -1,0 +1,45 @@
+package accordionitem 
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/components/accordion/accordionheader"
+)
+
+type AccordionItemProps struct {
+	base.ElementProps
+	ParentIdSelector string
+	Title            string
+	IsCollapsed      bool
+}
+
+const RootClassName = "accordion-collapse collapse"
+
+func (aip AccordionItemProps) BuildClassName() (classes string) {
+	classNames := []string{RootClassName}
+
+	if !aip.IsCollapsed {
+		classNames = append(classNames, "show")
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props AccordionItemProps) {
+	<div class="accordion-item">
+		@accordionheader.Show(accordionheader.AccordionHeaderProps{
+			TargetId: props.Id,
+			TargetIdSelector: "#" + props.Id,
+            Title: props.Title,
+            IsCollapsed: props.IsCollapsed,
+        }) {
+		}
+		<div id={ props.Id } class={ props.BuildClassName() } data-bs-parent={ props.ParentIdSelector }>
+			<div class="accordion-body">
+				{ children... }
+			</div>
+		</div>
+	</div>
+}

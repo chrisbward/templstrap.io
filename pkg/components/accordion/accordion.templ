@@ -1,0 +1,32 @@
+package accordion
+
+import (
+	"strings"
+
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+type AccordionProps struct {
+	base.ElementProps
+	IsFlush bool
+}
+
+const RootClassName = "accordion"
+
+func (ap AccordionProps) BuildClassName() (classes string) {
+	classNames := []string{ RootClassName }
+
+	if ap.IsFlush {
+		classNames = append(classNames, "accordion-flush")
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props AccordionProps) {
+	<div class={ props.BuildClassName() } id={ props.Id }>
+		{ children... }
+	</div>
+}

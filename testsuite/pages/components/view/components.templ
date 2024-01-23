@@ -1,0 +1,203 @@
+package componentspage
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/base/head"
+	"github.com/chrisbward/templstrap.io/pkg/content/typography/heading"
+
+	"github.com/chrisbward/templstrap.io/pkg/components/accordion"
+	"github.com/chrisbward/templstrap.io/pkg/components/accordion/accordionitem"
+
+	"github.com/chrisbward/templstrap.io/pkg/components/alerts"
+
+	"github.com/chrisbward/templstrap.io/pkg/components/badge"
+
+	"github.com/chrisbward/templstrap.io/pkg/components/breadcrumb"
+
+	"github.com/chrisbward/templstrap.io/pkg/components/buttons"
+	"github.com/chrisbward/templstrap.io/pkg/components/buttongroup"
+	"github.com/chrisbward/templstrap.io/pkg/components/buttontoolbar"
+)
+
+templ Head() {
+	@head.Show(head.HeadProps{
+        Title: "TemplStrap.io",
+    }) {
+		<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"/>
+	}
+}
+
+type PageProps struct {
+	Title string
+}
+
+templ Show(props PageProps) {
+	@base.Show(base.BaseProps{
+        Title: "",
+        HeadComponent: Head(),
+    }) {
+		@heading.Show(heading.HeadingProps{
+
+        }) {
+			{ props.Title }
+		}
+		<p>This is the components page</p>
+		<h2>Accordion</h2>
+		@accordion.Show(accordion.AccordionProps{
+            ElementProps: base.ElementProps{
+                Id: "ExampleAccordion",
+            },
+            IsFlush: false,
+        }) {
+			@accordionitem.Show(accordionitem.AccordionItemProps{
+                ElementProps: base.ElementProps{
+                    Id: "collapseOne",
+                },
+                Title: "Accordion Item #1",
+                ParentIdSelector: "#ExampleAccordion",
+            }) {
+				<strong>This is the first item's accordion body.</strong>
+				It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+				These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+				You can modify any of this with custom CSS or overriding our default variables. 
+				It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+				though the transition does limit overflow.
+			}
+			@accordionitem.Show(accordionitem.AccordionItemProps{
+                ElementProps: base.ElementProps{
+                    Id: "collapseTwo",
+                },
+                Title: "Accordion Item #2",
+                ParentIdSelector: "#ExampleAccordion",
+                IsCollapsed: true,
+            }) {
+				<strong>This is the second item's accordion body.</strong>
+				It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+				These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+				You can modify any of this with custom CSS or overriding our default variables. 
+				It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+				though the transition does limit overflow.
+			}
+			@accordionitem.Show(accordionitem.AccordionItemProps{
+                ElementProps: base.ElementProps{
+                    Id: "collapseThree",
+                },
+                Title: "Accordion Item #3",
+                ParentIdSelector: "#ExampleAccordion",
+                IsCollapsed: true,
+            }) {
+				<strong>This is the third item's accordion body.</strong>
+				It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+				These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+				You can modify any of this with custom CSS or overriding our default variables. 
+				It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+				though the transition does limit overflow.
+			}
+		}
+		<h2>Alerts</h2>
+		@alerts.Show(alerts.AlertProps{
+            AlertType: alerts.PrimaryAlert,
+        }) {
+			This is a primary alert.
+		}
+		@alerts.Show(alerts.AlertProps{
+            AlertType: alerts.SecondaryAlert,
+        }) {
+			This is a secondary alert.
+		}
+		@alerts.Show(alerts.AlertProps{
+            AlertType: alerts.SuccessAlert,
+        }) {
+			This is a success alert.
+		}
+		@alerts.Show(alerts.AlertProps{
+            AlertType: alerts.DangerAlert,
+        }) {
+			This is a danger alert.
+		}
+		@alerts.Show(alerts.AlertProps{
+            AlertType: alerts.WarningAlert,
+        }) {
+			This is a warning alert.
+		}
+		@alerts.Show(alerts.AlertProps{
+            AlertType: alerts.InfoAlert,
+        }) {
+			This is an info alert.
+		}
+		<h2>Badge</h2>
+		@badge.Show()
+		<h2>Breadcrumb</h2>
+		@breadcrumb.Show()
+		<h2>Buttons</h2>
+		@buttons.Show(buttons.ButtonProps{
+            ButtonType: buttons.PrimaryButton,
+        }) {
+			Button
+		}
+        @buttons.Show(buttons.ButtonProps{
+            ButtonType: buttons.PrimaryButton,
+            IsDisabled: true,
+        }) {
+			Disabled Button
+		}
+		<h2>Button Group</h2>
+		@buttongroup.Show(buttongroup.ButtonGroupProps{ 
+            }) {
+			@buttons.Show(buttons.ButtonProps{
+                ButtonType: buttons.PrimaryButton,
+            }) {
+				Button
+			}
+			@buttons.Show(buttons.ButtonProps{
+                ButtonType: buttons.PrimaryButton,
+            }) {
+				Button
+			}
+			@buttons.Show(buttons.ButtonProps{
+                ButtonType: buttons.PrimaryButton,
+            }) {
+				Button
+			}
+		}
+		@buttontoolbar.Show() {
+			@buttongroup.Show(buttongroup.ButtonGroupProps{
+                ElementProps: base.ElementProps{
+                    AdditionalClasses: strings.Split("me-2", " "),
+                },
+            }) {
+				@buttons.Show(buttons.ButtonProps{
+                    ButtonType: buttons.PrimaryButton,
+                }) {
+					Button
+				}
+				@buttons.Show(buttons.ButtonProps{
+                    ButtonType: buttons.PrimaryButton,
+                }) {
+					Button
+				}
+				@buttons.Show(buttons.ButtonProps{
+                    ButtonType: buttons.PrimaryButton,
+                }) {
+					Button
+				}
+			}
+			@buttongroup.Show(buttongroup.ButtonGroupProps{
+                ElementProps: base.ElementProps{
+                    AdditionalClasses: strings.Split("me-2", " "),
+                },
+            }) {
+				@buttons.Show(buttons.ButtonProps{
+                    ButtonType: buttons.PrimaryButton,
+                })
+				@buttons.Show(buttons.ButtonProps{
+                    ButtonType: buttons.PrimaryButton,
+                })
+				@buttons.Show(buttons.ButtonProps{
+                    ButtonType: buttons.PrimaryButton,
+                })
+			}
+		}
+	}
+}

@@ -1,0 +1,64 @@
+package buttons
+
+import (
+    "fmt"
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	 
+)
+
+type ButtonClassType string
+
+const PrimaryButton ButtonClassType = "btn-primary"
+const SecondaryButton ButtonClassType = "btn-secondary"
+const SuccessButton ButtonClassType = "btn-success"
+const DangerButton ButtonClassType = "btn-danger"
+const WarningButton ButtonClassType = "btn-warning"
+const InfoButton ButtonClassType = "btn-info"
+const LightButton ButtonClassType = "btn-light"
+const DarkButton ButtonClassType = "btn-dark"
+
+type ButtonStyleType string
+
+const SolidButton ButtonStyleType = ""
+const OutlineButton ButtonStyleType = "outline"
+
+type ButtonSizeType string
+
+const SmallButton ButtonSizeType = "sm"
+const LargeButton ButtonSizeType = "lg"
+
+type ButtonProps struct {
+	base.ElementProps
+    IsDisabled bool
+	ButtonType ButtonClassType
+    Style ButtonStyleType
+    Size ButtonSizeType
+}
+
+const RootClassName = "btn"
+
+func (bp *ButtonProps) CalculateClassNames() (classNames string) {
+
+	classValues := []string{RootClassName}
+	classValues = append(classValues, string(bp.ButtonType))
+
+	if len(bp.AdditionalClasses) > 0 {
+		classValues = append(classValues, bp.AdditionalClasses...)
+	}
+
+    if bp.Size != "" {
+        buttonSizeClass := fmt.Sprintf("btn-%s", bp.Size)
+        classValues = append(classValues, buttonSizeClass)
+    }
+
+	classNames = strings.Join(classValues, " ")
+
+	return
+}
+
+templ Show(props ButtonProps) {
+	<button type="button" class={ props.CalculateClassNames() } disabled?={ props.IsDisabled }>
+		{ children... }
+	</button>
+}

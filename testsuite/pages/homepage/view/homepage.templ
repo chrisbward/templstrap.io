@@ -1,0 +1,28 @@
+package homepage
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/base/head"
+	"github.com/chrisbward/templstrap.io/pkg/content/typography/heading"
+)
+
+templ Head() {
+	@head.Show(head.HeadProps{
+        Title: "TemplStrap.io",
+    }){
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" />
+    }
+}
+
+templ Show() {
+	@base.Show(base.BaseProps{
+        Title: "",
+        HeadComponent: Head(),
+    }) {
+		@heading.Show(heading.HeadingProps{
+
+        }) {
+			Page title here
+		}
+	}
+}
