@@ -17,9 +17,18 @@ func main() {
 
 	homepageHandler := handlers.HomepageHandler{}
 	componentsPageHandler := handlers.ComponentsPageHandler{}
+	formsPageHandler := handlers.FormsPageHandler{}
+	htmxPageHandler := handlers.HTMXPageHandler{}
+	/* components */
+	cardComponentsPageHandler := handlers.CardComponentsPageHandler{}
+	accordionComponentsPageHandler := handlers.AccordionComponentsPageHandler{}
 
 	app.GET("/", homepageHandler.HandlerHomepageShow)
 	app.GET("/components", componentsPageHandler.HandlerComponentsPageShow)
+	app.GET("/components/accordion", accordionComponentsPageHandler.HandlerComponentPageShow)
+	app.GET("/components/card", cardComponentsPageHandler.HandlerComponentPageShow)
+	app.GET("/forms", formsPageHandler.HandlerFormsPageShow)
+	app.GET("/htmx", htmxPageHandler.HandlerHTMXPageShow)
 
 	// Use the middleware to serve static files
 	app.Use(middleware.Static("/static"))
