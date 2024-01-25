@@ -1,0 +1,24 @@
+package progress 
+
+import "fmt"
+
+
+type ProgressProps struct {
+	Percentage int
+}
+
+func (pp ProgressProps) PercentStyleString() (percent string) { 
+	return fmt.Sprintf("width: %d", pp.Percentage)
+}
+
+css className() {
+	background-color: #ffffff;
+	width: "{ blue }%";
+}
+
+
+templ Show(props ProgressProps) {
+	<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+		<div class="progress-bar" style=""></div>
+	</div>
+}
