@@ -1,0 +1,37 @@
+package breadcrumbitem
+
+import (
+	"strings"
+)
+
+const RootClassName = "breadcrumb-item"
+
+type BreadcrumbItemProps struct {
+	Name     string
+	URL      string
+	IsActive bool
+}
+
+func (bip BreadcrumbItemProps) BuildClassNames() (classes string) {
+	classNames := []string{RootClassName}
+
+	if bip.IsActive {
+		classNames = append(
+			classNames, "active",
+		)
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props BreadcrumbItemProps) {
+	<li class={ props.BuildClassNames() } aria-current="page">
+		if !props.IsActive {
+			<a href={ templ.SafeURL(props.URL) }>{ props.Name }</a>
+		} else {
+			{ props.Name }
+		}
+	</li>
+}
