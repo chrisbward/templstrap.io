@@ -1,0 +1,35 @@
+package carouselitem
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+const RootClassName = "carousel-item"
+
+type CarouselItemProps struct {
+	base.ElementProps
+	IsActive bool
+}
+
+func (cip CarouselItemProps) BuildClassNames() (classNames string) {
+	classValues := []string{RootClassName}
+
+    if cip.IsActive {
+		classValues = append(classValues, "active")
+    }
+
+	if cip.AdditionalClasses != nil {
+		classValues = append(classValues, cip.AdditionalClasses...)
+	}
+
+	classNames = strings.Join(classValues, " ")
+
+	return
+}
+
+templ Show(props CarouselItemProps) {
+	<div class={ props.BuildClassNames() }>
+		{ children... }
+	</div>
+}

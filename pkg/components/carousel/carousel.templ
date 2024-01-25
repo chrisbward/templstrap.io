@@ -1,0 +1,44 @@
+package carousel
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/components/carousel/carouselcontrol"
+)
+
+const RootClassName = "carousel"
+
+type CarouselProps struct {
+	base.ElementProps
+	HasControls bool
+}
+
+func (cp *CarouselProps) BuildClassNames() (classNames string) {
+	classValues := []string{RootClassName}
+
+	if cp.AdditionalClasses != nil {
+		classValues = append(classValues, cp.AdditionalClasses...)
+	}
+
+	classNames = strings.Join(classValues, " ")
+
+	return
+}
+
+templ Show(props CarouselProps) {
+	<div id={ props.Id } class="carousel slide">
+		<div class="carousel-inner">
+			{ children... }
+		</div>
+		if props.HasControls {
+      @carouselcontrol.Show(carouselcontrol.CarouselControlProps{
+        CarouselId: props.Id,
+        Direction: carouselcontrol.PreviousDirectionType,
+      })
+      @carouselcontrol.Show(carouselcontrol.CarouselControlProps{
+        CarouselId: props.Id,
+        Direction: carouselcontrol.NextDirectionType,
+      }) 
+		}
+	</div>
+}
