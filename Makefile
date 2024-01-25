@@ -16,3 +16,11 @@ build:
 templ:
 	@echo "+ $@"
 	@templ generate
+
+generate:
+	@echo "+ $@"
+	go generate ./...
+
+test:
+	@echo "+ $@" 
+	@go test -v -tags "$(BUILDTAGS) cgo" $(shell go list ./testsuite/...) 
