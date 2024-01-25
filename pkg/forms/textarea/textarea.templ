@@ -1,0 +1,21 @@
+package textarea
+
+import (
+    "fmt"
+    "github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+const RootClassName = "form-control"
+
+type TextAreaProps struct {
+    base.FormElementProps
+    Rows int
+}
+
+templ Show(props TextAreaProps) {
+    <textarea 
+        class="form-control" 
+        id={ props.Id }
+        rows={ fmt.Sprint(props.Rows) }
+    ></textarea>
+}

@@ -1,0 +1,57 @@
+package selectx
+
+import (
+	"fmt"
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/forms/select/selectoption"
+)
+
+const RootClassName = "form-select"
+
+type SizingType string
+
+const Default SizingType = ""
+const Small SizingType = "sm"
+const Large SizingType = "lg"
+
+type SelectMultipleProps struct {
+	IsMultipleChoice bool
+	Rows int
+}
+
+type SelectProps struct {
+	base.FormElementProps
+	Size    SizingType
+	Options []selectoption.SelectOptionProps
+	MutipleProps SelectMultipleProps
+}
+
+func (sp SelectProps) BuildClassNames() (classes string) {
+	classNames := []string{RootClassName}
+
+	if sp.Size != "" {
+		classNames = append(
+			classNames, fmt.Sprintf("%s-%s", RootClassName ,string(sp.Size)),
+		)
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props SelectProps) {
+	<select 
+		class="form-select" 
+		aria-label={ props.AriaLabel } 
+		disabled?={ props.IsDisabled }
+		multiple?={ props.MutipleProps.IsMultipleChoice }
+		rows={ fmt.Sprint(props.MutipleProps.Rows) }
+	>
+		<option selected>Open this select menu</option>
+		for _, selectOptionProps := range props.Options {
+			@selectoption.Show(selectOptionProps)
+		}
+	</select>
+}

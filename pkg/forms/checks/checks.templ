@@ -1,0 +1,22 @@
+package checks 
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+const RootClassName = "form-check"
+
+type ChecksProps struct {
+	base.ElementProps
+	LabelText string
+	IsChecked bool
+}
+
+templ Show(props ChecksProps) {
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked/>
+		<label class="form-check-label" for="flexCheckChecked">
+			{ props.LabelText }
+		</label>
+	</div>
+}

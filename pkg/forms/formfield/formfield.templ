@@ -1,0 +1,110 @@
+package formfield
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+type LayoutType string
+
+const Horizontal LayoutType = "horizontal"
+const Vertical LayoutType = "horizontal"
+
+type InputGroupPlacementType string
+
+const PlacementBefore InputGroupPlacementType = "before"
+const PlacementAfter InputGroupPlacementType = "after"
+
+type InputGroup struct {
+	InputGroup templ.Component
+	Placement  InputGroupPlacementType
+}
+
+type FormFieldProps struct {
+	base.FormElementProps
+	Layout         LayoutType
+	Label          templ.Component
+	Field          templ.Component
+	InputGroup     InputGroup
+	FormTip        templ.Component
+	FloatingLabels bool
+}
+
+func (ffp FormFieldProps) BuildClassNames() (classes string) {
+	classNames := []string{}
+
+	if ffp.FloatingLabels {
+		if ffp.InputGroup.InputGroup == nil {
+			classNames = append(
+				classNames,
+				"form-floating",
+			)
+		} else {
+			if ffp.InputGroup.InputGroup != nil  {
+				classNames = append(
+					classNames,
+					"input-group",
+				)
+			}
+		}
+	} else {
+		if ffp.InputGroup.InputGroup != nil  {
+			classNames = append(
+				classNames,
+				"input-group",
+			)
+		}
+	}
+
+	classNames = append(classNames, ffp.AdditionalClasses...)
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props FormFieldProps) {
+	<div class={ props.BuildClassNames() }>
+		// if props.InputGroup.InputGroup != nil && 
+		// props.InputGroup.Placement == PlacementBefore && 
+		// !props.FloatingLabels {
+		// 	@props.InputGroup.InputGroup
+		// }
+		if props.FloatingLabels {
+			if props.InputGroup.InputGroup != nil {
+				<div class="form-floating">
+					@props.Field
+					@props.Label
+				</div>
+			} else {
+				@props.Field
+				@props.Label
+			}
+		} else { // not a floating label
+			if props.InputGroup.InputGroup != nil {
+				@props.Label
+				<div class="input-group">
+					if props.InputGroup.Placement == PlacementBefore {
+						@props.InputGroup.InputGroup
+					}
+					@props.Field
+					if props.InputGroup.Placement == PlacementAfter {
+						@props.InputGroup.InputGroup
+					}
+				</div>
+			} else {
+				@props.Label
+				@props.Field
+			}
+		}
+		// if props.InputGroup.InputGroup != nil && 
+		// props.InputGroup.Placement == PlacementAfter &&
+		// !props.FloatingLabels {
+		// 	@props.InputGroup.InputGroup
+		// }
+		if props.FormTip != nil {
+			@props.FormTip
+		}
+		{ children... }
+	</div>
+}

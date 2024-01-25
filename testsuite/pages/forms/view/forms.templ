@@ -1,0 +1,316 @@
+package forms
+
+import (
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
+
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/base/head"
+	"github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
+	"github.com/chrisbward/templstrap.io/pkg/forms/form"
+	"net/http"
+	"github.com/chrisbward/templstrap.io/pkg/forms/formfield"
+	"github.com/chrisbward/templstrap.io/pkg/forms/formlabel"
+	"github.com/chrisbward/templstrap.io/pkg/forms/formtip"
+	"github.com/chrisbward/templstrap.io/pkg/forms/inputfield"
+	"github.com/chrisbward/templstrap.io/pkg/forms/select"
+	"github.com/chrisbward/templstrap.io/pkg/forms/select/selectoption"
+	"github.com/chrisbward/templstrap.io/pkg/forms/range"
+	// "github.com/chrisbward/templstrap.io/pkg/forms/inputgroup"
+	"github.com/chrisbward/templstrap.io/pkg/forms/inputgrouptext"
+	"github.com/chrisbward/templstrap.io/pkg/components/card" 
+)
+
+templ Head() {
+	@head.Show(head.HeadProps{
+        Title: "TemplStrap.io",
+    }) {
+		<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"/>
+	}
+}
+
+templ Show(props entities.IPageProps) {
+	@base.Show(base.BaseProps{
+        Title: "",
+        HeadComponent: Head(),
+    }) {
+		@defaulttemplate.Show(defaulttemplate.DefaultTemplateProps{
+			BreadCrumbItems: props.GetBreadcrumbs(),
+		}) {
+			<p>An example form</p>
+			@card.Show(card.CardProps{
+				ElementProps: base.ElementProps{
+					AdditionalClasses: []string{"mb-5"},
+				},
+				Title: card.CardTitle{
+					Text: "Example Form",
+					ElementProps: base.ElementProps{
+						AdditionalClasses: []string{"mb-4"},
+					},
+				},
+			}){
+				@form.Show(form.FormProps{
+					Action: form.FormAction{
+						Method: http.MethodPost,
+						Action: "https://google.com",
+						Actions: form.FormActionsMap{
+							form.PrimaryFormAction: { Name: "Submit",  },
+							form.SecondaryFormAction: {Name: "Cancel"},
+						},
+					},
+					FloatingLabels: true,
+				}) {
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						FloatingLabels: true,
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "txbUsername",
+							Text: "Your username",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "txbUsername",
+								},
+							},
+							Placeholder: "Enter your username",
+							Type: inputfield.TextType,
+						}),
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "txbVanityURL",
+							Text: "Your vanity URL",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "txbVanityURL",
+								},
+							},
+							Placeholder: "example-url",
+							Type: inputfield.TextType,
+						}),
+						InputGroup: formfield.InputGroup{
+							InputGroup: inputgrouptext.Show(
+								inputgrouptext.InputGroupTextProps{
+									Text: "https://example.com/users/",
+								},
+							),
+							Placement: formfield.PlacementBefore,
+						},
+						FormTip: formtip.Show(formtip.FormTipProps{
+							Text: "Build a URL that others can visit",
+						}),
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						FloatingLabels: true,
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "txbEmail",
+							Text: "Your email",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "txbEmail",
+								},
+							},
+							Placeholder: "Enter your email",
+							Type: inputfield.EmailType,
+						}),
+						InputGroup: formfield.InputGroup{
+							InputGroup: inputgrouptext.Show(
+								inputgrouptext.InputGroupTextProps{
+									Text: "@",
+								},
+							),
+							Placement: formfield.PlacementBefore,
+						},
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "txbOtherEmail",
+							Text: "Your other email",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "txbOtherEmail",
+								},
+							},
+							Placeholder: "Enter your other email",
+							Type: inputfield.EmailType,
+						}),
+						InputGroup: formfield.InputGroup{
+							InputGroup: inputgrouptext.Show(
+								inputgrouptext.InputGroupTextProps{
+									Text: "@",
+								},
+							),
+							Placement: formfield.PlacementBefore,
+						},
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						FloatingLabels: true,
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "txbPassword",
+							Text: "Your password",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "txbPassword",
+								},
+							},
+							Type: inputfield.PasswordType,
+						}),
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "txbPassword",
+							Text: "Your password",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "txbPassword",
+								},
+							},
+							Type: inputfield.PasswordType,
+						}),
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "txbPickColor",
+							Text: "Pick a colour",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "txbPickColor",
+								},
+							},
+							Type: inputfield.ColorType,
+						}),
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "txbDatalist",
+							Text: "Enter an item",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "txbDatalist",
+								},
+							},
+							Type: inputfield.DatalistType,
+							DatalistItems: []string{"chris", "squeak", "steve"},
+						}),
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "ddSelectAnItem",
+							Text: "Select an item",
+						}), 
+						Field: selectx.Show(selectx.SelectProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "ddSelectAnItem",
+								},
+							},
+							Options: []selectoption.SelectOptionProps{
+								{Label: "item", Value: "itemval"},
+								{Label: "item2", Value: "itemval2"},
+								{Label: "item3", Value: "itemval3"},
+							},
+						}),
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "fuFileUpload",
+							Text: "Upload a file",
+						}), 
+						Field: inputfield.Show(inputfield.InputProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "fuFileUpload",
+								},
+							},
+							Type: inputfield.FileType,
+						}),
+					})
+					@formfield.Show(formfield.FormFieldProps{
+						FormElementProps: base.FormElementProps{
+							ElementProps: base.ElementProps{
+								AdditionalClasses: []string{"mb-3"},
+							},
+						},
+						Label: formlabel.Show(formlabel.FormLabelProps{
+							For: "rngRangePicker",
+							Text: "How much awesome?",
+						}), 
+						Field: rangeeelement.Show(rangeeelement.RangeProps{
+							FormElementProps: base.FormElementProps{
+								ElementProps: base.ElementProps{
+									Id: "rngRangePicker",
+								},
+							},
+							Min: 0,
+							Max: 10,
+							Step: 0.5,
+						}),
+					})
+				}
+			}
+		}
+	}
+}

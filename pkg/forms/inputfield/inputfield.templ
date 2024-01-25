@@ -1,0 +1,68 @@
+package inputfield
+
+import (
+	"fmt"
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/forms/datalist"
+)
+
+const RootClassName = "form-control"
+
+type SizeType string
+
+const Small SizeType = "sm"
+const Large SizeType = "lg"
+
+type InputType string
+
+const TextType InputType = "text"
+const PlainTextType InputType = "plaintext"
+const PasswordType InputType = "password"
+const ColorType InputType = "color"
+const DatalistType InputType = "datalist"
+const FileType InputType = "file"
+const EmailType InputType = "email"
+
+type InputProps struct {
+	base.FormElementProps
+	Placeholder   string
+	Type          InputType
+	Size          SizeType
+	DatalistItems []string
+}
+
+func (itp InputProps) GetInputType() (inputType InputType) {
+	if itp.Type == "" {
+		return TextType
+	}
+	return itp.Type
+}
+
+func (itp InputProps) BuildClassNames() (classes string) {
+	classNames := []string{RootClassName}
+
+	classNames = append(
+		classNames, fmt.Sprintf("%s-%s", RootClassName, string(itp.GetInputType())),
+	)
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props InputProps) {
+	<input
+		type={ string(props.GetInputType()) }
+		class={ RootClassName }
+		id={ props.Id }
+		placeholder={ props.Placeholder }
+		readonly?={ props.IsReadOnly }
+		disabled?={ props.IsDisabled }
+	/>
+	if props.GetInputType() == DatalistType {
+		@datalist.Show(datalist.DatalistProps{
+            Items: props.DatalistItems,
+        })
+	}
+}

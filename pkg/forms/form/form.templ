@@ -1,0 +1,68 @@
+package form
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/components/buttons"
+)
+
+type FormActionType string
+
+const PrimaryFormAction FormActionType = "primaryFormAction"
+const SecondaryFormAction FormActionType = "secondaryFormAction"
+
+type FormActionItem struct {
+	Name   string
+	Text   string
+	Action string
+}
+
+type FormActionsMap map[FormActionType]FormActionItem
+
+type FormAction struct {
+	Method  string
+	Action  string
+	Actions FormActionsMap
+}
+
+type FormProps struct {
+	base.ElementProps
+	Action         FormAction
+	FloatingLabels bool
+}
+
+func (fp FormProps) Disable() {
+}
+
+func (fp FormProps) BuildClassNames() (classes string) {
+	classNames := []string{}
+
+	if fp.FloatingLabels {
+
+		classNames = append(
+			classNames,
+			"form-floating",
+		)
+	}
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props FormProps) {
+	<form
+		action={ templ.SafeURL(props.Action.Action) }
+		method={ props.Action.Method }
+		class={ props.BuildClassNames() }
+	>
+		{ children... }
+
+        if props.Action.Actions[PrimaryFormAction].Name != "" {
+            @buttons.Show(buttons.ButtonProps{
+                ButtonClassType: buttons.PrimaryButton,
+            }){
+                { props.Action.Actions[PrimaryFormAction].Name }
+            }
+        }
+	</form>
+}

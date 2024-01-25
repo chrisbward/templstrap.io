@@ -1,0 +1,10 @@
+package selectoption 
+
+type SelectOptionProps struct {
+	Label string
+	Value string
+}
+
+templ Show(props SelectOptionProps) {
+	<option value={ props.Value }>{ props.Label }</option>
+}
