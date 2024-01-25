@@ -3,6 +3,7 @@ package card
 import (
 	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	// "github.com/chrisbward/templstrap.io/pkg/content/typography/heading"
 )
 
 const CardTitleRootClassName = "card-title"
@@ -76,6 +77,10 @@ templ Show(props CardProps) {
 		}
 		<div class="card-body">
 			if props.Title.Text != "" {
+				// @heading.Show(heading.HeadingProps{
+				// 	HeadingClass: heading.HeadingClass("h5"),
+				// }) {
+				// }
 				<h5 class={ props.Title.BuildClassNames() }>{ props.Title.Text }</h5>
 			}
 			if props.Text.Text != "" {
