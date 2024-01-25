@@ -1,0 +1,64 @@
+package navitem 
+
+import (
+    "strings"
+    "github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+type NavItemProps struct {
+    base.BaseProps
+	Name          string
+	Link          string
+	IsActive      bool
+	IsDisabled    bool
+	IsDropdown    bool
+	ChildNavItems []NavItemProps
+}
+const RootClassName = "nav-item"
+const RootClassNameNavLink = "nav-link"
+
+func (nip NavItemProps) BuildClassNames() (classes string) {
+    classNames := []string{RootClassName}
+
+    if nip.IsDropdown {
+        classNames = append(classNames, "dropdown")
+    }
+
+	classes = strings.Join(classNames, " ")
+
+    return
+}
+
+func (nip NavItemProps) BuildClassNamesNavLink() (classes string) {
+    classNames := []string{RootClassNameNavLink}
+
+    if nip.IsActive {
+        classNames = append(classNames, "active")
+    }
+    if nip.IsDisabled {
+        classNames = append(classNames, "disabled")
+    }
+
+	classes = strings.Join(classNames, " ")
+
+    return
+}
+
+templ Show(props NavItemProps) {
+	if props.IsDropdown {
+		<li class={ props.BuildClassNames() }>
+			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				{ props.Name }
+			</a>
+			<ul class="dropdown-menu">
+                for _, childNavItem := range props.ChildNavItems {
+                    <li><a class="dropdown-item" href={templ.SafeURL(childNavItem.Link)}>{childNavItem.Name}</a></li>
+                }
+			</ul>
+		</li>
+	} else {
+		<li class={ props.BuildClassNames() }>
+			<a class={ props.BuildClassNamesNavLink() } aria-current="page" href={ templ.SafeURL(props.Link) }>{ props.Name }</a>
+		</li>
+	}
+}
