@@ -50,7 +50,7 @@ type ButtonProps struct {
 
 const RootClassName = "btn"
 
-func (bp *ButtonProps) CalculateClassNames() (classNames string) {
+func (bp *ButtonProps) BuildClassNames() (classNames string) {
 
 	classValues := []string{RootClassName}
 	classValues = append(classValues, string(bp.ButtonClassType))
@@ -71,12 +71,12 @@ func (bp *ButtonProps) CalculateClassNames() (classNames string) {
 
 templ Show(props ButtonProps) {
 	if props.ButtonElementType == "" || props.ButtonElementType == ButtonButtonType {
-		<button type={ string(props.ButtonType) } class={ props.CalculateClassNames() } disabled?={ props.IsDisabled }>
+		<button type={ string(props.ButtonType) } class={ props.BuildClassNames() } disabled?={ props.IsDisabled }>
 			{ children... }
 		</button>
 	}
 	if props.ButtonElementType == AnchorButtonType {
-		<a class={ props.CalculateClassNames() } href="#" role="button">
+		<a class={ props.BuildClassNames() } href="#" role="button">
 			{ children... }
 		</a>
 	}
