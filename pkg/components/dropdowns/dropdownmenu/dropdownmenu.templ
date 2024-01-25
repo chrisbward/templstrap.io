@@ -1,0 +1,25 @@
+package dropdownmenu
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+const RootClassName = "dropdown-menu"
+
+type DropdownMenuItem struct {
+	Name string
+	URL  string
+}
+
+type DropdownMenuProps struct {
+	base.ElementProps
+	MenuItems []DropdownMenuItem
+}
+
+templ Show(props DropdownMenuProps) {
+	<ul class={ RootClassName }>
+		for _, dropdownMenuItem := range props.MenuItems {
+			<li><a class="dropdown-item" href={ templ.SafeURL(dropdownMenuItem.URL) }>{ dropdownMenuItem.Name }</a></li>
+		}
+	</ul>
+}
