@@ -1,0 +1,48 @@
+package card
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/base/head"
+
+	"github.com/chrisbward/templstrap.io/testsuite/components/example"
+	"github.com/chrisbward/templstrap.io/pkg/components/card"
+)
+
+templ ImportCode() {
+    import(
+        "github.com/chrisbward/templstrap.io/pkg/components/card"
+    )
+}
+
+templ Code() {
+    card.Show&lpar;card.CardProps&lsqb;
+        Title: "test",
+    &rsqb;&rpar;
+}
+
+templ Head() {
+	@head.Show(head.HeadProps{
+        Title: "TemplStrap.io",
+    }) {
+		<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"/>
+	}
+}
+
+templ Show() {
+	@base.Show(base.BaseProps{
+        Title: "",
+        HeadComponent: Head(),
+    }) {
+		@example.Show(example.ExampleProps{
+            Title: "Card",
+            ImportCode: ImportCode(),
+            Code: Code(),
+        }) {
+			@card.Show(card.CardProps{
+                Title: card.CardTitle{
+					Text: "Test",
+				},
+            })
+		}
+	}
+}
