@@ -24,7 +24,7 @@ type AlertProps struct {
 
 const RootClassName = "alert"
 
-func (ap AlertProps) BuildClassName() (classes string) {
+func (ap AlertProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
 	classNames = append(classNames, string(ap.AlertType))
@@ -35,7 +35,7 @@ func (ap AlertProps) BuildClassName() (classes string) {
 }
 
 templ Show(props AlertProps) {
-	<div class={ props.BuildClassName() } role="alert">
+	<div class={ props.BuildClassNames() } role="alert">
 		if props.Heading != "" {
 			<h4 class="alert-heading">{ props.Heading }</h4>
 		}
