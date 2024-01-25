@@ -6,30 +6,54 @@ import (
 )
 
 type IPageProps interface {
-	GetBreadcrumbs() []breadcrumbitem.BreadcrumbItemProps
+	GetNavItems(currentPageName string) []*navitem.NavItemProps
+	GetBreadcrumbs() []*breadcrumbitem.BreadcrumbItemProps
+	GetTitle() string
 }
 
 type PageProps struct {
 	Title                     string
-	ComponentsNavItems        []navitem.NavItemProps
+	CurrentPageName           string
+	ComponentsNavItems        []*navitem.NavItemProps
 	ComponentsNavItemsSidebar []navitem.NavItemProps
-	BreadcrumbItems           []breadcrumbitem.BreadcrumbItemProps
+	BreadcrumbItems           []*breadcrumbitem.BreadcrumbItemProps
 }
 
 func NewPageProps(
 	title string,
-	componentsNavItems []navitem.NavItemProps,
+	currentPageName string,
+	componentsNavItems []*navitem.NavItemProps,
 	componentsNavItemsSidebar []navitem.NavItemProps,
-	breadcrumbItems []breadcrumbitem.BreadcrumbItemProps,
+	breadcrumbItems []*breadcrumbitem.BreadcrumbItemProps,
 ) IPageProps {
-	return &PageProps{
+
+	thePage := PageProps{
 		Title:                     title,
+		CurrentPageName:           currentPageName,
 		ComponentsNavItems:        componentsNavItems,
 		ComponentsNavItemsSidebar: componentsNavItemsSidebar,
 		BreadcrumbItems:           breadcrumbItems,
 	}
+	thePage.ComponentsNavItems = thePage.GetNavItems(currentPageName)
+
+	return thePage
 }
 
-func (pp PageProps) GetBreadcrumbs() []breadcrumbitem.BreadcrumbItemProps {
+func (pp PageProps) GetNavItems(currentPageName string) []*navitem.NavItemProps {
+
+	// will change this back from a pointer...
+	// as http is stateless and I could leverage immutability here
+	for _, navigationItem := range pp.ComponentsNavItems {
+		navigationItem.IsActive = (navigationItem.Name == currentPageName)
+	}
+
+	return pp.ComponentsNavItems
+}
+
+func (pp PageProps) GetBreadcrumbs() []*breadcrumbitem.BreadcrumbItemProps {
 	return pp.BreadcrumbItems
+}
+
+func (pp PageProps) GetTitle() string {
+	return pp.Title
 }

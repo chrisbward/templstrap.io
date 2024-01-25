@@ -5,6 +5,7 @@ import (
 	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/forms/datalist"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
 )
 
 const RootClassName = "form-control"
@@ -14,37 +15,43 @@ type SizeType string
 const Small SizeType = "sm"
 const Large SizeType = "lg"
 
-type InputType string
 
-const TextType InputType = "text"
-const PlainTextType InputType = "plaintext"
-const PasswordType InputType = "password"
-const ColorType InputType = "color"
-const DatalistType InputType = "datalist"
-const FileType InputType = "file"
-const EmailType InputType = "email"
+// type ValidationStateType string
+
+// const IsInvalidType ValidationStateType = "is-invalid"
+// const IsValidType ValidationStateType = "is-valid"
 
 type InputProps struct {
 	base.FormElementProps
-	Placeholder   string
-	Type          InputType
-	Size          SizeType
-	DatalistItems []string
+	Value                          string
+	Placeholder                    string
+	Type                           entities.InputType
+	Size                           SizeType
+	ValidationState                entities.ValidationStateType
+	FieldValidationFeedbackMessage string
+	DatalistItems                  []string
 }
 
-func (itp InputProps) GetInputType() (inputType InputType) {
-	if itp.Type == "" {
-		return TextType
+func (ip InputProps) GetInputType() (inputType entities.InputType) {
+	if ip.Type == "" {
+		return entities.TextType
 	}
-	return itp.Type
+	return ip.Type
 }
 
-func (itp InputProps) BuildClassNames() (classes string) {
+func (ip InputProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
 	classNames = append(
-		classNames, fmt.Sprintf("%s-%s", RootClassName, string(itp.GetInputType())),
+		classNames, fmt.Sprintf("%s-%s", RootClassName, string(ip.GetInputType())),
 	)
+
+	if ip.ValidationState == entities.FieldIsInvalidValidationStatusType {
+		classNames = append(classNames, string(entities.FieldIsInvalidValidationStatusType))
+	}
+	if ip.ValidationState == entities.FieldIsValidValidationStatusType {
+		classNames = append(classNames, string(entities.FieldIsValidValidationStatusType))
+	}
 
 	classes = strings.Join(classNames, " ")
 
@@ -54,15 +61,27 @@ func (itp InputProps) BuildClassNames() (classes string) {
 templ Show(props InputProps) {
 	<input
 		type={ string(props.GetInputType()) }
-		class={ RootClassName }
+		class={ props.BuildClassNames() }
+		value={ props.Value }
 		id={ props.Id }
+		name={ props.Id }
 		placeholder={ props.Placeholder }
 		readonly?={ props.IsReadOnly }
 		disabled?={ props.IsDisabled }
 	/>
-	if props.GetInputType() == DatalistType {
+	if props.GetInputType() == entities.DatalistType {
 		@datalist.Show(datalist.DatalistProps{
             Items: props.DatalistItems,
         })
+	}
+	if props.ValidationState == entities.FieldIsInvalidValidationStatusType {
+		<div class="invalid-feedback">
+			{ props.FieldValidationFeedbackMessage }
+		</div>
+	}
+	if props.ValidationState == entities.FieldIsValidValidationStatusType {
+		<div class="valid-feedback">
+			{ props.FieldValidationFeedbackMessage }
+		</div>
 	}
 }

@@ -44,6 +44,9 @@ func (fp FormProps) BuildClassNames() (classes string) {
 			"form-floating",
 		)
 	}
+
+    classNames = append(classNames, "needs-validation")
+
 	classes = strings.Join(classNames, " ")
 
 	return
@@ -54,6 +57,7 @@ templ Show(props FormProps) {
 		action={ templ.SafeURL(props.Action.Action) }
 		method={ props.Action.Method }
 		class={ props.BuildClassNames() }
+        hx-post={ props.Action.Action + "?requesttype=htmx" }
 	>
 		{ children... }
 

@@ -1,0 +1,69 @@
+package htmxdemoform
+
+import (
+	"net/http"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
+	"github.com/chrisbward/templstrap.io/pkg/components/alerts"
+	"github.com/chrisbward/templstrap.io/pkg/forms/form"
+	"github.com/chrisbward/templstrap.io/pkg/forms/formfield"
+	"github.com/chrisbward/templstrap.io/pkg/forms/formlabel"
+	"github.com/chrisbward/templstrap.io/pkg/forms/inputfield"
+)
+ 
+
+type HTMXDemoFormProps struct {
+	FormFields map[string]*entities.FormField
+    FormFieldOrder []string
+    IncorrectCredentials bool
+}
+
+templ Show(props HTMXDemoFormProps) {
+
+	@form.Show(form.FormProps{
+        Action: form.FormAction{
+            Method: http.MethodPost,
+            Action: "/htmx",
+            Actions: form.FormActionsMap{
+                form.PrimaryFormAction: { Name: "Submit",  },
+                form.SecondaryFormAction: {Name: "Cancel"},
+            },
+        },
+        FloatingLabels: true,
+    }) {
+        if props.IncorrectCredentials {
+            @alerts.Show(alerts.AlertProps{
+                AlertType: alerts.WarningAlert,
+                Heading: "Invalid credentials",
+            }) {
+                <p>Invalid username or password</p>
+            }
+        }
+        for _, formFieldSelector := range props.FormFieldOrder {
+			@formfield.Show(formfield.FormFieldProps{
+                FormElementProps: base.FormElementProps{
+                    ElementProps: base.ElementProps{
+                        AdditionalClasses: []string{"mb-3"},
+                    },
+                },
+                FloatingLabels: true,
+                Label: formlabel.Show(formlabel.FormLabelProps{
+                    For: props.FormFields[formFieldSelector].FieldName,
+                    Text: props.FormFields[formFieldSelector].FieldLabel,
+                }), 
+                Field: inputfield.Show(inputfield.InputProps{
+                    FormElementProps: base.FormElementProps{
+                        ElementProps: base.ElementProps{
+                            Id: props.FormFields[formFieldSelector].FieldName,
+                        },
+                    },
+                    Value: props.FormFields[formFieldSelector].FieldValue,
+                    Placeholder: props.FormFields[formFieldSelector].FieldPlaceholder,
+                    Type: props.FormFields[formFieldSelector].FieldType,
+                    ValidationState: props.FormFields[formFieldSelector].FieldValidationState,
+                    FieldValidationFeedbackMessage: props.FormFields[formFieldSelector].FieldValidationFeedbackMessage,
+                }),
+            })
+		} 
+	}
+}
