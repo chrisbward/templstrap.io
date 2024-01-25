@@ -125,6 +125,7 @@ templ Show(props entities.IPageProps) {
         HeadComponent: Head(),
     }) {
 			@defaulttemplate.Show(defaulttemplate.DefaultTemplateProps{
+			ComponentsNavItems: props.GetNavItems("Components"),
 			BreadCrumbItems: props.GetBreadcrumbs(),
 		}) {
 				@heading.Show(heading.HeadingProps{ }) {

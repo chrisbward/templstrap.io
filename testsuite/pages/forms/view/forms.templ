@@ -34,12 +34,13 @@ templ Show(props entities.IPageProps) {
         HeadComponent: Head(),
     }) {
 		@defaulttemplate.Show(defaulttemplate.DefaultTemplateProps{
+			ComponentsNavItems: props.GetNavItems("Forms"),
 			BreadCrumbItems: props.GetBreadcrumbs(),
 		}) {
 			<p>An example form</p>
 			@card.Show(card.CardProps{
 				ElementProps: base.ElementProps{
-					AdditionalClasses: []string{"mb-5"},
+					AdditionalClasses: []string{"mb-6"},
 				},
 				Title: card.CardTitle{
 					Text: "Example Form",
@@ -77,7 +78,7 @@ templ Show(props entities.IPageProps) {
 								},
 							},
 							Placeholder: "Enter your username",
-							Type: inputfield.TextType,
+							Type: entities.TextType,
 						}),
 					})
 					@formfield.Show(formfield.FormFieldProps{
@@ -97,7 +98,7 @@ templ Show(props entities.IPageProps) {
 								},
 							},
 							Placeholder: "example-url",
-							Type: inputfield.TextType,
+							Type: entities.TextType,
 						}),
 						InputGroup: formfield.InputGroup{
 							InputGroup: inputgrouptext.Show(
@@ -129,7 +130,7 @@ templ Show(props entities.IPageProps) {
 								},
 							},
 							Placeholder: "Enter your email",
-							Type: inputfield.EmailType,
+							Type: entities.EmailType,
 						}),
 						InputGroup: formfield.InputGroup{
 							InputGroup: inputgrouptext.Show(
@@ -157,7 +158,7 @@ templ Show(props entities.IPageProps) {
 								},
 							},
 							Placeholder: "Enter your other email",
-							Type: inputfield.EmailType,
+							Type: entities.EmailType,
 						}),
 						InputGroup: formfield.InputGroup{
 							InputGroup: inputgrouptext.Show(
@@ -185,7 +186,7 @@ templ Show(props entities.IPageProps) {
 									Id: "txbPassword",
 								},
 							},
-							Type: inputfield.PasswordType,
+							Type: entities.PasswordType,
 						}),
 					})
 					@formfield.Show(formfield.FormFieldProps{
@@ -204,7 +205,7 @@ templ Show(props entities.IPageProps) {
 									Id: "txbPassword",
 								},
 							},
-							Type: inputfield.PasswordType,
+							Type: entities.PasswordType,
 						}),
 					})
 					@formfield.Show(formfield.FormFieldProps{
@@ -223,7 +224,7 @@ templ Show(props entities.IPageProps) {
 									Id: "txbPickColor",
 								},
 							},
-							Type: inputfield.ColorType,
+							Type: entities.ColorType,
 						}),
 					})
 					@formfield.Show(formfield.FormFieldProps{
@@ -242,7 +243,7 @@ templ Show(props entities.IPageProps) {
 									Id: "txbDatalist",
 								},
 							},
-							Type: inputfield.DatalistType,
+							Type: entities.DatalistType,
 							DatalistItems: []string{"chris", "squeak", "steve"},
 						}),
 					})
@@ -285,7 +286,7 @@ templ Show(props entities.IPageProps) {
 									Id: "fuFileUpload",
 								},
 							},
-							Type: inputfield.FileType,
+							Type: entities.FileType,
 						}),
 					})
 					@formfield.Show(formfield.FormFieldProps{

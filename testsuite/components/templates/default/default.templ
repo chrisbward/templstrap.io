@@ -10,8 +10,8 @@ import (
 
 type DefaultTemplateProps struct {
 	SiteNavigation            templ.Component
-	BreadCrumbItems           []breadcrumbitem.BreadcrumbItemProps
-	ComponentsNavItems        []navitem.NavItemProps
+	BreadCrumbItems           []*breadcrumbitem.BreadcrumbItemProps
+	ComponentsNavItems        []*navitem.NavItemProps
 	ComponentsNavItemsSidebar []navitem.NavItemProps
 }
 
@@ -23,10 +23,10 @@ var components = []string{
 	"card",
 }
 
-func (dtp DefaultTemplateProps) GetComponentLinksForMainNavigation() (items []navitem.NavItemProps) {
+func (dtp DefaultTemplateProps) GetComponentLinksForMainNavigation() (items []*navitem.NavItemProps) {
 
 	for _, componentName := range components {
-		dtp.ComponentsNavItems = append(dtp.ComponentsNavItems, navitem.NavItemProps{
+		dtp.ComponentsNavItems = append(dtp.ComponentsNavItems, &navitem.NavItemProps{
 			Name: componentName,
 			Link: fmt.Sprintf("/components/%s", componentName),
 		})
@@ -41,32 +41,7 @@ templ Show(props DefaultTemplateProps) {
 		<div class="row mb-4">
 			@navbar.Show(navbar.NavbarProps{
                 Brand: "TemplStrap.io",
-                NavItems: []navitem.NavItemProps{
-                    {
-                        Name: "Home",
-                        Link: "/",
-                        IsDisabled: true,
-                    },
-                    {
-                        Name: "Content",
-                        Link: "/content",
-                        IsDisabled: true,
-                    },
-                    {
-                        Name: "Components",
-                        Link: "/components",
-                        IsDropdown: true,
-                        ChildNavItems: props.GetComponentLinksForMainNavigation(),
-                    },
-                    {
-                        Name: "Forms",
-                        Link: "/forms",
-                    },
-                    {
-                        Name: "htmx",
-                        Link: "/htmx",
-                    },
-                },
+                NavItems: props.ComponentsNavItems,
             })
 		</div>
 		<div class="row">
