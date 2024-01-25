@@ -1,22 +1,52 @@
 package example 
 
-templ Show() {
+import (
+	"github.com/chrisbward/templstrap.io/pkg/components/card"
+	"github.com/chrisbward/templstrap.io/pkg/content/typography/heading"
+	"github.com/chrisbward/templstrap.io/pkg/content/code"
+)
 
-		<div class="bd-example-snippet bd-code-snippet">
-			<div class="bd-example m-0 border-0">
-				<a>This is a placeholder link</a>
-			</div>
-			<div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-0 border-top border-bottom">
-				<small class="font-monospace text-body-secondary text-uppercase">html</small>
-				<div class="d-flex ms-auto">
-					<button type="button" class="btn-edit text-nowrap" aria-label="Try it on StackBlitz" data-bs-original-title="Try it on StackBlitz">
-						<svg class="bi" aria-hidden="true"><use xlink:href="#lightning-charge-fill"></use></svg>
-					</button>
-					<button type="button" class="btn-clipboard mt-0 me-0" aria-label="Copy to clipboard" data-bs-original-title="Copy to clipboard">
-						<svg class="bi" aria-hidden="true"><use xlink:href="#clipboard"></use></svg>
-					</button>
-				</div>
-			</div>
-			<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span><span class="p">&gt;</span>This is a placeholder link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></span></span></code></pre></div>
-		</div>
+type ExampleProps struct {
+	Title      string
+	BootstrapReferenceURL string
+	ImportCode templ.Component
+	Code       templ.Component
+}
+
+templ Show(props ExampleProps) {
+	@card.Show(card.CardProps{
+		Title: card.CardTitle{
+			Text: props.Title,
+		},
+	}) {
+		<p>
+			More examples can be found on <a href={ templ.SafeURL(props.BootstrapReferenceURL) }>{ props.BootstrapReferenceURL }</a>
+ 		</p>
+		@heading.Show(heading.HeadingProps{
+			HeadingClass: heading.HeadingClass("h4"),
+		}) {
+			Example
+		}
+		{ children... }
+		@heading.Show(heading.HeadingProps{
+			HeadingClass: heading.HeadingClass("h4"),
+		}) {
+			Imports
+		}
+		if props.ImportCode != nil {
+			@code.Show(code.CodeProps{}) {
+				@props.ImportCode
+			}
+		}
+		@heading.Show(heading.HeadingProps{
+			HeadingClass: heading.HeadingClass("h4"),
+		}) {
+			Code
+		}
+		if props.Code != nil {
+			@code.Show(code.CodeProps{}) {
+				@props.Code
+			}
+		}
+	}
 }
