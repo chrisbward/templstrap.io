@@ -1,0 +1,45 @@
+package spinners 
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+const RootClassName = "spinner-"
+
+type VisualType string
+
+const Border VisualType = "border"
+const Grow VisualType = "border"
+
+type Size string
+
+const Small Size = "small"
+const Large Size = "large"
+
+type SpinnerProps struct {
+	base.ElementProps
+	VisualType VisualType
+	Size       Size
+	Text       string
+}
+
+func (sp SpinnerProps) BuildClassNames() (classes string) {
+	classNames := []string{}
+
+	var defaultType = "border"
+	if sp.VisualType == "" {
+		sp.VisualType = VisualType(defaultType)
+	}
+	classNames = append(classNames, RootClassName+string(sp.VisualType))
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props SpinnerProps) {
+	<div class={ props.BuildClassNames() } role="status">
+		<span class="visually-hidden">{ props.Text }</span>
+	</div>
+}
