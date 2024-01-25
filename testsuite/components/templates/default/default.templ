@@ -1,0 +1,84 @@
+package defaulttemplate
+
+import (
+	"fmt"
+	"github.com/chrisbward/templstrap.io/pkg/components/navbar"
+	"github.com/chrisbward/templstrap.io/pkg/components/navbar/navitem"
+	"github.com/chrisbward/templstrap.io/pkg/components/breadcrumb"
+	"github.com/chrisbward/templstrap.io/pkg/components/breadcrumb/breadcrumbitem"
+)
+
+type DefaultTemplateProps struct {
+	SiteNavigation            templ.Component
+	BreadCrumbItems           []breadcrumbitem.BreadcrumbItemProps
+	ComponentsNavItems        []navitem.NavItemProps
+	ComponentsNavItemsSidebar []navitem.NavItemProps
+}
+
+var components = []string{
+	"accordion",
+	"alerts",
+	"badge",
+	"breadcrumb",
+	"card",
+}
+
+func (dtp DefaultTemplateProps) GetComponentLinksForMainNavigation() (items []navitem.NavItemProps) {
+
+	for _, componentName := range components {
+		dtp.ComponentsNavItems = append(dtp.ComponentsNavItems, navitem.NavItemProps{
+			Name: componentName,
+			Link: fmt.Sprintf("/components/%s", componentName),
+		})
+	}
+	items = dtp.ComponentsNavItems
+	return
+
+}
+
+templ Show(props DefaultTemplateProps) {
+	<div class="container-fluid">
+		<div class="row mb-4">
+			@navbar.Show(navbar.NavbarProps{
+                Brand: "TemplStrap.io",
+                NavItems: []navitem.NavItemProps{
+                    {
+                        Name: "Home",
+                        Link: "/",
+                        IsDisabled: true,
+                    },
+                    {
+                        Name: "Content",
+                        Link: "/content",
+                        IsDisabled: true,
+                    },
+                    {
+                        Name: "Components",
+                        Link: "/components",
+                        IsDropdown: true,
+                        ChildNavItems: props.GetComponentLinksForMainNavigation(),
+                    },
+                    {
+                        Name: "Forms",
+                        Link: "/forms",
+                    },
+                    {
+                        Name: "htmx",
+                        Link: "/htmx",
+                    },
+                },
+            })
+		</div>
+		<div class="row">
+			<!-- Left Column -->
+			<div class="col-md-8">
+				if props.BreadCrumbItems != nil {
+					@breadcrumb.Show(breadcrumb.BreadcrumbProps{
+                        BreadcrumbItems: props.BreadCrumbItems,
+                    })
+				}
+				{ children... }
+			</div>
+		</div>
+	</div>
+}
