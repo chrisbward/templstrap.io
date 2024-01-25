@@ -1,0 +1,57 @@
+package heading
+
+import (
+    "strings"
+    "github.com/chrisbward/templstrap.io/pkg/base"
+) 
+
+type HeadingClass string
+
+const h1HeadingClass HeadingClass = "h1"
+const h2HeadingClass HeadingClass = "h2"
+const h3HeadingClass HeadingClass = "h3"
+const h4HeadingClass HeadingClass = "h4"
+const h5HeadingClass HeadingClass = "h5"
+const h6HeadingClass HeadingClass = "h6"
+
+type DisplayClass string
+
+const display1Class DisplayClass = "display-1"
+const display2Class DisplayClass = "display-2"
+const display3Class DisplayClass = "display-3"
+const display4Class DisplayClass = "display-4"
+const display5Class DisplayClass = "display-5"
+const display6Class DisplayClass = "display-6"
+
+type HeadingProps struct {
+    base.ElementProps
+	HeadingClass HeadingClass
+	DisplayClass DisplayClass
+    IsLead bool
+}
+
+func (hp *HeadingProps) CalculateClassNames() (classNames string) {
+
+    classValues := []string{
+        string(hp.HeadingClass), 
+        string(hp.DisplayClass),
+    }
+
+    if hp.IsLead {
+        classValues = append(classValues, "lead" )
+    }
+
+    if len(hp.AdditionalClasses) > 0 {
+        classValues = append(classValues, hp.AdditionalClasses...)
+    }
+
+    classNames = strings.Join(classValues, " ")
+
+	return 
+}
+
+templ Show(props HeadingProps) {
+	<h1 class={ props.CalculateClassNames() }>
+		{ children... }
+	</h1>
+}
