@@ -29,6 +29,7 @@ func main() {
 	app.GET("/components/card", cardComponentsPageHandler.HandlerComponentPageShow)
 	app.GET("/forms", formsPageHandler.HandlerFormsPageShow)
 	app.GET("/htmx", htmxPageHandler.HandlerHTMXPageShow)
+	app.POST("/htmx", htmxPageHandler.HandlerHTMXPageShow)
 
 	// Use the middleware to serve static files
 	app.Use(middleware.Static("/static"))
