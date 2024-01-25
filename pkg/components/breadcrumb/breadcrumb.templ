@@ -7,18 +7,18 @@ import (
 
 type BreadcrumbProps struct {
 	base.ElementProps
-	BreadcrumbItems []breadcrumbitem.BreadcrumbItemProps
+	BreadcrumbItems []*breadcrumbitem.BreadcrumbItemProps
 }
 
 func (bcp BreadcrumbProps) GetBreadcrumbs() (BreadcrumbItems []breadcrumbitem.BreadcrumbItemProps) {
 
-	var breadcrumbItem breadcrumbitem.BreadcrumbItemProps
+	var breadcrumbItem *breadcrumbitem.BreadcrumbItemProps
 	for iter, breadcrumbItemProps := range bcp.BreadcrumbItems {
 		breadcrumbItem = breadcrumbItemProps
 		if iter == len(bcp.BreadcrumbItems) -1 {
 			breadcrumbItem.IsActive = true
 		}
-		BreadcrumbItems = append(BreadcrumbItems, breadcrumbItem)
+		BreadcrumbItems = append(BreadcrumbItems, *breadcrumbItem)
 	}
 
 	return
