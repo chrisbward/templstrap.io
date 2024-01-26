@@ -1,0 +1,39 @@
+package carouselcontrol
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+const RootClassName = "carousel-control"
+
+type DirectionType string
+
+const PreviousDirectionType DirectionType = "prev"
+const NextDirectionType DirectionType = "next"
+
+type CarouselControlProps struct {
+	base.ElementProps
+	CarouselId string
+	Text       string
+	Direction  DirectionType
+}
+
+func (cip CarouselControlProps) BuildClassNames() (classNames string) {
+	classValues := []string{RootClassName}
+
+	if cip.AdditionalClasses != nil {
+		classValues = append(classValues, cip.AdditionalClasses...)
+	}
+
+	classNames = strings.Join(classValues, " ")
+
+	return
+}
+
+templ Show(props CarouselControlProps) {
+	<button class={ "carousel-control-" + string(props.Direction) } type="button" data-bs-target={ "#" + props.CarouselId } data-bs-slide={ string(props.Direction) }>
+		<span class={ "carousel-control-" + string(props.Direction) + "-icon" } aria-hidden="true"></span>
+		<span class="visually-hidden">{ props.Text }</span>
+	</button>
+}

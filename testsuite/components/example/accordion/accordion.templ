@@ -1,0 +1,134 @@
+package accordionexample
+
+import(
+
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/testsuite/components/example"
+    "github.com/chrisbward/templstrap.io/pkg/components/accordion"
+	"github.com/chrisbward/templstrap.io/pkg/components/accordion/accordionitem"
+)
+
+templ ImportCode() {
+    { `
+    import(
+        "github.com/chrisbward/templstrap.io/pkg/components/accordion"
+        "github.com/chrisbward/templstrap.io/pkg/components/accordion/accordionitem"
+    )` }
+}
+
+templ Code() {
+    { ` 
+    @accordion.Show(accordion.AccordionProps{
+        ElementProps: base.ElementProps{
+            Id: "ExampleAccordion",
+        },
+        IsFlush: false,
+    }) {
+        @accordionitem.Show(accordionitem.AccordionItemProps{
+            ElementProps: base.ElementProps{
+                Id: "collapseOne",
+            },
+            Title: "Accordion Item #1",
+            ParentIdSelector: "#ExampleAccordion",
+        }) {
+            <strong>This is the first item's accordion body.</strong>
+            It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+            These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+            You can modify any of this with custom CSS or overriding our default variables. 
+            It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+            though the transition does limit overflow.
+        }
+        @accordionitem.Show(accordionitem.AccordionItemProps{
+            ElementProps: base.ElementProps{
+                Id: "collapseTwo",
+            },
+            Title: "Accordion Item #2",
+            ParentIdSelector: "#ExampleAccordion",
+            IsCollapsed: true,
+        }) {
+            <strong>This is the second item's accordion body.</strong>
+            It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+            These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+            You can modify any of this with custom CSS or overriding our default variables. 
+            It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+            though the transition does limit overflow.
+        }
+        @accordionitem.Show(accordionitem.AccordionItemProps{
+            ElementProps: base.ElementProps{
+                Id: "collapseThree",
+            },
+            Title: "Accordion Item #3",
+            ParentIdSelector: "#ExampleAccordion",
+            IsCollapsed: true,
+        }) {
+            <strong>This is the third item's accordion body.</strong>
+            It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+            These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+            You can modify any of this with custom CSS or overriding our default variables. 
+            It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+            though the transition does limit overflow.
+        }
+    }
+    `}
+}
+
+templ Show() {
+    @example.Show(example.ExampleProps{
+            Title: "Accordion",
+            BootstrapReferenceURL: "https://getbootstrap.com/docs/5.3/components/accordion/",
+            ImportCode: ImportCode(),
+            Code: Code(),
+        }) {
+			@accordion.Show(accordion.AccordionProps{
+                ElementProps: base.ElementProps{
+                    Id: "ExampleAccordion",
+                },
+                IsFlush: false,
+            }) {
+                @accordionitem.Show(accordionitem.AccordionItemProps{
+                    ElementProps: base.ElementProps{
+                        Id: "collapseOne",
+                    },
+                    Title: "Accordion Item #1",
+                    ParentIdSelector: "#ExampleAccordion",
+                }) {
+                    <strong>This is the first item's accordion body.</strong>
+                    It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+                    These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+                    You can modify any of this with custom CSS or overriding our default variables. 
+                    It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+                    though the transition does limit overflow.
+                }
+                @accordionitem.Show(accordionitem.AccordionItemProps{
+                    ElementProps: base.ElementProps{
+                        Id: "collapseTwo",
+                    },
+                    Title: "Accordion Item #2",
+                    ParentIdSelector: "#ExampleAccordion",
+                    IsCollapsed: true,
+                }) {
+                    <strong>This is the second item's accordion body.</strong>
+                    It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+                    These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+                    You can modify any of this with custom CSS or overriding our default variables. 
+                    It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+                    though the transition does limit overflow.
+                }
+                @accordionitem.Show(accordionitem.AccordionItemProps{
+                    ElementProps: base.ElementProps{
+                        Id: "collapseThree",
+                    },
+                    Title: "Accordion Item #3",
+                    ParentIdSelector: "#ExampleAccordion",
+                    IsCollapsed: true,
+                }) {
+                    <strong>This is the third item's accordion body.</strong>
+                    It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
+                    These classes control the overall appearance, as well as the showing and hiding via CSS transitions. 
+                    You can modify any of this with custom CSS or overriding our default variables. 
+                    It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, 
+                    though the transition does limit overflow.
+                }
+			}
+		}
+}

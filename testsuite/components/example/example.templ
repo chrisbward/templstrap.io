@@ -1,0 +1,52 @@
+package example 
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/components/card"
+	"github.com/chrisbward/templstrap.io/pkg/content/typography/heading"
+	"github.com/chrisbward/templstrap.io/pkg/content/code"
+)
+
+type ExampleProps struct {
+	Title      string
+	BootstrapReferenceURL string
+	ImportCode templ.Component
+	Code       templ.Component
+}
+
+templ Show(props ExampleProps) {
+	@card.Show(card.CardProps{
+		Title: card.CardTitle{
+			Text: props.Title,
+		},
+	}) {
+		<p>
+			More examples can be found on <a href={ templ.SafeURL(props.BootstrapReferenceURL) }>{ props.BootstrapReferenceURL }</a>
+ 		</p>
+		@heading.Show(heading.HeadingProps{
+			HeadingClass: heading.HeadingClass("h4"),
+		}) {
+			Example
+		}
+		{ children... }
+		@heading.Show(heading.HeadingProps{
+			HeadingClass: heading.HeadingClass("h4"),
+		}) {
+			Imports
+		}
+		if props.ImportCode != nil {
+			@code.Show(code.CodeProps{}) {
+				@props.ImportCode
+			}
+		}
+		@heading.Show(heading.HeadingProps{
+			HeadingClass: heading.HeadingClass("h4"),
+		}) {
+			Code
+		}
+		if props.Code != nil {
+			@code.Show(code.CodeProps{}) {
+				@props.Code
+			}
+		}
+	}
+}

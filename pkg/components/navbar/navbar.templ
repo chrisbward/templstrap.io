@@ -1,0 +1,82 @@
+package navbar
+
+import (
+  "strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/components/navbar/navitem"
+)
+
+type PlacementType string
+
+const Default PlacementType = ""
+const FixedTop PlacementType = "fixed-top"
+const FixedBottom PlacementType = "fixed-bottom"
+const StickyTop PlacementType = "sticky-top"
+
+type DirectionType string
+
+const Horizontal DirectionType = ""
+const Vertical DirectionType = "flex-column align-items-stretch"
+
+
+const RootClassName = "navbar"
+
+type NavbarProps struct {
+	base.ElementProps
+	Brand         string
+	IsCollapsable bool
+	NavItems      []*navitem.NavItemProps
+  Placement     PlacementType
+  Direction     DirectionType
+}
+
+func (nvp NavbarProps) BuildClassNames() (classes string) {
+  classNames := []string{RootClassName}
+
+  classNames = append(
+    classNames, 
+    string(nvp.Placement), 
+    string(nvp.Direction),
+  )
+
+	classes = strings.Join(classNames, " ")
+
+  classes = classes + " navbar-expand-lg bg-body-tertiary" // TODO: remove this
+  return
+}
+
+templ Show(props NavbarProps) {
+	<nav id={ props.Id } class={ props.BuildClassNames() }>
+		<div class="container-fluid">
+			if props.Brand != "" {
+				<a class="navbar-brand" href="#">{ props.Brand }</a>
+			}
+			if props.IsCollapsable {
+				<button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			}
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					for _, NavItem := range props.NavItems {
+						@navitem.Show(navitem.NavItemProps{
+              Name: NavItem.Name,
+              Link: NavItem.Link,
+              IsActive: NavItem.IsActive,
+              IsDisabled: NavItem.IsDisabled,
+              IsDropdown: NavItem.IsDropdown,
+              ChildNavItems: NavItem.ChildNavItems,
+            })
+					}
+				</ul>
+			</div>
+		</div>
+	</nav>
+}

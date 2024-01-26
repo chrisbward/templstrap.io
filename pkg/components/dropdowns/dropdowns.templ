@@ -1,0 +1,38 @@
+package dropdowns
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/components/dropdowns/dropdownmenu"
+)
+const RootClassName = "accordion"
+
+type DropdownProps struct {
+	base.ElementProps
+  Text string
+  IsDropEnd bool
+  MenuItems []dropdownmenu.DropdownMenuItem
+}
+
+func (ddp DropdownProps) BuildClassName() (classes string) {
+	classNames := []string{RootClassName}
+
+	if ddp.IsDropEnd {
+		classNames = append(classNames, "accordion-flush")
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props DropdownProps) {
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+			{ props.Text }
+		</button>
+		@dropdownmenu.Show(dropdownmenu.DropdownMenuProps{
+      MenuItems: props.MenuItems,
+    })
+	</div>
+}

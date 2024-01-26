@@ -1,0 +1,28 @@
+package buttongroup
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+const RootClassName = "btn-group"
+
+type ButtonGroupProps struct {
+	base.ElementProps
+}
+
+func (bgp ButtonGroupProps) BuildClassName() (classNames string) {
+	classValues := []string{RootClassName}
+
+	if len(bgp.AdditionalClasses) > 0 {
+		classValues = append(classValues, bgp.AdditionalClasses...)
+	}
+	classNames = strings.Join(classValues, " ")
+	return
+}
+
+templ Show(props ButtonGroupProps) {
+	<div class={ props.BuildClassName() } role="group" aria-label="Basic example">
+		{ children... }
+	</div>
+}

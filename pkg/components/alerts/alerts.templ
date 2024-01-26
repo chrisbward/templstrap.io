@@ -1,0 +1,44 @@
+package alerts
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+type AlertClass string
+
+const PrimaryAlert AlertClass = "alert-primary"
+const SecondaryAlert AlertClass = "alert-secondary"
+const SuccessAlert AlertClass = "alert-success"
+const DangerAlert AlertClass = "alert-danger"
+const WarningAlert AlertClass = "alert-warning"
+const InfoAlert AlertClass = "alert-info"
+const LightAlert AlertClass = "alert-light"
+const DarkAlert AlertClass = "alert-dark"
+
+type AlertProps struct {
+	base.ElementProps
+	AlertType AlertClass
+	Heading   string
+}
+
+const RootClassName = "alert"
+
+func (ap AlertProps) BuildClassNames() (classes string) {
+	classNames := []string{RootClassName}
+
+	classNames = append(classNames, string(ap.AlertType))
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props AlertProps) {
+	<div class={ props.BuildClassNames() } role="alert">
+		if props.Heading != "" {
+			<h4 class="alert-heading">{ props.Heading }</h4>
+		}
+		{ children... }
+	</div>
+}

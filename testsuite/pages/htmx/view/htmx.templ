@@ -1,0 +1,53 @@
+package htmx
+
+import (
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
+	htmxpagemodel "github.com/chrisbward/templstrap.io/testsuite/pages/htmx/model"
+
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/base/head"
+	"github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
+	"github.com/chrisbward/templstrap.io/pkg/components/card"
+)
+
+templ Head() {
+	@head.Show(head.HeadProps{
+        Title: "TemplStrap.io",
+    }) {
+		<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"/>
+	}
+}
+
+templ Show(view htmxpagemodel.HTMXPageModel, props entities.IPageProps) {
+	if !view.IsPostback {
+		@base.Show(base.BaseProps{
+			Title: "",
+			HeadComponent: Head(),
+		}) {
+			@defaulttemplate.Show(defaulttemplate.DefaultTemplateProps{
+				ComponentsNavItems: props.GetNavItems("htmx"),
+				BreadCrumbItems: props.GetBreadcrumbs(),
+			}) {
+				<p>
+					A quick demonstration of htmx-powered templstrap, username and password are both "admin"
+				</p>
+				@card.Show(card.CardProps{
+					ElementProps: base.ElementProps{
+						AdditionalClasses: []string{"mb-6"},
+					},
+					Title: card.CardTitle{
+						Text: "Example Form",
+						ElementProps: base.ElementProps{
+							AdditionalClasses: []string{"mb-4"},
+						},
+					},
+				}) {
+					@view.GetForm()
+				}
+			}
+		}
+	} 
+	if view.IsPostback {
+		@view.ValidateAndGetFormOrSuccess()
+	} 
+}

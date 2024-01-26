@@ -1,0 +1,16 @@
+package datalist 
+
+import "github.com/chrisbward/templstrap.io/pkg/base"
+
+type DatalistProps struct {
+    base.ElementProps
+    Items []string
+}
+
+templ Show(props DatalistProps) {
+    <datalist id={ props.Id }>
+        for _, datalistItem := range props.Items {
+            <option value={ datalistItem }></option>
+        }
+    </datalist>
+}

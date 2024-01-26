@@ -1,0 +1,36 @@
+package accordionheader 
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
+
+type AccordionHeaderProps struct {
+	base.ElementProps
+	TargetId string
+	TargetIdSelector string
+	Title       string
+	IsCollapsed bool
+}
+
+const RootClassName = "accordion-button"
+
+func (ahp AccordionHeaderProps) BuildClassName() (classes string) {
+	classNames := []string{RootClassName}
+
+	if ahp.IsCollapsed {
+		classNames = append(classNames, "collapsed")
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props AccordionHeaderProps) {
+	<h2 class="accordion-header">
+		<button class={ props.BuildClassName() } type="button" data-bs-toggle="collapse" data-bs-target={ props.TargetIdSelector } aria-expanded="true" aria-controls={props.TargetId}>
+			{ props.Title }
+		</button>
+	</h2>
+}

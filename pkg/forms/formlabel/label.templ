@@ -1,0 +1,15 @@
+package formlabel
+
+import "github.com/chrisbward/templstrap.io/pkg/base"
+
+const RootClassName = "form-label"
+
+type FormLabelProps struct {
+	base.ElementProps
+	For  string
+	Text string
+}
+
+templ Show(props FormLabelProps) {
+	<label for={ props.For } class={ RootClassName }>{ props.Text }</label>
+}

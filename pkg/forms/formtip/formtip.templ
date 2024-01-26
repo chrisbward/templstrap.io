@@ -1,0 +1,13 @@
+package formtip 
+
+const RootClassName = "form-text"
+
+type FormTipProps struct {
+	Text string
+}
+
+templ Show(props FormTipProps) {
+	<div class={ RootClassName } id="basic-addon4">
+		{ props.Text }
+	</div>
+}

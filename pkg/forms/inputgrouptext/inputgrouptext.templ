@@ -1,0 +1,12 @@
+package inputgrouptext
+
+type InputGroupTextProps struct {
+	Text string
+}
+
+templ Show(props InputGroupTextProps) {
+	<div class="input-group-text" id="basic-addon1">
+		{ props.Text }
+		{ children... }
+	</div>
+}

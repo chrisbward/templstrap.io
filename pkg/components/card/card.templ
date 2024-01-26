@@ -1,0 +1,92 @@
+package card
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	// "github.com/chrisbward/templstrap.io/pkg/content/typography/heading"
+)
+
+const CardTitleRootClassName = "card-title"
+
+type CardTitle struct {
+	base.ElementProps
+	Text string
+}
+
+func (ct CardTitle) BuildClassNames() (classes string) {
+	classNames := []string{CardTitleRootClassName}
+
+	if ct.AdditionalClasses != nil {
+		classNames = append(
+			classNames,
+			ct.AdditionalClasses...,
+		)
+	}
+
+	classes = strings.Join(classNames, " ")
+	return
+}
+
+const CardTextRootClassName = "card-text"
+
+type CardText struct {
+	base.ElementProps
+	Text string
+}
+
+func (ct CardText) BuildClassNames() (classes string) {
+	classNames := []string{CardTitleRootClassName}
+
+	if ct.AdditionalClasses != nil {
+		classNames = append(
+			classNames,
+			ct.AdditionalClasses...,
+		)
+	}
+
+	classes = strings.Join(classNames, " ")
+	return
+}
+
+const CardRootClassName = "card"
+
+type CardProps struct {
+	base.ElementProps
+	Title    CardTitle
+	Text     CardText
+	ImageCap templ.Component
+}
+func (cp CardProps) BuildClassNames() (classes string) {
+	classNames := []string{CardRootClassName}
+
+	if cp.AdditionalClasses != nil {
+		classNames = append(
+			classNames,
+			cp.AdditionalClasses...,
+		)
+	}
+
+	classes = strings.Join(classNames, " ")
+	return
+}
+
+templ Show(props CardProps) {
+	<div class={ props.BuildClassNames() }>
+		if props.ImageCap != nil {
+			@props.ImageCap
+		}
+		<div class="card-body">
+			if props.Title.Text != "" {
+				// @heading.Show(heading.HeadingProps{
+				// 	HeadingClass: heading.HeadingClass("h5"),
+				// }) {
+				// }
+				<h5 class={ props.Title.BuildClassNames() }>{ props.Title.Text }</h5>
+			}
+			if props.Text.Text != "" {
+				<p class={ props.Text.BuildClassNames() }>{ props.Text.Text }</p>
+			}
+			{ children... }
+		</div>
+	</div>
+}
