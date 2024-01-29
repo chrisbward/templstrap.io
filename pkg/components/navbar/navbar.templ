@@ -1,7 +1,7 @@
 package navbar
 
 import (
-  "strings"
+	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/components/navbar/navitem"
 )
@@ -18,7 +18,6 @@ type DirectionType string
 const Horizontal DirectionType = ""
 const Vertical DirectionType = "flex-column align-items-stretch"
 
-
 const RootClassName = "navbar"
 
 type NavbarProps struct {
@@ -26,23 +25,23 @@ type NavbarProps struct {
 	Brand         string
 	IsCollapsable bool
 	NavItems      []*navitem.NavItemProps
-  Placement     PlacementType
-  Direction     DirectionType
+	Placement     PlacementType
+	Direction     DirectionType
 }
 
 func (nvp NavbarProps) BuildClassNames() (classes string) {
-  classNames := []string{RootClassName}
+	classNames := []string{RootClassName}
 
-  classNames = append(
-    classNames, 
-    string(nvp.Placement), 
-    string(nvp.Direction),
-  )
+	classNames = append(
+		classNames,
+		string(nvp.Placement),
+		string(nvp.Direction),
+	)
 
 	classes = strings.Join(classNames, " ")
 
-  classes = classes + " navbar-expand-lg bg-body-tertiary" // TODO: remove this
-  return
+	classes = classes + " navbar-expand-lg bg-body-tertiary" // TODO: remove this
+	return
 }
 
 templ Show(props NavbarProps) {
@@ -52,14 +51,15 @@ templ Show(props NavbarProps) {
 				<a class="navbar-brand" href="#">{ props.Brand }</a>
 			}
 			if props.IsCollapsable {
-				<button 
-            class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#navbarSupportedContent" 
-            aria-controls="navbarSupportedContent" 
-            aria-expanded="false" 
-            aria-label="Toggle navigation">
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
 					<span class="navbar-toggler-icon"></span>
 				</button>
 			}
@@ -67,16 +67,17 @@ templ Show(props NavbarProps) {
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					for _, NavItem := range props.NavItems {
 						@navitem.Show(navitem.NavItemProps{
-              Name: NavItem.Name,
-              Link: NavItem.Link,
-              IsActive: NavItem.IsActive,
-              IsDisabled: NavItem.IsDisabled,
-              IsDropdown: NavItem.IsDropdown,
-              ChildNavItems: NavItem.ChildNavItems,
-            })
+							Name: NavItem.Name,
+							Link: NavItem.Link,
+							IsActive: NavItem.IsActive,
+							IsDisabled: NavItem.IsDisabled,
+							IsDropdown: NavItem.IsDropdown,
+							ChildNavItems: NavItem.ChildNavItems,
+						})
 					}
 				</ul>
 			</div>
+			{ children... }
 		</div>
 	</nav>
 }
