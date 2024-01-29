@@ -30,9 +30,14 @@ const Vertical DirectionType = "flex-column align-items-stretch"
 
 const RootClassName = "navbar"
 
+type BrandProps struct {
+	BrandName string
+	BrandLink string
+}
+
 type NavbarProps struct {
 	base.ElementProps
-	Brand         string
+	Brand         *BrandProps
 	IsCollapsable bool
 	NavItems      []*navitem.NavItemProps
 	Placement     PlacementType
@@ -94,17 +99,26 @@ func Show(props NavbarProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if props.Brand != "" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a class=\"navbar-brand\" href=\"#\">")
+		if props.Brand != nil {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a class=\"navbar-brand\" href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(props.Brand)
+			var templ_7745c5c3_Var3 templ.SafeURL = templ.SafeURL(props.Brand.BrandLink)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var3)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navbar.templ`, Line: 52, Col: 50}
+				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(props.Brand.BrandName)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navbar.templ`, Line: 57, Col: 97}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

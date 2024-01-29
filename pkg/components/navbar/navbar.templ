@@ -20,9 +20,14 @@ const Vertical DirectionType = "flex-column align-items-stretch"
 
 const RootClassName = "navbar"
 
+type BrandProps struct {
+	BrandName string
+	BrandLink string
+}
+
 type NavbarProps struct {
 	base.ElementProps
-	Brand         string
+	Brand         *BrandProps
 	IsCollapsable bool
 	NavItems      []*navitem.NavItemProps
 	Placement     PlacementType
@@ -49,8 +54,8 @@ func (nvp NavbarProps) BuildClassNames() (classes string) {
 templ Show(props NavbarProps) {
 	<nav id={ props.Id } class={ props.BuildClassNames() }>
 		<div class="container-fluid">
-			if props.Brand != "" {
-				<a class="navbar-brand" href="#">{ props.Brand }</a>
+			if props.Brand != nil {
+				<a class="navbar-brand" href={ templ.SafeURL(props.Brand.BrandLink) }>{ props.Brand.BrandName }</a>
 			}
 			if props.IsCollapsable {
 				<button
