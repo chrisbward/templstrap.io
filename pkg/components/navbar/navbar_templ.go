@@ -48,9 +48,11 @@ func (nvp NavbarProps) BuildClassNames() (classes string) {
 		string(nvp.Direction),
 	)
 
+	classNames = append(classNames, nvp.AdditionalClasses...)
+
 	classes = strings.Join(classNames, " ")
 
-	classes = classes + " navbar-expand-lg bg-body-tertiary" // TODO: remove this
+	// classes = classes + " navbar-expand-lg bg-body-tertiary" // TODO: remove this
 	return
 }
 
@@ -100,7 +102,7 @@ func Show(props NavbarProps) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(props.Brand)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navbar.templ`, Line: 50, Col: 50}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navbar.templ`, Line: 52, Col: 50}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

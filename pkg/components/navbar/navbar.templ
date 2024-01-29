@@ -38,9 +38,11 @@ func (nvp NavbarProps) BuildClassNames() (classes string) {
 		string(nvp.Direction),
 	)
 
+	classNames = append(classNames, nvp.AdditionalClasses...)
+
 	classes = strings.Join(classNames, " ")
 
-	classes = classes + " navbar-expand-lg bg-body-tertiary" // TODO: remove this
+	// classes = classes + " navbar-expand-lg bg-body-tertiary" // TODO: remove this
 	return
 }
 
