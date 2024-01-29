@@ -36,8 +36,6 @@ type AnchorProps struct {
 func (ap AnchorProps) BuildClassName() (classes string) {
 	classNames := []string{RootClassName}
 
-	classes = strings.Join(classNames, " ")
-
 	if ap.Type == Button {
 		classNames = append(classNames,
 			"btn",
@@ -47,6 +45,7 @@ func (ap AnchorProps) BuildClassName() (classes string) {
 			string(ap.ButtonElementType),
 		)
 	}
+	classes = strings.Join(classNames, " ")
 
 	return
 }
@@ -93,7 +92,7 @@ func Show(props AnchorProps) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(props.Text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/anchor/anchor.templ`, Line: 44, Col: 84}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/anchor/anchor.templ`, Line: 43, Col: 84}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {

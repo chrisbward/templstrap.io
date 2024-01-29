@@ -26,8 +26,6 @@ type AnchorProps struct {
 func (ap AnchorProps) BuildClassName() (classes string) {
 	classNames := []string{RootClassName}
 
-	classes = strings.Join(classNames, " ")
-
 	if ap.Type == Button {
 		classNames = append(classNames,
 			"btn",
@@ -37,6 +35,7 @@ func (ap AnchorProps) BuildClassName() (classes string) {
 			string(ap.ButtonElementType),
 		)
 	}
+	classes = strings.Join(classNames, " ")
 
 	return
 }
