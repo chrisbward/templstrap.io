@@ -11,6 +11,7 @@ import "io"
 import "bytes"
 
 import (
+	"github.com/chrisbward/templstrap.io/pkg/components/buttons"
 	"strings"
 )
 
@@ -25,6 +26,11 @@ type AnchorProps struct {
 	Text string
 	Link string
 	Type AnchorType
+
+	ButtonClassType   buttons.ButtonClassType
+	Style             buttons.ButtonStyleType
+	Size              buttons.ButtonSizeType
+	ButtonElementType buttons.ButtonElementType
 }
 
 func (ap AnchorProps) BuildClassName() (classes string) {
@@ -33,7 +39,13 @@ func (ap AnchorProps) BuildClassName() (classes string) {
 	classes = strings.Join(classNames, " ")
 
 	if ap.Type == Button {
-		classNames = append(classNames, "")
+		classNames = append(classNames,
+			"btn",
+			string(ap.ButtonClassType),
+			string(ap.Size),
+			string(ap.Style),
+			string(ap.ButtonElementType),
+		)
 	}
 
 	return
@@ -61,7 +73,7 @@ func Show(props AnchorProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var3 templ.SafeURL = props.Link
+		var templ_7745c5c3_Var3 templ.SafeURL = templ.SafeURL(props.Link)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var3)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -81,7 +93,7 @@ func Show(props AnchorProps) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(props.Text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/anchor/anchor.templ`, Line: 33, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/anchor/anchor.templ`, Line: 44, Col: 84}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
