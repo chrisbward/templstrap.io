@@ -1,0 +1,31 @@
+package hiddenfield
+
+import ( 
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
+)
+
+const RootClassName = "form-control" 
+
+type InputProps struct {
+	base.FormElementProps
+	Value                          string
+	Type                           entities.InputType
+}
+
+func (ip InputProps) GetInputType() (inputType entities.InputType) {
+	if ip.Type == "" {
+		return entities.TextType
+	}
+	return ip.Type
+}
+
+templ Show(props InputProps) {
+	<input
+		type={ string(props.GetInputType()) } 
+		value={ props.Value }
+		id={ props.Id }
+		name={ props.Id } 
+		readonly="true" 
+	/>  
+}
