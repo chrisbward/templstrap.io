@@ -24,6 +24,7 @@ const ColorType InputType = "color"
 const DatalistType InputType = "datalist"
 const FileType InputType = "file"
 const EmailType InputType = "email"
+const HiddenType InputType = "hidden"
 
 type FormField struct {
 	Name                           string
