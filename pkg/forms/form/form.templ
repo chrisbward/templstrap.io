@@ -63,6 +63,9 @@ templ Show(props FormProps) {
 		if props.ElementProps.HTMX.TargetSelector != "" {
 			hx-target={ props.ElementProps.HTMX.TargetSelector }
 		}
+		if props.ElementProps.HTMX.IndicatorSelector != "" {
+			hx-indicator={ props.ElementProps.HTMX.IndicatorSelector }
+		}
 	>
 		{ children... }
 		if props.Action.Actions[PrimaryFormAction].Name != "" {
