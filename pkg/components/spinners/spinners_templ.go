@@ -29,9 +29,10 @@ const Large Size = "large"
 
 type SpinnerProps struct {
 	base.ElementProps
-	VisualType VisualType
-	Size       Size
-	Text       string
+	VisualType      VisualType
+	Size            Size
+	Text            string
+	IsHTMXIndicator bool
 }
 
 func (sp SpinnerProps) BuildClassNames() (classes string) {
@@ -41,6 +42,10 @@ func (sp SpinnerProps) BuildClassNames() (classes string) {
 	if sp.VisualType == "" {
 		sp.VisualType = VisualType(defaultType)
 	}
+	if sp.IsHTMXIndicator {
+		classNames = append(classNames, "htmx-indicator")
+	}
+
 	classNames = append(classNames, RootClassName+string(sp.VisualType))
 
 	classes = strings.Join(classNames, " ")
@@ -66,7 +71,25 @@ func Show(props SpinnerProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if props.ElementProps.Id != "" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" id=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(props.ElementProps.Id))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -81,7 +104,7 @@ func Show(props SpinnerProps) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(props.Text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/spinners/spinners.templ`, Line: 42, Col: 44}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/spinners/spinners.templ`, Line: 53, Col: 44}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {

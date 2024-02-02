@@ -19,9 +19,10 @@ const Large Size = "large"
 
 type SpinnerProps struct {
 	base.ElementProps
-	VisualType VisualType
-	Size       Size
-	Text       string
+	VisualType      VisualType
+	Size            Size
+	Text            string
+	IsHTMXIndicator bool
 }
 
 func (sp SpinnerProps) BuildClassNames() (classes string) {
@@ -31,6 +32,10 @@ func (sp SpinnerProps) BuildClassNames() (classes string) {
 	if sp.VisualType == "" {
 		sp.VisualType = VisualType(defaultType)
 	}
+	if sp.IsHTMXIndicator {
+		classNames = append(classNames, "htmx-indicator")
+	}
+
 	classNames = append(classNames, RootClassName+string(sp.VisualType))
 
 	classes = strings.Join(classNames, " ")
@@ -39,7 +44,13 @@ func (sp SpinnerProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props SpinnerProps) {
-	<div class={ props.BuildClassNames() } role="status">
+	<div 
+		if props.ElementProps.Id != "" {
+			id={ props.ElementProps.Id } 
+		}
+		class={ props.BuildClassNames() } 
+		role="status"
+	>
 		<span class="visually-hidden">{ props.Text }</span>
 	</div>
 }
