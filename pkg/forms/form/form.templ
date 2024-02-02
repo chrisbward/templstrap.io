@@ -23,7 +23,7 @@ type FormAction struct {
 	Method  string
 	Action  string
 	Actions FormActionsMap
-}
+} 
 
 type FormProps struct {
 	base.ElementProps
@@ -45,7 +45,7 @@ func (fp FormProps) BuildClassNames() (classes string) {
 		)
 	}
 
-    classNames = append(classNames, "needs-validation")
+	classNames = append(classNames, "needs-validation")
 
 	classes = strings.Join(classNames, " ")
 
@@ -57,16 +57,20 @@ templ Show(props FormProps) {
 		action={ templ.SafeURL(props.Action.Action) }
 		method={ props.Action.Method }
 		class={ props.BuildClassNames() }
-        hx-post={ props.Action.Action + "?requesttype=htmx" }
+		if props.ElementProps.HTMX.Verb == base.PostVerbType {
+			hx-post={ props.Action.Action + "?requesttype=htmx" }
+		}
+		if props.ElementProps.HTMX.TargetSelector != "" {
+			hx-target={ props.ElementProps.HTMX.TargetSelector }
+		}
 	>
 		{ children... }
-
-        if props.Action.Actions[PrimaryFormAction].Name != "" {
-            @buttons.Show(buttons.ButtonProps{
+		if props.Action.Actions[PrimaryFormAction].Name != "" {
+			@buttons.Show(buttons.ButtonProps{
                 ButtonClassType: buttons.PrimaryButton,
-            }){
-                { props.Action.Actions[PrimaryFormAction].Name }
-            }
-        }
+            }) {
+				{ props.Action.Actions[PrimaryFormAction].Name }
+			}
+		}
 	</form>
 }
