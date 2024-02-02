@@ -38,6 +38,7 @@ type FormFieldProps struct {
 	InputGroup     InputGroup
 	FormTip        templ.Component
 	FloatingLabels bool
+	IsHidden       bool
 }
 
 func (ffp FormFieldProps) BuildClassNames() (classes string) {
@@ -64,6 +65,13 @@ func (ffp FormFieldProps) BuildClassNames() (classes string) {
 				"input-group",
 			)
 		}
+	}
+
+	if ffp.IsHidden {
+		classNames = append(
+			classNames,
+			"d-none",
+		)
 	}
 
 	classNames = append(classNames, ffp.AdditionalClasses...)

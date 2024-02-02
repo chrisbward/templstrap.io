@@ -28,6 +28,7 @@ type FormFieldProps struct {
 	InputGroup     InputGroup
 	FormTip        templ.Component
 	FloatingLabels bool
+	IsHidden       bool
 }
 
 func (ffp FormFieldProps) BuildClassNames() (classes string) {
@@ -40,7 +41,7 @@ func (ffp FormFieldProps) BuildClassNames() (classes string) {
 				"form-floating",
 			)
 		} else {
-			if ffp.InputGroup.InputGroup != nil  {
+			if ffp.InputGroup.InputGroup != nil {
 				classNames = append(
 					classNames,
 					"input-group",
@@ -48,12 +49,19 @@ func (ffp FormFieldProps) BuildClassNames() (classes string) {
 			}
 		}
 	} else {
-		if ffp.InputGroup.InputGroup != nil  {
+		if ffp.InputGroup.InputGroup != nil {
 			classNames = append(
 				classNames,
 				"input-group",
 			)
 		}
+	}
+
+	if ffp.IsHidden {
+		classNames = append(
+			classNames,
+			"d-none",
+		)
 	}
 
 	classNames = append(classNames, ffp.AdditionalClasses...)
@@ -80,7 +88,8 @@ templ Show(props FormFieldProps) {
 				@props.Field
 				@props.Label
 			}
-		} else { // not a floating label
+		} else {
+			// not a floating label
 			if props.InputGroup.InputGroup != nil {
 				@props.Label
 				<div class="input-group">
