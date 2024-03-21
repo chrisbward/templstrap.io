@@ -1,8 +1,8 @@
-# TemplStrap.io - PROJECT IS NOT FINISHED, DO NOT USE FOR PRODUCTION
+# TemplStrap.io - PROJECT IS IN ALPHA, DO NOT USE FOR PRODUCTION
 
 A component framework for Templ that aligns to the Twitter Bootstrap design system.
 
-The project should be ready by Friday 2nd Feb 2024.
+The project is currently in iterative testing with real applications.
 
 ## Goals
 
@@ -15,8 +15,8 @@ The project should be ready by Friday 2nd Feb 2024.
 
 PROJECT IS NOT FINISHED, DO NOT USE FOR PRODUCTION
 
-Code in the repo is liable to change before next Friday, some components are incomplete 
-and will need testing
+Code in the repo is liable to change, some components are incomplete 
+and will need further testing
 
 components to finish;
 - collapse
