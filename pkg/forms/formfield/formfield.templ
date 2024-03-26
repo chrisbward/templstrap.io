@@ -72,7 +72,7 @@ func (ffp FormFieldProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props FormFieldProps) {
-	<div class={ props.BuildClassNames() }>
+	<div class={ props.BuildClassNames() } id={ props.ElementProps.Id }>
 		// if props.InputGroup.InputGroup != nil && 
 		// props.InputGroup.Placement == PlacementBefore && 
 		// !props.FloatingLabels {
