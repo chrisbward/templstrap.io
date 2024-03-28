@@ -18,6 +18,7 @@ type IFormController interface {
 type InputType string
 
 const TextType InputType = "text"
+const NumberType InputType = "number"
 const PlainTextType InputType = "plaintext"
 const PasswordType InputType = "password"
 const ColorType InputType = "color"
@@ -26,12 +27,17 @@ const FileType InputType = "file"
 const EmailType InputType = "email"
 const HiddenType InputType = "hidden"
 
+type FormFieldType struct {
+	InputType InputType
+	Settings  map[string]interface{}
+}
+
 type FormField struct {
 	Name                           string
 	FieldName                      string
 	FieldLabel                     string
 	FieldPlaceholder               string
-	FieldType                      InputType
+	FieldType                      FormFieldType
 	FieldValidationState           ValidationStateType
 	FieldValidationFeedbackMessage string
 	FieldValue                     string
@@ -67,5 +73,6 @@ func (ff *FormField) ValidateField() (FieldIsValid bool) {
 }
 
 type FormFieldValidation struct {
-	IsRequired bool
+	IsRequired      bool
+	ValidationState ValidationStateType
 }
