@@ -15,7 +15,6 @@ type SizeType string
 const Small SizeType = "sm"
 const Large SizeType = "lg"
 
-
 // type ValidationStateType string
 
 // const IsInvalidType ValidationStateType = "is-invalid"
@@ -27,9 +26,10 @@ type InputProps struct {
 	Placeholder                    string
 	Type                           entities.InputType
 	Size                           SizeType
-	ValidationState                entities.ValidationStateType
 	FieldValidationFeedbackMessage string
 	DatalistItems                  []string
+	Validation                     entities.FormFieldValidation
+	ExtraAttributes                map[string]any
 }
 
 func (ip InputProps) GetInputType() (inputType entities.InputType) {
@@ -38,7 +38,7 @@ func (ip InputProps) GetInputType() (inputType entities.InputType) {
 	}
 	return ip.Type
 }
-
+ 
 func (ip InputProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
@@ -46,10 +46,10 @@ func (ip InputProps) BuildClassNames() (classes string) {
 		classNames, fmt.Sprintf("%s-%s", RootClassName, string(ip.GetInputType())),
 	)
 
-	if ip.ValidationState == entities.FieldIsInvalidValidationStatusType {
+	if ip.Validation.ValidationState == entities.FieldIsInvalidValidationStatusType {
 		classNames = append(classNames, string(entities.FieldIsInvalidValidationStatusType))
 	}
-	if ip.ValidationState == entities.FieldIsValidValidationStatusType {
+	if ip.Validation.ValidationState == entities.FieldIsValidValidationStatusType {
 		classNames = append(classNames, string(entities.FieldIsValidValidationStatusType))
 	}
 
@@ -68,18 +68,20 @@ templ Show(props InputProps) {
 		placeholder={ props.Placeholder }
 		readonly?={ props.IsReadOnly }
 		disabled?={ props.IsDisabled }
+		required?={ props.Validation.IsRequired }
+		{ props.ExtraAttributes... }
 	/>
 	if props.GetInputType() == entities.DatalistType {
 		@datalist.Show(datalist.DatalistProps{
-            Items: props.DatalistItems,
-        })
+			Items: props.DatalistItems,
+		})
 	}
-	if props.ValidationState == entities.FieldIsInvalidValidationStatusType {
+	if props.Validation.ValidationState == entities.FieldIsInvalidValidationStatusType {
 		<div class="invalid-feedback">
 			{ props.FieldValidationFeedbackMessage }
 		</div>
 	}
-	if props.ValidationState == entities.FieldIsValidValidationStatusType {
+	if props.Validation.ValidationState == entities.FieldIsValidValidationStatusType {
 		<div class="valid-feedback">
 			{ props.FieldValidationFeedbackMessage }
 		</div>

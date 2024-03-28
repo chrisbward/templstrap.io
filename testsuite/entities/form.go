@@ -65,3 +65,7 @@ func (ff *FormField) ValidateField() (FieldIsValid bool) {
 
 	return
 }
+
+type FormFieldValidation struct {
+	IsRequired bool
+}
