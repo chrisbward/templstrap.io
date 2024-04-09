@@ -23,12 +23,13 @@ type FormAction struct {
 	Method  string
 	Action  string
 	Actions FormActionsMap
-} 
+}
 
 type FormProps struct {
 	base.ElementProps
 	Action         FormAction
 	FloatingLabels bool
+	IsNested       bool
 }
 
 func (fp FormProps) Disable() {
@@ -53,30 +54,34 @@ func (fp FormProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props FormProps) {
-	<form
-		action={ templ.SafeURL(props.Action.Action) }
-		method={ props.Action.Method }
-		class={ props.BuildClassNames() }
-		if props.ElementProps.HTMX.Verb == base.PostVerbType {
-			hx-post={ props.Action.Action + "?requesttype=htmx" }
-		}
-		if props.ElementProps.HTMX.TargetSelector != "" {
-			hx-target={ props.ElementProps.HTMX.TargetSelector }
-		}
-		if props.ElementProps.HTMX.IndicatorSelector != "" {
-			hx-indicator={ props.ElementProps.HTMX.IndicatorSelector }
-		}
-		if props.ElementProps.HTMX.Swap != "" {
-			hx-swap={ string(props.ElementProps.HTMX.Swap) }
-		}
-	>
-		{ children... }
-		if props.Action.Actions[PrimaryFormAction].Name != "" {
-			@buttons.Show(buttons.ButtonProps{
-                ButtonClassType: buttons.PrimaryButton,
-            }) {
-				{ props.Action.Actions[PrimaryFormAction].Name }
+	if !props.IsNested {
+		<form
+			action={ templ.SafeURL(props.Action.Action) }
+			method={ props.Action.Method }
+			class={ props.BuildClassNames() }
+			if props.ElementProps.HTMX.Verb == base.PostVerbType {
+				hx-post={ props.Action.Action + "?requesttype=htmx" }
 			}
-		}
-	</form>
+			if props.ElementProps.HTMX.TargetSelector != "" {
+				hx-target={ props.ElementProps.HTMX.TargetSelector }
+			}
+			if props.ElementProps.HTMX.IndicatorSelector != "" {
+				hx-indicator={ props.ElementProps.HTMX.IndicatorSelector }
+			}
+			if props.ElementProps.HTMX.Swap != "" {
+				hx-swap={ string(props.ElementProps.HTMX.Swap) }
+			}
+		>
+			{ children... }
+			if props.Action.Actions[PrimaryFormAction].Name != "" {
+				@buttons.Show(buttons.ButtonProps{
+					ButtonClassType: buttons.PrimaryButton,
+				}) {
+					{ props.Action.Actions[PrimaryFormAction].Name }
+				}
+			}
+		</form>
+	}
+	{ children... }
+
 }
