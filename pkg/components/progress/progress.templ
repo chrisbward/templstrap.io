@@ -1,9 +1,13 @@
 package progress 
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+)
 
 
 type ProgressProps struct {
+	base.ElementProps
 	Percentage int
 }
 
@@ -18,7 +22,7 @@ css className() {
 
 
 templ Show(props ProgressProps) {
-	<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+	<div id={ props.Id } class="progress" role="progressbar" aria-label={ props.AriaLabel } aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
 		<div class="progress-bar" style=""></div>
 	</div>
 }
