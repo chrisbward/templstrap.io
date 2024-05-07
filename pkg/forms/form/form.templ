@@ -59,6 +59,9 @@ templ Show(props FormProps) {
 			action={ templ.SafeURL(props.Action.Action) }
 			method={ props.Action.Method }
 			class={ props.BuildClassNames() }
+			if props.ElementProps.HTMX.Encoding != "" {
+				hx-encoding={ props.ElementProps.HTMX.Encoding }
+			}
 			if props.ElementProps.HTMX.Verb == base.PostVerbType {
 				hx-post={ props.Action.Action + "?requesttype=htmx" }
 			}
