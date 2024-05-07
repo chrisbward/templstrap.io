@@ -15,6 +15,7 @@ const PostVerbType VerbType = "post"
 type HTMXProps struct {
 	Verb              VerbType
 	PostDestination   string
+	Encoding          string
 	TargetSelector    string
 	IndicatorSelector string
 	Swap              HTMXSwapType
