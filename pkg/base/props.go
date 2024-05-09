@@ -20,6 +20,7 @@ type HTMXProps struct {
 	IndicatorSelector string
 	Swap              HTMXSwapType
 	SwapOutOfBand     bool
+	Include           string
 }
 
 type ElementProps struct {

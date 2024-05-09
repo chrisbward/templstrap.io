@@ -229,6 +229,25 @@ func Show(props FormProps) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
+			if props.ElementProps.HTMX.Include != "" {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-include=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var12 string
+				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(props.ElementProps.HTMX.Include)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/form/form.templ`, Line: 79, Col: 48}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -238,18 +257,18 @@ func Show(props FormProps) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			if props.Action.Actions[PrimaryFormAction].Name != "" {
-				templ_7745c5c3_Var12 := templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+				templ_7745c5c3_Var13 := templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 					templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 					if !templ_7745c5c3_IsBuffer {
 						templ_7745c5c3_Buffer = templ.GetBuffer()
 						defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 					}
-					var templ_7745c5c3_Var13 string
-					templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(props.Action.Actions[PrimaryFormAction].Name)
+					var templ_7745c5c3_Var14 string
+					templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(props.Action.Actions[PrimaryFormAction].Name)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/form/form.templ`, Line: 84, Col: 51}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/form/form.templ`, Line: 87, Col: 51}
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -260,7 +279,7 @@ func Show(props FormProps) templ.Component {
 				})
 				templ_7745c5c3_Err = buttons.Show(buttons.ButtonProps{
 					ButtonClassType: buttons.PrimaryButton,
-				}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
+				}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

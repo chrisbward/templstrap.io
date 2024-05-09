@@ -75,7 +75,10 @@ templ Show(props FormProps) {
 			if props.ElementProps.HTMX.Swap != "" {
 				hx-swap={ string(props.ElementProps.HTMX.Swap) }
 			}
-		>
+			if props.ElementProps.HTMX.Include != "" {
+				hx-include={ props.ElementProps.HTMX.Include }
+			}
+					>
 			{ children... }
 			if props.Action.Actions[PrimaryFormAction].Name != "" {
 				@buttons.Show(buttons.ButtonProps{
