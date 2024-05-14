@@ -1,20 +1,41 @@
 package checks 
 
 import (
+	"fmt"
+	"strings"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 )
 
 const RootClassName = "form-check"
 
 type ChecksProps struct {
-	base.ElementProps
+	base.FormElementProps
 	LabelText string
 	IsChecked bool
+	Validation                     entities.FormFieldValidation
+}
+
+func (cp ChecksProps) BuildClassNames() (classes string) {
+	classNames := []string{RootClassName}
+
+	classNames = append(
+		classNames, fmt.Sprintf("%s-%s", RootClassName, string(entities.BooleanType)),
+	)
+
+	classes = strings.Join(classNames, " ")
+
+	return
 }
 
 templ Show(props ChecksProps) {
-	<div class="form-check">
-		<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked/>
+	<div class={ props.BuildClassNames() }>
+		<input 
+			class="form-check-input" 
+			type="checkbox" 
+			id={ props.Id } 
+			checked?={ props.IsChecked }
+		/>
 		<label class="form-check-label" for="flexCheckChecked">
 			{ props.LabelText }
 		</label>
