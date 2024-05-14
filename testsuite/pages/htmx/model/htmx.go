@@ -25,8 +25,10 @@ func NewHTMXPageModel(ctx echo.Context, isPostback bool) HTMXPageModel {
 			FieldName:        "txbUsername",
 			FieldLabel:       "Username",
 			FieldPlaceholder: "Enter your username",
-			FieldType:        entities.TextType,
-			FieldValue:       "",
+			FieldType: entities.FormFieldType{
+				InputType: entities.TextType,
+			},
+			FieldValue: "",
 			FieldValidationType: []entities.ValidationType{
 				entities.FieldEmptyIsInvalid,
 			},
@@ -36,8 +38,10 @@ func NewHTMXPageModel(ctx echo.Context, isPostback bool) HTMXPageModel {
 			FieldName:        "txbPassword",
 			FieldLabel:       "Password",
 			FieldPlaceholder: "Enter your password",
-			FieldType:        entities.PasswordType,
-			FieldValue:       "",
+			FieldType: entities.FormFieldType{
+				InputType: entities.TextType,
+			},
+			FieldValue: "",
 			FieldValidationType: []entities.ValidationType{
 				entities.FieldEmptyIsInvalid,
 			},
