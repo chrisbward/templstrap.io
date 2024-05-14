@@ -24,7 +24,7 @@ type InputProps struct {
 	base.FormElementProps
 	Value                          string
 	Placeholder                    string
-	Type                           entities.InputType
+	Type                           entities.FormFieldType
 	Size                           SizeType
 	FieldValidationFeedbackMessage string
 	DatalistItems                  []string
@@ -32,9 +32,11 @@ type InputProps struct {
 	ExtraAttributes                map[string]any
 }
 
-func (ip InputProps) GetInputType() (inputType entities.InputType) {
-	if ip.Type == "" {
-		return entities.TextType
+func (ip InputProps) GetInputType() (inputType entities.FormFieldType) {
+	if ip.Type.InputType == "" {
+		return entities.FormFieldType{
+			InputType: entities.TextType,
+		}
 	}
 	return ip.Type
 }
@@ -43,7 +45,7 @@ func (ip InputProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
 	classNames = append(
-		classNames, fmt.Sprintf("%s-%s", RootClassName, string(ip.GetInputType())),
+		classNames, fmt.Sprintf("%s-%s", RootClassName, string(ip.GetInputType().InputType)),
 	)
 
 	if ip.Validation.ValidationState == entities.FieldIsInvalidValidationStatusType {
@@ -60,7 +62,7 @@ func (ip InputProps) BuildClassNames() (classes string) {
 
 templ Show(props InputProps) {
 	<input
-		type={ string(props.GetInputType()) }
+		type={ string(props.GetInputType().InputType) }
 		class={ props.BuildClassNames() }
 		value={ props.Value }
 		id={ props.Id }
@@ -71,7 +73,7 @@ templ Show(props InputProps) {
 		required?={ props.Validation.IsRequired }
 		{ props.ExtraAttributes... }
 	/>
-	if props.GetInputType() == entities.DatalistType {
+	if props.GetInputType().InputType == entities.DatalistType {
 		@datalist.Show(datalist.DatalistProps{
 			Items: props.DatalistItems,
 		})
