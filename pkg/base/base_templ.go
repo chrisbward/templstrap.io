@@ -13,8 +13,9 @@ import "bytes"
 import ()
 
 type BaseProps struct {
-	Title         string
-	HeadComponent templ.Component
+	Title                string
+	HeadComponent        templ.Component
+	BodyContentComponent templ.Component
 }
 
 func Show(props BaseProps) templ.Component {
@@ -39,6 +40,10 @@ func Show(props BaseProps) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body data-bs-theme=\"dark\" data-bs-spy=\"scroll\" data-bs-target=\"#scrollSpyNavigation\" data-bs-smooth-scroll=\"true\" tabindex=\"0\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = props.BodyContentComponent.Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
