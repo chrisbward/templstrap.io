@@ -36,6 +36,7 @@ type NavsAndTabsProps struct {
 	TabStyle            NavTabStyle
 	IsVertical          bool
 	HorizontalAlignment HorizontalAlignment
+	IsInteractive       bool
 	ExtraAttributes     map[string]any
 }
 
@@ -85,7 +86,17 @@ func Show(props NavsAndTabsProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if props.IsInteractive {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" role=\"tablist\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

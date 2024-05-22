@@ -27,6 +27,7 @@ type NavsAndTabsProps struct {
   TabStyle NavTabStyle
   IsVertical bool
   HorizontalAlignment HorizontalAlignment 
+  IsInteractive bool
 	ExtraAttributes map[string]any
 }
 
@@ -49,7 +50,11 @@ func (natp NavsAndTabsProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props NavsAndTabsProps) {
-	<ul class={ props.BuildClassNames() }>
+	<ul class={ props.BuildClassNames() } 
+  if props.IsInteractive { 
+    role="tablist"
+  }
+  >
 		for _, NavItem := range props.NavItems {
 			@navitem.Show(navitem.NavItemProps{
 				Name:          NavItem.Name,
@@ -57,7 +62,7 @@ templ Show(props NavsAndTabsProps) {
 				IsActive:      NavItem.IsActive,
 				IsDisabled:    NavItem.IsDisabled,
 				IsDropdown:    NavItem.IsDropdown,
-				ChildNavItems: NavItem.ChildNavItems,
+				ChildNavItems: NavItem.ChildNavItems, 
 			})
 		}
     {children...}
