@@ -1,0 +1,64 @@
+package navsandtabs
+
+import (
+	"strings"
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/components/navbar/navitem"
+)
+
+const RootClassName = "nav"
+
+type NavTabStyle string
+ 
+const TabStyle NavTabStyle = "nav-tabs"
+const PillStyle NavTabStyle = "nav-pills"
+const UnderlineStyle NavTabStyle = "nav-underline"
+
+type HorizontalAlignment string
+
+const AlignDefault HorizontalAlignment = ""
+const AlignCenter HorizontalAlignment = "justify-content-center"
+const AlignEnd HorizontalAlignment = "justify-content-end"
+
+
+type NavsAndTabsProps struct {
+	base.FormElementProps
+	NavItems        []*navitem.NavItemProps
+  TabStyle NavTabStyle
+  IsVertical bool
+  HorizontalAlignment HorizontalAlignment 
+	ExtraAttributes map[string]any
+}
+
+func (natp NavsAndTabsProps) BuildClassNames() (classes string) {
+	classNames := []string{RootClassName}
+
+ 
+	classNames = append(classNames, string(natp.TabStyle))
+	classNames = append(classNames, string(natp.HorizontalAlignment))
+
+
+  if natp.IsVertical {
+	  classNames = append(classNames, "flex-column")
+  }
+  
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props NavsAndTabsProps) {
+	<ul class={ props.BuildClassNames() }>
+		for _, NavItem := range props.NavItems {
+			@navitem.Show(navitem.NavItemProps{
+				Name:          NavItem.Name,
+				Link:          NavItem.Link,
+				IsActive:      NavItem.IsActive,
+				IsDisabled:    NavItem.IsDisabled,
+				IsDropdown:    NavItem.IsDropdown,
+				ChildNavItems: NavItem.ChildNavItems,
+			})
+		}
+	</ul>
+}
