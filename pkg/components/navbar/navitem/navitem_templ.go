@@ -16,13 +16,14 @@ import (
 )
 
 type NavItemProps struct {
-	base.BaseProps
-	Name          string
-	Link          string
-	IsActive      bool
-	IsDisabled    bool
-	IsDropdown    bool
-	ChildNavItems []NavItemProps
+	base.ElementProps
+	Name                    string
+	Link                    string
+	IsActive                bool
+	IsDisabled              bool
+	IsDropdown              bool
+	ChildNavItems           []NavItemProps
+	NavsAndTabsContextProps interface{}
 }
 
 const RootClassName = "nav-item"
@@ -87,14 +88,24 @@ func Show(props NavItemProps) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			if props.NavsAndTabsContextProps != nil {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" thing=\"\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(props.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navitem/navitem.templ`, Line: 51, Col: 16}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navitem/navitem.templ`, Line: 56, Col: 16}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -121,7 +132,7 @@ func Show(props NavItemProps) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(childNavItem.Name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navitem/navitem.templ`, Line: 55, Col: 107}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navitem/navitem.templ`, Line: 60, Col: 107}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -193,7 +204,7 @@ func Show(props NavItemProps) templ.Component {
 			var templ_7745c5c3_Var12 string
 			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(props.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navitem/navitem.templ`, Line: 61, Col: 114}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/navbar/navitem/navitem.templ`, Line: 66, Col: 114}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 			if templ_7745c5c3_Err != nil {

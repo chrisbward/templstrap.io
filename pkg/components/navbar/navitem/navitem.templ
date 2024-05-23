@@ -2,17 +2,18 @@ package navitem
 
 import (
     "strings"
-    "github.com/chrisbward/templstrap.io/pkg/base"
+    "github.com/chrisbward/templstrap.io/pkg/base" 
 )
 
 type NavItemProps struct {
-    base.BaseProps
+	base.ElementProps
 	Name          string
 	Link          string
 	IsActive      bool
 	IsDisabled    bool
 	IsDropdown    bool
 	ChildNavItems []NavItemProps
+	NavsAndTabsContextProps interface{}
 }
 const RootClassName = "nav-item"
 const RootClassNameNavLink = "nav-link"
@@ -47,7 +48,11 @@ func (nip NavItemProps) BuildClassNamesNavLink() (classes string) {
 templ Show(props NavItemProps) {
 	if props.IsDropdown {
 		<li class={ props.BuildClassNames() }>
-			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+			if props.NavsAndTabsContextProps != nil {
+				thing=""
+			}
+			>
 				{ props.Name }
 			</a>
 			<ul class="dropdown-menu">
