@@ -9,7 +9,7 @@ import (
 const RootClassName = "nav"
 
 type NavTabStyle string
- 
+
 const TabStyle NavTabStyle = "nav-tabs"
 const PillStyle NavTabStyle = "nav-pills"
 const UnderlineStyle NavTabStyle = "nav-underline"
@@ -20,29 +20,25 @@ const AlignDefault HorizontalAlignment = ""
 const AlignCenter HorizontalAlignment = "justify-content-center"
 const AlignEnd HorizontalAlignment = "justify-content-end"
 
-
 type NavsAndTabsProps struct {
 	base.FormElementProps
-	NavItems        []*navitem.NavItemProps
-  TabStyle NavTabStyle
-  IsVertical bool
-  HorizontalAlignment HorizontalAlignment 
-  IsInteractive bool
-	ExtraAttributes map[string]any
+	NavItems            []*navitem.NavItemProps
+	TabStyle            NavTabStyle
+	IsVertical          bool
+	HorizontalAlignment HorizontalAlignment
+	IsInteractive       bool
+	ExtraAttributes     map[string]any
 }
 
 func (natp NavsAndTabsProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
- 
 	classNames = append(classNames, string(natp.TabStyle))
 	classNames = append(classNames, string(natp.HorizontalAlignment))
 
-
-  if natp.IsVertical {
-	  classNames = append(classNames, "flex-column")
-  }
-  
+	if natp.IsVertical {
+		classNames = append(classNames, "flex-column")
+	}
 
 	classes = strings.Join(classNames, " ")
 
@@ -50,11 +46,12 @@ func (natp NavsAndTabsProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props NavsAndTabsProps) {
-	<ul class={ props.BuildClassNames() } 
-  if props.IsInteractive { 
-    role="tablist"
-  }
-  >
+	<ul
+		class={ props.BuildClassNames() }
+		if props.IsInteractive {
+			role="tablist"
+		}
+	>
 		for _, NavItem := range props.NavItems {
 			@navitem.Show(navitem.NavItemProps{
 				Name:          NavItem.Name,
@@ -62,9 +59,9 @@ templ Show(props NavsAndTabsProps) {
 				IsActive:      NavItem.IsActive,
 				IsDisabled:    NavItem.IsDisabled,
 				IsDropdown:    NavItem.IsDropdown,
-				ChildNavItems: NavItem.ChildNavItems, 
+				ChildNavItems: NavItem.ChildNavItems,
 			})
 		}
-    {children...}
+		{ children... }
 	</ul>
 }
