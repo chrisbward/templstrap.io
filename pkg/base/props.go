@@ -13,6 +13,7 @@ type VerbType string
 const PostVerbType VerbType = "post"
 
 type HTMXProps struct {
+	IsBoosted         bool
 	Verb              VerbType
 	PostDestination   string
 	Encoding          string
