@@ -55,14 +55,17 @@ func (nip NavItemProps) BuildClassNamesNavLink() (classes string) {
 
 templ Show(props NavItemProps) {
 	if props.IsDropdown {
-		<li class={ props.BuildClassNames() }
-			if props.NavsAndTabsContextProps != nil {
-				data-bs-toggle="tab"
-				data-bs-target={ "#" + props.NavsAndTabsContextProps.Target}
-			}
-		>
-			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-			
+		<li class={ props.BuildClassNames() }>
+			<a 
+				class="nav-link dropdown-toggle" 
+				href="#" 
+				role="button" 
+				data-bs-toggle="dropdown" 
+				aria-expanded="false"
+				if props.NavsAndTabsContextProps != nil {
+					data-bs-toggle="tab"
+					data-bs-target={ "#" + props.NavsAndTabsContextProps.Target}
+				}
 			>
 				{ props.Name }
 			</a>
@@ -73,13 +76,16 @@ templ Show(props NavItemProps) {
 			</ul>
 		</li>
 	} else {
-		<li class={ props.BuildClassNames() }
-			if props.NavsAndTabsContextProps != nil {
-				data-bs-toggle="tab"
-				data-bs-target={ "#" + props.NavsAndTabsContextProps.Target}
-			}
-		>
-			<a class={ props.BuildClassNamesNavLink() } aria-current="page" href={ templ.SafeURL(props.Link) }>{ props.Name }</a>
+		<li class={ props.BuildClassNames() }>
+			<a 
+				class={ props.BuildClassNamesNavLink() } 
+				aria-current="page" 
+				href={ templ.SafeURL(props.Link) }
+				if props.NavsAndTabsContextProps != nil {
+					data-bs-toggle="tab"
+					data-bs-target={ "#" + props.NavsAndTabsContextProps.Target}
+				}
+			>{ props.Name }</a>
 		</li>
 	}
 }
