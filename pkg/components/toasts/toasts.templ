@@ -1,0 +1,30 @@
+package toasts 
+
+import(
+    "github.com/chrisbward/templstrap.io/pkg/base" 
+)
+
+type ToastProps struct {
+	base.ElementProps
+	Title   string
+	Message string
+}
+
+templ Show(props ToastProps) {
+	<div class="toast-container position-static">
+		<div class="toast" id={ props.Id } role="alert" aria-live="assertive" aria-atomic="true">
+		if props.Title != "" {
+			<div class="toast-header">
+				<img src="..." class="rounded me-2" alt="..."/>
+				<strong class="me-auto">{ props.Title }</strong>
+				<small>11 mins ago</small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		}
+			<div class="toast-body">
+				{ props.Message }
+				{ children... }
+			</div>
+		</div>
+	</div>
+}
