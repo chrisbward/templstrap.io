@@ -1,20 +1,18 @@
 package toasts 
 
-import(
+import (
 	"strings"
-    "github.com/chrisbward/templstrap.io/pkg/base"  
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/utility"
 )
-
-type StyleClass string
- 
 
 type ToastProps struct {
 	base.ElementProps
-	IconPath string
-	Title   string
-	Message string
-	TimeAgo string
-	StyleClass string
+	IconPath             string
+	Title                string
+	Message              string
+	TimeAgo              string
+	BackgroundStyleClass utility.BackgroundStyleClass
 }
 
 const RootClassName = "toast"
@@ -22,7 +20,9 @@ const RootClassName = "toast"
 func (tp ToastProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
-	classNames = append(classNames, string(tp.StyleClass))
+	if tp.BackgroundStyleClass != "" {
+		classNames = append(classNames, string(tp.BackgroundStyleClass))
+	}
 
 	classes = strings.Join(classNames, " ")
 
@@ -32,18 +32,18 @@ func (tp ToastProps) BuildClassNames() (classes string) {
 templ Show(props ToastProps) {
 	<div class="toast-container position-static">
 		<div class={ props.BuildClassNames() } id={ props.Id } role="alert" aria-live="assertive" aria-atomic="true">
-		if props.Title != "" {
-			<div class="toast-header">
-				if props.IconPath != "" {
-					<img src="..." class="rounded me-2" alt="..."/>
-				}
-				<strong class="me-auto">{ props.Title }</strong>
-				if props.TimeAgo != "" {
-					<small>{props.TimeAgo}</small>
-				} 
-				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-			</div>
-		}
+			if props.Title != "" {
+				<div class="toast-header">
+					if props.IconPath != "" {
+						<img src="..." class="rounded me-2" alt="..."/>
+					}
+					<strong class="me-auto">{ props.Title }</strong>
+					if props.TimeAgo != "" {
+						<small>{ props.TimeAgo }</small>
+					}
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+			}
 			<div class="toast-body">
 				{ props.Message }
 				{ children... }

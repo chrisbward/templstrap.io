@@ -12,18 +12,17 @@ import "bytes"
 
 import (
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/utility"
 	"strings"
 )
 
-type StyleClass string
-
 type ToastProps struct {
 	base.ElementProps
-	IconPath   string
-	Title      string
-	Message    string
-	TimeAgo    string
-	StyleClass string
+	IconPath             string
+	Title                string
+	Message              string
+	TimeAgo              string
+	BackgroundStyleClass utility.BackgroundStyleClass
 }
 
 const RootClassName = "toast"
@@ -31,7 +30,9 @@ const RootClassName = "toast"
 func (tp ToastProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
-	classNames = append(classNames, string(tp.StyleClass))
+	if tp.BackgroundStyleClass != "" {
+		classNames = append(classNames, string(tp.BackgroundStyleClass))
+	}
 
 	classes = strings.Join(classNames, " ")
 
@@ -108,7 +109,7 @@ func Show(props ToastProps) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(props.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/toasts/toasts.templ`, Line: 40, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/toasts/toasts.templ`, Line: 40, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -126,7 +127,7 @@ func Show(props ToastProps) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(props.TimeAgo)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/toasts/toasts.templ`, Line: 42, Col: 26}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/toasts/toasts.templ`, Line: 42, Col: 28}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
