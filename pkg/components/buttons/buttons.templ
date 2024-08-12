@@ -2,8 +2,8 @@ package buttons
 
 import (
 	"fmt"
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
 )
 
 type ButtonClassType string
@@ -42,6 +42,7 @@ type ButtonProps struct {
 	base.ElementProps
 	IsDisabled        bool
 	ButtonType        ButtonType
+	AnchorTypeLink    string
 	ButtonClassType   ButtonClassType
 	Style             ButtonStyleType
 	Size              ButtonSizeType
@@ -76,7 +77,7 @@ templ Show(props ButtonProps) {
 		</button>
 	}
 	if props.ButtonElementType == AnchorButtonType {
-		<a class={ props.BuildClassNames() } href="#" role="button">
+		<a class={ props.BuildClassNames() } href={templ.SafeURL(props.AnchorTypeLink)} role="button">
 			{ children... }
 		</a>
 	}
