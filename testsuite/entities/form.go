@@ -27,6 +27,7 @@ const FileType InputType = "file"
 const EmailType InputType = "email"
 const HiddenType InputType = "hidden"
 const BooleanType InputType = "boolean"
+const TextareaType InputType = "textarea"
 
 type FormFieldType struct {
 	InputType InputType
