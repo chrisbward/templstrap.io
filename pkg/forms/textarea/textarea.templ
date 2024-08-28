@@ -16,6 +16,7 @@ templ Show(props TextAreaProps) {
     <textarea 
         class="form-control" 
         id={ props.Id }
+        name={ props.Id }
         rows={ fmt.Sprint(props.Rows) }
     ></textarea>
 }
