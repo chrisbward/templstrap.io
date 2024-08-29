@@ -1,9 +1,9 @@
 package form
 
 import (
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/components/buttons"
+	"strings"
 )
 
 type FormActionType string
@@ -28,6 +28,7 @@ type FormAction struct {
 type FormProps struct {
 	base.ElementProps
 	Action         FormAction
+	EncodingType   string
 	FloatingLabels bool
 	IsNested       bool
 }
@@ -60,6 +61,7 @@ templ Show(props FormProps) {
 			method={ props.Action.Method }
 			class={ props.BuildClassNames() }
 			id={ props.ElementProps.Id }
+			enctype={ props.EncodingType }
 			if props.ElementProps.HTMX.Encoding != "" {
 				hx-encoding={ props.ElementProps.HTMX.Encoding }
 			}
@@ -78,7 +80,7 @@ templ Show(props FormProps) {
 			if props.ElementProps.HTMX.Include != "" {
 				hx-include={ props.ElementProps.HTMX.Include }
 			}
-					>
+		>
 			{ children... }
 			if props.Action.Actions[PrimaryFormAction].Name != "" {
 				@buttons.Show(buttons.ButtonProps{
