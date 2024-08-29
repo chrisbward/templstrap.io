@@ -61,7 +61,9 @@ templ Show(props FormProps) {
 			method={ props.Action.Method }
 			class={ props.BuildClassNames() }
 			id={ props.ElementProps.Id }
-			enctype={ props.EncodingType }
+			if props.EncodingType != "" {
+				enctype={ props.EncodingType }
+			}
 			if props.ElementProps.HTMX.Encoding != "" {
 				hx-encoding={ props.ElementProps.HTMX.Encoding }
 			}
