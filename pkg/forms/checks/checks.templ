@@ -13,6 +13,7 @@ type ChecksProps struct {
 	base.FormElementProps
 	LabelText string
 	IsChecked bool
+	AsSwitch bool
 	Validation                     entities.FormFieldValidation
 }
 
@@ -22,6 +23,12 @@ func (cp ChecksProps) BuildClassNames() (classes string) {
 	classNames = append(
 		classNames, fmt.Sprintf("%s-%s", RootClassName, string(entities.BooleanType)),
 	)
+
+	if cp.AsSwitch {
+		classNames = append(classNames, "form-switch")
+	}
+
+	classNames = append(classNames, cp.AdditionalClasses...)
 
 	classes = strings.Join(classNames, " ")
 
