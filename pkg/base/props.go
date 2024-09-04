@@ -1,5 +1,7 @@
 package base
 
+import "github.com/a-h/templ"
+
 type ScrollSpyProps struct {
 }
 
@@ -24,12 +26,10 @@ type HTMXProps struct {
 	Include           string
 }
 
-type DataAttributesMap map[string]string
-
 type ElementProps struct {
 	Id                string
 	AdditionalClasses []string
-	DataAttributes    DataAttributesMap
+	DataAttributes    templ.Attributes
 	Style             string
 	IsDisabled        bool
 	IsVisible         bool

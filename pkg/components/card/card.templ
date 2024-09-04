@@ -71,7 +71,9 @@ func (cp CardProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props CardProps) {
-	<div class={ props.BuildClassNames() }>
+	<div class={ props.BuildClassNames() }
+	 {props.ElementProps.DataAttributes...}
+	>
 		if props.ImageCap != nil {
 			@props.ImageCap
 		}
