@@ -24,9 +24,12 @@ type HTMXProps struct {
 	Include           string
 }
 
+type DataAttributesMap map[string]string
+
 type ElementProps struct {
 	Id                string
 	AdditionalClasses []string
+	DataAttributes    DataAttributesMap
 	Style             string
 	IsDisabled        bool
 	IsVisible         bool
