@@ -11,11 +11,47 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"fmt"
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
 )
+
+type ProgressStatusClass string
+
+const SuccessStatus ProgressStatusClass = "bg-success"
+const DangerStatus ProgressStatusClass = "bg-danger"
+const WarningStatus ProgressStatusClass = "bg-warning"
+const InfoStatus ProgressStatusClass = "bg-info"
 
 type ProgressProps struct {
 	base.ElementProps
-	Percentage int
+	InProgress       bool
+	IsAnimated       bool
+	Percentage       int
+	Label            string
+	LabelCanOverflow bool
+	StatusClass      ProgressStatusClass
+}
+
+const RootClassName = "progress"
+
+func (pp *ProgressProps) BuildClassNames() (classNames string) {
+
+	classValues := []string{RootClassName}
+
+	if pp.InProgress {
+		classValues = append(classValues, "progress-bar-striped")
+	}
+	if pp.IsAnimated {
+		classValues = append(classValues, "progress-bar-animated")
+	}
+
+	classValues = append(classValues, string(pp.StatusClass))
+
+	if pp.AdditionalClasses != nil {
+		classValues = append(classValues, pp.AdditionalClasses...)
+	}
+	classNames = strings.Join(classValues, " ")
+
+	return
 }
 
 func (pp ProgressProps) PercentStyleString() (percent string) {
@@ -57,7 +93,7 @@ func Show(props ProgressProps) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(props.Id)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/progress/progress.templ`, Line: 23, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/progress/progress.templ`, Line: 58, Col: 19}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -70,7 +106,7 @@ func Show(props ProgressProps) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(props.AriaLabel)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/progress/progress.templ`, Line: 23, Col: 86}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/progress/progress.templ`, Line: 58, Col: 86}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -98,7 +134,20 @@ func Show(props ProgressProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" style=\"\"></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" style=\"\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var6 string
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(props.Label)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/progress/progress.templ`, Line: 59, Col: 81}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

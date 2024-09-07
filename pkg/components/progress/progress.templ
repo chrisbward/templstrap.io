@@ -2,14 +2,49 @@ package progress
 
 import (
 	"fmt"
+	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 )
+type ProgressStatusClass string
+
+const SuccessStatus ProgressStatusClass = "bg-success"
+const DangerStatus ProgressStatusClass = "bg-danger"
+const WarningStatus ProgressStatusClass = "bg-warning"
+const InfoStatus ProgressStatusClass = "bg-info"
 
 
 type ProgressProps struct {
 	base.ElementProps
+	InProgress bool
+	IsAnimated bool
 	Percentage int
+	Label string
+	LabelCanOverflow bool
+	StatusClass ProgressStatusClass
 }
+const RootClassName = "progress"
+
+func (pp *ProgressProps) BuildClassNames() (classNames string) {
+
+	classValues := []string{RootClassName}
+
+	if pp.InProgress {
+		classValues = append(classValues, "progress-bar-striped")
+	}
+	if pp.IsAnimated {
+		classValues = append(classValues, "progress-bar-animated")
+	}
+
+	classValues = append(classValues, string(pp.StatusClass))
+
+	if pp.AdditionalClasses != nil {
+		classValues = append(classValues, pp.AdditionalClasses...)
+	}
+	classNames = strings.Join(classValues, " ")
+
+	return
+}
+
 
 func (pp ProgressProps) PercentStyleString() (percent string) { 
 	return fmt.Sprintf("width: %d", pp.Percentage)
@@ -21,6 +56,6 @@ css progress(percent int) {
 
 templ Show(props ProgressProps) {
 	<div id={ props.Id } class="progress" role="progressbar" aria-label={ props.AriaLabel } aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-		<div class={"progress-bar", progress(props.Percentage) } style=""></div>
+		<div class={"progress-bar", progress(props.Percentage) } style="">{ props.Label }</div>
 	</div>
 }
