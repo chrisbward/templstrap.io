@@ -22,7 +22,7 @@ type ProgressProps struct {
 	LabelCanOverflow bool
 	StatusClass ProgressStatusClass
 }
-const RootClassName = "progress"
+const RootClassName = "progress-bar"
 
 func (pp *ProgressProps) BuildClassNames() (classNames string) {
 
@@ -56,6 +56,6 @@ css progress(percent int) {
 
 templ Show(props ProgressProps) {
 	<div id={ props.Id } class="progress" role="progressbar" aria-label={ props.AriaLabel } aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-		<div class={"progress-bar", progress(props.Percentage) } style="">{ props.Label }</div>
+		<div class={props.BuildClassNames(), progress(props.Percentage) } style="">{ props.Label }</div>
 	</div>
 }

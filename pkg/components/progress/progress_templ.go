@@ -31,7 +31,7 @@ type ProgressProps struct {
 	StatusClass      ProgressStatusClass
 }
 
-const RootClassName = "progress"
+const RootClassName = "progress-bar"
 
 func (pp *ProgressProps) BuildClassNames() (classNames string) {
 
@@ -116,7 +116,7 @@ func Show(props ProgressProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 = []any{"progress-bar", progress(props.Percentage)}
+		var templ_7745c5c3_Var4 = []any{props.BuildClassNames(), progress(props.Percentage)}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -141,7 +141,7 @@ func Show(props ProgressProps) templ.Component {
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(props.Label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/progress/progress.templ`, Line: 59, Col: 81}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/progress/progress.templ`, Line: 59, Col: 90}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
