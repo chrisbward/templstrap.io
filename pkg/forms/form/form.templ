@@ -82,6 +82,9 @@ templ Show(props FormProps) {
 			if props.ElementProps.HTMX.Include != "" {
 				hx-include={ props.ElementProps.HTMX.Include }
 			}
+			if props.ElementProps.HTMX.Trigger != "" {
+				hx-trigger={ props.ElementProps.HTMX.Trigger }
+			}
 		>
 			{ children... }
 			if props.Action.Actions[PrimaryFormAction].Name != "" {

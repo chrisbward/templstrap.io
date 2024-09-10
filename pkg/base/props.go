@@ -24,6 +24,7 @@ type HTMXProps struct {
 	Swap              HTMXSwapType
 	SwapOutOfBand     bool
 	Include           string
+	Trigger           string
 }
 
 type ElementProps struct {
