@@ -36,7 +36,6 @@ var RootClassName = "badge"
 func (bp BadgeProps) BuildClassNames() (classes string) {
 	classValues := []string{RootClassName}
 
-	classValues = append(classValues, "needs-validation")
 	classValues = append(classValues, string(bp.BadgeClassType))
 
 	if bp.IsRoundedPill {
@@ -95,7 +94,7 @@ func Show(props BadgeProps) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(props.Text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/badge/badge.templ`, Line: 50, Col: 20}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/badge/badge.templ`, Line: 48, Col: 20}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {

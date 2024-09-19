@@ -28,8 +28,6 @@ var RootClassName = "badge"
 func (bp BadgeProps) BuildClassNames() (classes string) {
 	classValues := []string{RootClassName}
  
-
-	classValues = append(classValues, "needs-validation")
 	classValues = append(classValues, string(bp.BadgeClassType))
 
     if bp.IsRoundedPill {
