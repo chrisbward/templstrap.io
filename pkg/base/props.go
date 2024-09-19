@@ -13,6 +13,7 @@ const InnerSwapType HTMXSwapType = "innerHTML"
 type VerbType string
 
 const PostVerbType VerbType = "post"
+const GetVerbType VerbType = "get"
 
 type HTMXProps struct {
 	IsBoosted         bool
