@@ -26,6 +26,7 @@ type HTMXProps struct {
 	SwapOutOfBand     bool
 	Include           string
 	Trigger           string
+	PushURL           bool
 }
 
 type ElementProps struct {
