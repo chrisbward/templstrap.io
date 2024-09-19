@@ -1,5 +1,52 @@
 package badge
 
-templ Show() {
-    <span class="badge bg-secondary">val</span>
+import(
+	"github.com/chrisbward/templstrap.io/pkg/base"
+    "strings"
+)
+
+type BadgeClassType string
+
+const PrimaryBadge BadgeClassType = "text-bg-primary"
+const SecondaryBadge BadgeClassType = "text-bg-secondary"
+const SuccessBadge BadgeClassType = "text-bg-success"
+const DangerBadge BadgeClassType = "text-bg-danger"
+const WarningBadge BadgeClassType = "text-bg-warning"
+const InfoBadge BadgeClassType = "text-bg-info"
+const LightBadge BadgeClassType = "text-bg-light"
+const DarkBadge BadgeClassType = "text-bg-dark"
+
+type BadgeProps struct {
+	base.ElementProps
+    Text string
+    IsRoundedPill bool
+    BadgeClassType BadgeClassType
+}
+
+var RootClassName = "badge"
+
+func (bp BadgeProps) BuildClassNames() (classes string) {
+	classValues := []string{RootClassName}
+ 
+
+	classValues = append(classValues, "needs-validation")
+	classValues = append(classValues, string(bp.BadgeClassType))
+
+    if bp.IsRoundedPill {
+	    classValues = append(classValues, "rounded-pill")
+    }
+
+    if bp.AdditionalClasses != nil {
+		classValues = append(classValues, bp.AdditionalClasses...)
+	}
+
+	classes = strings.Join(classValues, " ")
+
+	return
+}
+
+templ Show(props BadgeProps) {
+    <span class={props.BuildClassNames()}>
+        { props.Text }
+    </span>
 }
