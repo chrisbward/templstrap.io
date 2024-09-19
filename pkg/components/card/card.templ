@@ -55,6 +55,7 @@ type CardProps struct {
 	Title    CardTitle
 	Text     CardText
 	ImageCap templ.Component
+	Footer templ.Component
 }
 func (cp CardProps) BuildClassNames() (classes string) {
 	classNames := []string{CardRootClassName}
@@ -90,5 +91,8 @@ templ Show(props CardProps) {
 			}
 			{ children... }
 		</div>
+		if props.Footer != nil {
+			@props.Footer
+		}
 	</div>
 }
