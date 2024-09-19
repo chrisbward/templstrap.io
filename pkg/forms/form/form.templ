@@ -70,6 +70,9 @@ templ Show(props FormProps) {
 			if props.ElementProps.HTMX.Verb == base.PostVerbType {
 				hx-post={ props.Action.Action + "?requesttype=htmx" }
 			}
+			if props.ElementProps.HTMX.Verb == base.GetVerbType {
+				hx-get={ props.Action.Action + "?requesttype=htmx" }
+			}
 			if props.ElementProps.HTMX.TargetSelector != "" {
 				hx-target={ props.ElementProps.HTMX.TargetSelector }
 			}
