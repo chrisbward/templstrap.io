@@ -71,7 +71,10 @@ templ Show(props FormProps) {
 				hx-post={ props.Action.Action + "?requesttype=htmx" }
 			}
 			if props.ElementProps.HTMX.Verb == base.GetVerbType {
-				hx-get={ props.Action.Action + "?requesttype=htmx" }
+				hx-get={ props.Action.Action + "?requesttype=htmx" } 
+				if props.ElementProps.HTMX.PushURL {
+					hx-push-url="true" 
+				}
 			}
 			if props.ElementProps.HTMX.TargetSelector != "" {
 				hx-target={ props.ElementProps.HTMX.TargetSelector }
