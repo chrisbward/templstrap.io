@@ -2,9 +2,9 @@ package selectx
 
 import (
 	"fmt"
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/forms/select/selectoption"
+	"strings"
 )
 
 const RootClassName = "form-select"
@@ -17,13 +17,13 @@ const Large SizingType = "lg"
 
 type SelectMultipleProps struct {
 	IsMultipleChoice bool
-	Rows int
+	Rows             int
 }
 
 type SelectProps struct {
 	base.FormElementProps
-	Size    SizingType
-	Options []selectoption.SelectOptionProps
+	Size         SizingType
+	Options      []selectoption.SelectOptionProps
 	MutipleProps SelectMultipleProps
 }
 
@@ -32,7 +32,7 @@ func (sp SelectProps) BuildClassNames() (classes string) {
 
 	if sp.Size != "" {
 		classNames = append(
-			classNames, fmt.Sprintf("%s-%s", RootClassName ,string(sp.Size)),
+			classNames, fmt.Sprintf("%s-%s", RootClassName, string(sp.Size)),
 		)
 	}
 
@@ -42,12 +42,14 @@ func (sp SelectProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props SelectProps) {
-	<select 
-		class="form-select" 
-		aria-label={ props.AriaLabel } 
+	<select
+		class="form-select"
+		aria-label={ props.AriaLabel }
 		disabled?={ props.IsDisabled }
 		multiple?={ props.MutipleProps.IsMultipleChoice }
 		rows={ fmt.Sprint(props.MutipleProps.Rows) }
+		id={ props.Id }
+		name={ props.Id }
 	>
 		<option selected>Open this select menu</option>
 		for _, selectOptionProps := range props.Options {
