@@ -5,6 +5,7 @@ import (
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/forms/select/selectoption"
 	"strings"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
 )
 
 const RootClassName = "form-select"
@@ -22,9 +23,11 @@ type SelectMultipleProps struct {
 
 type SelectProps struct {
 	base.FormElementProps
-	Size         SizingType
-	Options      []selectoption.SelectOptionProps
-	MutipleProps SelectMultipleProps
+	Size            SizingType
+	SelectAnItemCue string
+	Options         []selectoption.SelectOptionProps
+	Validation                     entities.FormFieldValidation
+	MutipleProps    SelectMultipleProps
 }
 
 func (sp SelectProps) BuildClassNames() (classes string) {
@@ -46,12 +49,15 @@ templ Show(props SelectProps) {
 		class="form-select"
 		aria-label={ props.AriaLabel }
 		disabled?={ props.IsDisabled }
+		required?={ props.Validation.IsRequired }
 		multiple?={ props.MutipleProps.IsMultipleChoice }
 		rows={ fmt.Sprint(props.MutipleProps.Rows) }
 		id={ props.Id }
 		name={ props.Id }
 	>
-		<option selected>Open this select menu</option>
+		if props.SelectAnItemCue != "" {
+			<option value="" disabled required>{props.SelectAnItemCue}</option>
+		} 
 		for _, selectOptionProps := range props.Options {
 			@selectoption.Show(selectOptionProps)
 		}

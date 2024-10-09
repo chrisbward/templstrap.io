@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/forms/select/selectoption"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
 	"strings"
 )
 
@@ -30,9 +31,11 @@ type SelectMultipleProps struct {
 
 type SelectProps struct {
 	base.FormElementProps
-	Size         SizingType
-	Options      []selectoption.SelectOptionProps
-	MutipleProps SelectMultipleProps
+	Size            SizingType
+	SelectAnItemCue string
+	Options         []selectoption.SelectOptionProps
+	Validation      entities.FormFieldValidation
+	MutipleProps    SelectMultipleProps
 }
 
 func (sp SelectProps) BuildClassNames() (classes string) {
@@ -74,7 +77,7 @@ func Show(props SelectProps) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(props.AriaLabel)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 47, Col: 30}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 50, Col: 30}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -86,6 +89,12 @@ func Show(props SelectProps) templ.Component {
 		}
 		if props.IsDisabled {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" disabled")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		if props.Validation.IsRequired {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -103,7 +112,7 @@ func Show(props SelectProps) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(props.MutipleProps.Rows))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 50, Col: 44}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 54, Col: 44}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -116,7 +125,7 @@ func Show(props SelectProps) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(props.Id)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 51, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 55, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -129,15 +138,34 @@ func Show(props SelectProps) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(props.Id)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 52, Col: 17}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 56, Col: 17}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><option selected>Open this select menu</option> ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
+		}
+		if props.SelectAnItemCue != "" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<option value=\"\" disabled required>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(props.SelectAnItemCue)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 59, Col: 60}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</option> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
 		for _, selectOptionProps := range props.Options {
 			templ_7745c5c3_Err = selectoption.Show(selectOptionProps).Render(ctx, templ_7745c5c3_Buffer)
