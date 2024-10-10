@@ -26,7 +26,7 @@ type SelectProps struct {
 	Size              SizingType
 	SelectAnItemCue   string
 	SelectedItemValue string
-	Options           []selectoption.SelectOptionProps
+	Options           []*selectoption.SelectOptionProps
 	Validation        entities.FormFieldValidation
 	MutipleProps      SelectMultipleProps
 }
@@ -45,9 +45,15 @@ func (sp SelectProps) BuildClassNames() (classes string) {
 	return
 }
 
-func SelectOptions(options []selectoption.SelectOptionProps, selectedItemValue string) []selectoption.SelectOptionProps {
-	if selectedItemValue == ""{
+func SelectOptions(options []*selectoption.SelectOptionProps, selectedItemValue string) []*selectoption.SelectOptionProps {
+	if selectedItemValue == "" {
 		return options
+	}
+
+	for _, option := range options {
+		if selectedItemValue == option.Value {
+			option.IsSelected = true
+		}
 	}
 
 	return options
@@ -67,9 +73,8 @@ templ Show(props SelectProps) {
 		if props.SelectAnItemCue != "" {
 			<option value="" disabled required>{ props.SelectAnItemCue }</option>
 		}
-	 
 		for _, selectOptionProps := range SelectOptions(props.Options, props.SelectedItemValue) {
-			@selectoption.Show(selectOptionProps)
+			@selectoption.Show(*selectOptionProps)
 		}
 	</select>
 }

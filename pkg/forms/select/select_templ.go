@@ -34,7 +34,7 @@ type SelectProps struct {
 	Size              SizingType
 	SelectAnItemCue   string
 	SelectedItemValue string
-	Options           []selectoption.SelectOptionProps
+	Options           []*selectoption.SelectOptionProps
 	Validation        entities.FormFieldValidation
 	MutipleProps      SelectMultipleProps
 }
@@ -53,9 +53,15 @@ func (sp SelectProps) BuildClassNames() (classes string) {
 	return
 }
 
-func SelectOptions(options []selectoption.SelectOptionProps, selectedItemValue string) []selectoption.SelectOptionProps {
+func SelectOptions(options []*selectoption.SelectOptionProps, selectedItemValue string) []*selectoption.SelectOptionProps {
 	if selectedItemValue == "" {
 		return options
+	}
+
+	for _, option := range options {
+		if selectedItemValue == option.Value {
+			option.IsSelected = true
+		}
 	}
 
 	return options
@@ -86,7 +92,7 @@ func Show(props SelectProps) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(props.AriaLabel)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 59, Col: 30}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 65, Col: 30}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -121,7 +127,7 @@ func Show(props SelectProps) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(props.MutipleProps.Rows))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 63, Col: 44}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 69, Col: 44}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -134,7 +140,7 @@ func Show(props SelectProps) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(props.Id)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 64, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 70, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -147,7 +153,7 @@ func Show(props SelectProps) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(props.Id)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 65, Col: 17}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 71, Col: 17}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -165,7 +171,7 @@ func Show(props SelectProps) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(props.SelectAnItemCue)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 68, Col: 61}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/select/select.templ`, Line: 74, Col: 61}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -177,7 +183,7 @@ func Show(props SelectProps) templ.Component {
 			}
 		}
 		for _, selectOptionProps := range SelectOptions(props.Options, props.SelectedItemValue) {
-			templ_7745c5c3_Err = selectoption.Show(selectOptionProps).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = selectoption.Show(*selectOptionProps).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
