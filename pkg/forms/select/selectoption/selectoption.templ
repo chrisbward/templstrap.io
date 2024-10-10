@@ -1,10 +1,11 @@
 package selectoption 
 
 type SelectOptionProps struct {
-	Label string
-	Value string
+	Label      string
+	Value      string
+	IsSelected bool
 }
 
 templ Show(props SelectOptionProps) {
-	<option value={ props.Value }>{ props.Label }</option>
+	<option value={ props.Value } selected?={ props.IsSelected }>{ props.Label }</option>
 }
