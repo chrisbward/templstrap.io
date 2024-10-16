@@ -39,6 +39,7 @@ type ElementProps struct {
 	AriaLabel         string
 	AriaDescribedById string
 	HTMX              HTMXProps
+	ExtraAttributes   map[string]any
 }
 
 type FormElementProps struct {
