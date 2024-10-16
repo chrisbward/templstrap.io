@@ -68,7 +68,7 @@ templ Show(props FormProps) {
 				hx-encoding={ props.ElementProps.HTMX.Encoding }
 			}
 			if props.ElementProps.HTMX.Verb == base.PostVerbType {
-				hx-post={ props.Action.Action + "?requesttype=htmx" }
+				hx-post={ props.Action.Action + "?requesttype=htmx" } 
 			}
 			if props.ElementProps.HTMX.Verb == base.GetVerbType {
 				hx-get={ props.Action.Action + "?requesttype=htmx" } 
@@ -91,6 +91,7 @@ templ Show(props FormProps) {
 			if props.ElementProps.HTMX.Trigger != "" {
 				hx-trigger={ props.ElementProps.HTMX.Trigger }
 			}
+			{ props.ExtraAttributes... }	
 		>
 			{ children... }
 			if props.Action.Actions[PrimaryFormAction].Name != "" {
