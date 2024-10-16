@@ -72,12 +72,23 @@ func (bp *ButtonProps) BuildClassNames() (classNames string) {
 
 templ Show(props ButtonProps) {
 	if props.ButtonElementType == "" || props.ButtonElementType == ButtonButtonType {
-		<button id={ props.ElementProps.Id } type={ string(props.ButtonType) } class={ props.BuildClassNames() } disabled?={ props.IsDisabled }>
+		<button 
+			id={ props.ElementProps.Id } 
+			type={ string(props.ButtonType) } 
+			class={ props.BuildClassNames() } 
+			disabled?={ props.IsDisabled }
+			{ props.ExtraAttributes... }	
+		>
 			{ children... }
 		</button>
 	}
 	if props.ButtonElementType == AnchorButtonType {
-		<a class={ props.BuildClassNames() } href={templ.SafeURL(props.AnchorTypeLink)} role="button">
+		<a 
+			class={ props.BuildClassNames() } 
+			href={templ.SafeURL(props.AnchorTypeLink)} 
+			role="button"
+			{ props.ExtraAttributes... }
+		>
 			{ children... }
 		</a>
 	}
