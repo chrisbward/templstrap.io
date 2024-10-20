@@ -61,7 +61,7 @@ func Show(props HeadProps) templ.Component {
 			}
 		}
 		if props.IsHTMXEnabled {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"https://unpkg.com/htmx.org@1.9.10\" integrity=\"sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC\" crossorigin=\"anonymous\"></script>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"preload\" href=\"https://unpkg.com/htmx.org@1.9.10\" as=\"script\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
