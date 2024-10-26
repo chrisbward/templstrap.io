@@ -34,7 +34,9 @@ templ Show(props ExampleProps) {
 			Imports
 		}
 		if props.ImportCode != nil {
-			@code.Show(code.CodeProps{}) {
+			@code.Show(code.CodeProps{
+				Language: "go",
+			}) {
 				@props.ImportCode
 			}
 		}
@@ -44,7 +46,9 @@ templ Show(props ExampleProps) {
 			Code
 		}
 		if props.Code != nil {
-			@code.Show(code.CodeProps{}) {
+			@code.Show(code.CodeProps{
+				Language: "go",
+			}) {
 				@props.Code
 			}
 		}

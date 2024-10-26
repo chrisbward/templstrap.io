@@ -1,12 +1,16 @@
 package code
 
-type CodeProps struct {
+import(
+    "fmt"
+)
 
+type CodeProps struct {
+    Language string 
 }
 
 templ Show(props CodeProps) {
     <pre>
-        <code class="language-go">
+        <code class={ fmt.Sprintf("language-%s", props.Language) }>
             { children... }
         </code>
     </pre>
