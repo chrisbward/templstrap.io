@@ -80,10 +80,11 @@ templ Show(props NavItemProps) {
 			<a 
 				class={ props.BuildClassNamesNavLink() } 
 				aria-current="page" 
-				href={ templ.SafeURL(props.Link) }
 				if props.NavsAndTabsContextProps != nil {
 					data-bs-toggle="tab"
 					data-bs-target={ "#" + props.NavsAndTabsContextProps.Target}
+				} else {
+					href={ templ.SafeURL(props.Link) }
 				}
 			>{ props.Name }</a>
 		</li>
