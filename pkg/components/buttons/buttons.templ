@@ -78,6 +78,7 @@ templ Show(props ButtonProps) {
 			class={ props.BuildClassNames() } 
 			disabled?={ props.IsDisabled }
 			{ props.ExtraAttributes... }	
+			{ props.HTMX.GetAttributes()... }
 		>
 			{ children... }
 		</button>

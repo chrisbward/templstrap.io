@@ -30,6 +30,42 @@ type HTMXProps struct {
 	On                string
 }
 
+func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
+	htmxAttributes = make(map[string]any)
+	if hp.IsBoosted {
+		htmxAttributes["hx-boosted"] = "true"
+	}
+	if hp.Encoding != "" {
+		htmxAttributes["hx-encoding"] = hp.Encoding
+	}
+	if hp.Verb == PostVerbType {
+		htmxAttributes["hx-post"] = "?requesttype=htmx"
+	}
+	if hp.Verb == GetVerbType {
+		htmxAttributes["hx-get"] = "?requesttype=htmx"
+		if hp.PushURL {
+			htmxAttributes["hx-push-url"] = "true"
+		}
+	}
+	if hp.TargetSelector != "" {
+		htmxAttributes["hx-target"] = hp.TargetSelector
+	}
+	if hp.IndicatorSelector != "" {
+		htmxAttributes["hx-indicator"] = hp.IndicatorSelector
+	}
+	if hp.Swap != "" {
+		htmxAttributes["hx-swap"] = string(hp.Swap)
+	}
+	if hp.Include != "" {
+		htmxAttributes["hx-include"] = hp.Include
+	}
+	if hp.Trigger != "" {
+		htmxAttributes["hx-trigger"] = hp.Trigger
+	}
+
+	return
+}
+
 type ElementProps struct {
 	Id                string
 	AdditionalClasses []string
