@@ -39,7 +39,7 @@ func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
 		htmxAttributes["hx-encoding"] = hp.Encoding
 	}
 	if hp.Verb == PostVerbType {
-		htmxAttributes["hx-post"] = "?requesttype=htmx"
+		htmxAttributes["hx-post"] = hp.PostDestination + "?requesttype=htmx"
 	}
 	if hp.Verb == GetVerbType {
 		htmxAttributes["hx-get"] = "?requesttype=htmx"
@@ -61,6 +61,9 @@ func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
 	}
 	if hp.Trigger != "" {
 		htmxAttributes["hx-trigger"] = hp.Trigger
+	}
+	if hp.On != "" {
+		htmxAttributes["hx-on"] = hp.On
 	}
 
 	return
