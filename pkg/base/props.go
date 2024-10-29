@@ -27,6 +27,7 @@ type HTMXProps struct {
 	Include           string
 	Trigger           string
 	PushURL           bool
+	On                string
 }
 
 type ElementProps struct {
