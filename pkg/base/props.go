@@ -16,18 +16,19 @@ const PostVerbType VerbType = "post"
 const GetVerbType VerbType = "get"
 
 type HTMXProps struct {
-	IsBoosted         bool
-	Verb              VerbType
-	PostDestination   string
-	Encoding          string
-	TargetSelector    string
-	IndicatorSelector string
-	Swap              HTMXSwapType
-	SwapOutOfBand     bool
-	Include           string
-	Trigger           string
-	PushURL           bool
-	On                string
+	IsBoosted          bool
+	Verb               VerbType
+	PostDestination    string
+	Encoding           string
+	TargetSelector     string
+	IndicatorSelector  string
+	Swap               HTMXSwapType
+	SwapOutOfBand      bool
+	Include            string
+	Trigger            string
+	PushURL            bool
+	On                 string
+	HasHTML5Validation bool
 }
 
 func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
@@ -64,6 +65,9 @@ func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
 	}
 	if hp.On != "" {
 		htmxAttributes["hx-on"] = hp.On
+	}
+	if hp.HasHTML5Validation {
+		htmxAttributes["hx-validate"] = "true"
 	}
 
 	return
