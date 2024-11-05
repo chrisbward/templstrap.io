@@ -87,6 +87,7 @@ templ Show(props InputProps) {
 			}
 		}
 		{ props.ExtraAttributes... }
+		{ props.HTMX.GetAttributes()... }
 	/>
 	if props.GetInputType().InputType == entities.DatalistType {
 		@datalist.Show(datalist.DatalistProps{

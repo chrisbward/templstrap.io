@@ -258,6 +258,10 @@ func Show(props InputProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, props.HTMX.GetAttributes())
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("> ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -278,7 +282,7 @@ func Show(props InputProps) templ.Component {
 			var templ_7745c5c3_Var12 string
 			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(props.FieldValidationFeedbackMessage)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/inputfield/inputfield.templ`, Line: 98, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/inputfield/inputfield.templ`, Line: 99, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 			if templ_7745c5c3_Err != nil {
@@ -297,7 +301,7 @@ func Show(props InputProps) templ.Component {
 			var templ_7745c5c3_Var13 string
 			templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(props.FieldValidationFeedbackMessage)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/inputfield/inputfield.templ`, Line: 103, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/forms/inputfield/inputfield.templ`, Line: 104, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 			if templ_7745c5c3_Err != nil {
