@@ -25,7 +25,7 @@ templ Show(props DatalistProps) {
 		required?={ props.Validation.IsRequired }
 	>
 		for _, datalistItem := range props.Items {
-			<option value={ datalistItem.Value }>{ datalistItem.Text }</option>
+			<option value={ datalistItem.Text }></option>
 		}
 	</datalist>
 }
