@@ -90,3 +90,8 @@ type FormElementProps struct {
 	ElementProps
 	IsReadOnly bool
 }
+
+type FormListProps struct {
+	Text  string
+	Value string
+}

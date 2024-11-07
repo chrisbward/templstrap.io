@@ -2,6 +2,7 @@ package entities
 
 import (
 	"github.com/a-h/templ"
+	"github.com/chrisbward/templstrap.io/pkg/base"
 )
 
 //go:generate go run go.uber.org/mock/mockgen -package mock_formcontroller -destination=../controllers/formcontroller/mocks/mock_formcontroller.go -source=../controllers/formcontroller/formcontroller.go -typed
@@ -43,7 +44,7 @@ type FormField struct {
 	FieldValidationState           ValidationStateType
 	FieldValidationFeedbackMessage string
 	FieldValue                     string
-	FieldListItems                 []FormListItem
+	FieldListItems                 []base.FormListProps
 	FieldValidationType            []ValidationType
 }
 
@@ -78,9 +79,4 @@ func (ff *FormField) ValidateField() (FieldIsValid bool) {
 type FormFieldValidation struct {
 	IsRequired      bool
 	ValidationState ValidationStateType
-}
-
-type FormListItem struct {
-	Text  string
-	Value string
 }
