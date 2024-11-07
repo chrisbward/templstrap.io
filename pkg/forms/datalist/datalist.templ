@@ -60,16 +60,12 @@ templ Show(props DatalistProps) {
 		readonly?={ props.IsReadOnly }
 		disabled?={ props.IsDisabled }
 		required?={ props.Validation.IsRequired }
+        list={ "datalist_" + props.Id }
 		{ props.ExtraAttributes... }
 		{ props.HTMX.GetAttributes()... }
 	/>
 	<datalist
-		id={ props.Id }
-		name={ props.Id }
-		placeholder={ props.Placeholder }
-		readonly?={ props.IsReadOnly }
-		disabled?={ props.IsDisabled }
-		required?={ props.Validation.IsRequired }
+		id={ "datalist_" + props.Id }
 	>
 		for _, datalistItem := range props.Items {
 			<option value={ datalistItem.Text }></option>
