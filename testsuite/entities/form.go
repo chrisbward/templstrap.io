@@ -43,6 +43,7 @@ type FormField struct {
 	FieldValidationState           ValidationStateType
 	FieldValidationFeedbackMessage string
 	FieldValue                     string
+	FieldListItems                 []FormListItem
 	FieldValidationType            []ValidationType
 }
 
@@ -77,4 +78,9 @@ func (ff *FormField) ValidateField() (FieldIsValid bool) {
 type FormFieldValidation struct {
 	IsRequired      bool
 	ValidationState ValidationStateType
+}
+
+type FormListItem struct {
+	Text  string
+	Value string
 }

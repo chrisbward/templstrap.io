@@ -1,16 +1,31 @@
 package datalist 
 
-import "github.com/chrisbward/templstrap.io/pkg/base"
+import (
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
+)
+
+
 
 type DatalistProps struct {
-    base.ElementProps
-    Items []string
+	base.FormElementProps
+	Placeholder                    string
+	Items                          []entities.FormListItem
+	FieldValidationFeedbackMessage string
+	Validation                     entities.FormFieldValidation
 }
 
 templ Show(props DatalistProps) {
-    <datalist id={ props.Id }>
-        for _, datalistItem := range props.Items {
-            <option value={ datalistItem }></option>
-        }
-    </datalist>
+	<datalist
+		id={ props.Id }
+		name={ props.Id }
+		placeholder={ props.Placeholder }
+		readonly?={ props.IsReadOnly }
+		disabled?={ props.IsDisabled }
+		required?={ props.Validation.IsRequired }
+	>
+		for _, datalistItem := range props.Items {
+			<option value={ datalistItem.Value }>{ datalistItem.Text }</option>
+		}
+	</datalist>
 }

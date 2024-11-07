@@ -3,8 +3,7 @@ package inputfield
 import (
 	"fmt"
 	"strings"
-	"github.com/chrisbward/templstrap.io/pkg/base"
-	"github.com/chrisbward/templstrap.io/pkg/forms/datalist"
+	"github.com/chrisbward/templstrap.io/pkg/base" 
 	"github.com/chrisbward/templstrap.io/testsuite/entities"
 )
 
@@ -27,7 +26,6 @@ type InputProps struct {
 	Type                           entities.FormFieldType
 	Size                           SizeType
 	FieldValidationFeedbackMessage string
-	DatalistItems                  []string
 	Validation                     entities.FormFieldValidation
 	ExtraAttributes                map[string]any
 
@@ -89,11 +87,6 @@ templ Show(props InputProps) {
 		{ props.ExtraAttributes... }
 		{ props.HTMX.GetAttributes()... }
 	/>
-	if props.GetInputType().InputType == entities.DatalistType {
-		@datalist.Show(datalist.DatalistProps{
-			Items: props.DatalistItems,
-		})
-	}
 	if props.Validation.ValidationState == entities.FieldIsInvalidValidationStatusType {
 		<div class="invalid-feedback">
 			{ props.FieldValidationFeedbackMessage }
