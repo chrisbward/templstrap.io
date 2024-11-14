@@ -11,7 +11,7 @@ const RootClassName = "form-check-input"
 type RadioProps struct {
 	base.FormElementProps
 	Validation                     entities.FormFieldValidation
-	IsSelected bool
+	IsSelected bool 
 	GroupName string
 }
 
@@ -37,5 +37,7 @@ templ Show(props RadioProps) {
 		type="radio" 
 		name={ props.GroupName } 
 		id={ props.ElementProps.Id } 
+		value={ props.Value }
+		checked?={ props.IsSelected }
 	/>
 }
