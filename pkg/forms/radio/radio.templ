@@ -6,7 +6,7 @@ import (
 	"github.com/chrisbward/templstrap.io/testsuite/entities"
 
 )
-const RootClassName = "form-check"
+const RootClassName = "form-check-input"
 
 type RadioProps struct {
 	base.FormElementProps
@@ -32,15 +32,10 @@ func (rp RadioProps) BuildClassNames() (classes string) {
 
 
 templ Show(props RadioProps) {
-	<div 
-		class={ props.BuildClassNames() }
-	> 
-		<input 
-			class="form-check-input" 
-			type="radio" 
-			name={ props.GroupName } 
-			id={ props.ElementProps.Id } 
-		/>
-		{ children... } 
-	</div> 
+	<input 
+		class={ props.BuildClassNames() } 
+		type="radio" 
+		name={ props.GroupName } 
+		id={ props.ElementProps.Id } 
+	/>
 }
