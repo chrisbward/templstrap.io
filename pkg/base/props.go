@@ -19,6 +19,7 @@ type HTMXProps struct {
 	IsBoosted          bool
 	Verb               VerbType
 	PostDestination    string
+	DeleteDestination  string
 	Encoding           string
 	TargetSelector     string
 	IndicatorSelector  string
@@ -47,6 +48,9 @@ func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
 		if hp.PushURL {
 			htmxAttributes["hx-push-url"] = "true"
 		}
+	}
+	if hp.DeleteDestination != "" {
+		htmxAttributes["hx-delete"] = hp.DeleteDestination
 	}
 	if hp.TargetSelector != "" {
 		htmxAttributes["hx-target"] = hp.TargetSelector
