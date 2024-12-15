@@ -38,6 +38,7 @@ const (
 type OffCanvasProps struct {
 	base.ElementProps
 	Title              string
+	IsShown            bool
 	OffCanvasPlacement OffCanvasPlacementClass
 	Size               SizeType
 	ExtraAttributes    map[string]any
@@ -52,6 +53,9 @@ func (ocp OffCanvasProps) BuildClassNames() (classes string) {
 	classNames = append(
 		classNames, fmt.Sprintf("%s-%s", RootClassName, string(ocp.OffCanvasPlacement)),
 	)
+	if ocp.IsShown {
+		classNames = append(classNames, "show")
+	}
 
 	classes = strings.Join(classNames, " ")
 
@@ -101,7 +105,7 @@ func Show(props OffCanvasProps) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(props.Id)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/offcanvas/offcanvas.templ`, Line: 57, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/offcanvas/offcanvas.templ`, Line: 61, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -114,7 +118,7 @@ func Show(props OffCanvasProps) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(props.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/offcanvas/offcanvas.templ`, Line: 61, Col: 64}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/offcanvas/offcanvas.templ`, Line: 65, Col: 64}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
