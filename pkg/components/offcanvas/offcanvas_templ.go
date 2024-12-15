@@ -36,7 +36,7 @@ const (
 )
 
 type OffCanvasProps struct {
-	base.FormElementProps
+	base.ElementProps
 	Title              string
 	OffCanvasPlacement OffCanvasPlacementClass
 	Size               SizeType
