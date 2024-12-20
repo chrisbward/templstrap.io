@@ -85,6 +85,7 @@ templ Show(props ButtonProps) {
 	}
 	if props.ButtonElementType == AnchorButtonType {
 		<a
+			id={ props.ElementProps.Id }
 			class={ props.BuildClassNames() }
 			href={ templ.SafeURL(props.AnchorTypeLink) }
 			role="button"
