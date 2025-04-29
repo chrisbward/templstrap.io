@@ -1,6 +1,10 @@
 package base
 
-import "github.com/a-h/templ"
+import (
+	"fmt"
+
+	"github.com/a-h/templ"
+)
 
 type ScrollSpyProps struct {
 }
@@ -15,7 +19,15 @@ type VerbType string
 const PostVerbType VerbType = "post"
 const GetVerbType VerbType = "get"
 
+type HTMXVersion string
+
+var (
+	HTMX_V1 HTMXVersion = "1"
+	HTMX_V2 HTMXVersion = "2"
+)
+
 type HTMXProps struct {
+	HTMXVersion        HTMXVersion
 	IsBoosted          bool
 	Verb               VerbType
 	PostDestination    string
@@ -34,6 +46,16 @@ type HTMXProps struct {
 
 func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
 	htmxAttributes = make(map[string]any)
+
+	var htmxVersion HTMXVersion
+
+	if hp.HTMXVersion == "" {
+		htmxVersion = HTMX_V1
+	} else {
+		htmxVersion = hp.HTMXVersion
+	}
+	fmt.Println(string(htmxVersion))
+
 	if hp.IsBoosted {
 		htmxAttributes["hx-boosted"] = "true"
 	}
