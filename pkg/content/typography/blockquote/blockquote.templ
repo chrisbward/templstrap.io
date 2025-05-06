@@ -1,0 +1,40 @@
+package blockquote
+
+import "fmt"
+
+type BlockQuoteSource struct {
+	Title string
+	Formatting string
+}
+func (bqs *BlockQuoteSource) String() string {
+	blockQuoteTitle := fmt.Sprintf("<cite title=\"%s\">%s</cite>", bqs.Title, bqs.Title)
+	if bqs.Formatting != "" {
+		return fmt.Sprintf(bqs.Formatting, blockQuoteTitle)
+	}
+
+	return blockQuoteTitle
+}
+
+type BlockQuoteProps struct {
+	Quote       string
+	Source *BlockQuoteSource
+}
+
+
+
+templ Show(props BlockQuoteProps) {
+	if props.Source != nil {
+		<figure>
+			<blockquote class="blockquote">
+				<p>{ props.Quote }</p>
+			</blockquote>
+			<figcaption class="blockquote-footer">
+				@templ.Raw(props.Source.String()) 
+			</figcaption>
+		</figure>
+	} else {
+		<blockquote class="blockquote">
+			<p>{ props.Quote }</p>
+		</blockquote>
+	}
+}
