@@ -1,35 +1,54 @@
 package blockquote
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-type BlockQuoteSource struct {
+type BlockCitationSource struct {
 	Title string
-	Formatting string
+	Hyperlink templ.SafeURL
 }
-func (bqs *BlockQuoteSource) String() string {
-	blockQuoteTitle := fmt.Sprintf("<cite title=\"%s\">%s</cite>", bqs.Title, bqs.Title)
-	if bqs.Formatting != "" {
-		return fmt.Sprintf(bqs.Formatting, blockQuoteTitle)
-	}
-
-	return blockQuoteTitle
+type BlockQuoteCitation struct {
+	CitationFormatting string
+	Citations []*BlockCitationSource
 }
 
 type BlockQuoteProps struct {
 	Quote       string
-	Source *BlockQuoteSource
+	Citation  *BlockQuoteCitation
+}
+func (bqc *BlockQuoteCitation) String() (blockQuoteCitationTitle string) {
+
+	var renderedBlockquoteCitations []string
+	for _, citation := range bqc.Citations {
+		var citationTitleRenderedContent string 
+
+		if citation.Hyperlink != "" {
+			citationTitleRenderedContent = fmt.Sprintf("<a href=\"%s\">%s</a>", citation.Hyperlink, citation.Title )
+		} else {
+			citationTitleRenderedContent = citation.Title
+		}
+
+		renderedBlockquoteCitation := fmt.Sprintf("<cite title=\"%s\">%s</cite>", citation.Title, citationTitleRenderedContent )
+		renderedBlockquoteCitations = append(renderedBlockquoteCitations, renderedBlockquoteCitation)
+	}
+	if bqc.CitationFormatting != "" {
+		return fmt.Sprintf(bqc.CitationFormatting, strings.Join(renderedBlockquoteCitations, " "))
+	}
+
+	return
 }
 
 
-
 templ Show(props BlockQuoteProps) {
-	if props.Source != nil {
+	if props.Citation != nil {
 		<figure>
 			<blockquote class="blockquote">
 				<p>{ props.Quote }</p>
 			</blockquote>
 			<figcaption class="blockquote-footer">
-				@templ.Raw(props.Source.String()) 
+				@templ.Raw(props.Citation.String())  
 			</figcaption>
 		</figure>
 	} else {

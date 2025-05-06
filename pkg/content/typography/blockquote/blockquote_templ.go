@@ -8,25 +8,45 @@ package blockquote
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-type BlockQuoteSource struct {
-	Title      string
-	Formatting string
+type BlockCitationSource struct {
+	Title     string
+	Hyperlink templ.SafeURL
 }
-
-func (bqs *BlockQuoteSource) String() string {
-	blockQuoteTitle := fmt.Sprintf("<cite title=\"%s\">%s</cite>", bqs.Title, bqs.Title)
-	if bqs.Formatting != "" {
-		return fmt.Sprintf(bqs.Formatting, blockQuoteTitle)
-	}
-
-	return blockQuoteTitle
+type BlockQuoteCitation struct {
+	CitationFormatting string
+	Citations          []*BlockCitationSource
 }
 
 type BlockQuoteProps struct {
-	Quote  string
-	Source *BlockQuoteSource
+	Quote    string
+	Citation *BlockQuoteCitation
+}
+
+func (bqc *BlockQuoteCitation) String() (blockQuoteCitationTitle string) {
+
+	var renderedBlockquoteCitations []string
+	for _, citation := range bqc.Citations {
+		var citationTitleRenderedContent string
+
+		if citation.Hyperlink != "" {
+			citationTitleRenderedContent = fmt.Sprintf("<a href=\"%s\">%s</a>", citation.Hyperlink, citation.Title)
+		} else {
+			citationTitleRenderedContent = citation.Title
+		}
+
+		renderedBlockquoteCitation := fmt.Sprintf("<cite title=\"%s\">%s</cite>", citation.Title, citationTitleRenderedContent)
+		renderedBlockquoteCitations = append(renderedBlockquoteCitations, renderedBlockquoteCitation)
+	}
+	if bqc.CitationFormatting != "" {
+		return fmt.Sprintf(bqc.CitationFormatting, strings.Join(renderedBlockquoteCitations, " "))
+	}
+
+	return
 }
 
 func Show(props BlockQuoteProps) templ.Component {
@@ -47,7 +67,7 @@ func Show(props BlockQuoteProps) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		if props.Source != nil {
+		if props.Citation != nil {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<figure><blockquote class=\"blockquote\"><p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -55,7 +75,7 @@ func Show(props BlockQuoteProps) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(props.Quote)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/content/typography/blockquote/blockquote.templ`, Line: 29, Col: 20}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/content/typography/blockquote/blockquote.templ`, Line: 48, Col: 20}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -65,7 +85,7 @@ func Show(props BlockQuoteProps) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.Raw(props.Source.String()).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = templ.Raw(props.Citation.String()).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -81,7 +101,7 @@ func Show(props BlockQuoteProps) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(props.Quote)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/content/typography/blockquote/blockquote.templ`, Line: 37, Col: 19}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/content/typography/blockquote/blockquote.templ`, Line: 56, Col: 19}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
