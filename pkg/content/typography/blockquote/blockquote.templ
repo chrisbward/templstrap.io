@@ -45,7 +45,7 @@ templ Show(props BlockQuoteProps) {
 	if props.Citation != nil {
 		<figure>
 			<blockquote class="blockquote">
-				<p>{ props.Quote }</p>
+				<p>@templ.Raw(props.Quote)</p>
 			</blockquote>
 			<figcaption class="blockquote-footer">
 				@templ.Raw(props.Citation.String())  
