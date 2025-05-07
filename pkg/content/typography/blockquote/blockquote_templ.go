@@ -34,7 +34,7 @@ func (bqc *BlockQuoteCitation) String() (blockQuoteCitationTitle string) {
 		var citationTitleRenderedContent string
 
 		if citation.Hyperlink != "" {
-			citationTitleRenderedContent = fmt.Sprintf("<a href=\"%s\">%s</a>", citation.Hyperlink, citation.Title)
+			citationTitleRenderedContent = fmt.Sprintf("<a href=\"%s\" target=\"_blank\">%s</a>", citation.Hyperlink, citation.Title)
 		} else {
 			citationTitleRenderedContent = citation.Title
 		}
