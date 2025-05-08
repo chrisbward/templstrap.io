@@ -1,8 +1,7 @@
 package head 
 
 type HeadProps struct {
-    Title string
-	IsHTMXEnabled bool 
+	Title                     string
 	InlineBootstrapStylesheet bool
 }
 
@@ -15,14 +14,10 @@ templ Show(props HeadProps) {
 			@InlinedBootstrapStylesheet()
 		} else {
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
-		}
-		if props.IsHTMXEnabled {
-			<link rel="preload" href="https://unpkg.com/htmx.org@1.9.10" as="script"> 
-		}
+		} 
 		{ children... }
 	</head>
 }
-
 
 templ InlinedBootstrapStylesheet() {
 	<style type="text/css">

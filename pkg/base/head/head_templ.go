@@ -10,7 +10,6 @@ import templruntime "github.com/a-h/templ/runtime"
 
 type HeadProps struct {
 	Title                     string
-	IsHTMXEnabled             bool
 	InlineBootstrapStylesheet bool
 }
 
@@ -39,7 +38,7 @@ func Show(props HeadProps) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(props.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/base/head/head.templ`, Line: 13, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/base/head/head.templ`, Line: 12, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -56,12 +55,6 @@ func Show(props HeadProps) templ.Component {
 			}
 		} else {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN\" crossorigin=\"anonymous\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if props.IsHTMXEnabled {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"preload\" href=\"https://unpkg.com/htmx.org@1.9.10\" as=\"script\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
