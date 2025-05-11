@@ -78,9 +78,12 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 	elementProps := pp.PaginationItemsProps.ElementProps
 
 	elementProps.IsDisabled = pp.PageConditions.IsPageDisabled(pageNumber)
-	var newExtraAttributes map[string]any
-	newExtraAttributes = elementProps.ExtraAttributes
-	newExtraAttributes["hx-get"] = fmt.Sprintf(elementProps.ExtraAttributes["hx-get"].(string), pageNumber)
+
+	newExtraAttributes := make(map[string]any, len(elementProps.ExtraAttributes))
+	for k, v := range elementProps.ExtraAttributes {
+		newExtraAttributes[k] = v
+	}
+	newExtraAttributes["hx-get"] = fmt.Sprintf(newExtraAttributes["hx-get"].(string), pageNumber)
 
 	newHTMXAttributes := elementProps.HTMX
 	newHTMXAttributes.ReplaceURL = fmt.Sprintf(elementProps.HTMX.ReplaceURL, pageNumber)
