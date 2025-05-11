@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/components/pagination/paginationitem"
-	"github.com/sirupsen/logrus"
 	"strings"
 )
 
