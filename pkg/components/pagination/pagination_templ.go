@@ -78,8 +78,8 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 	elementProps := pp.PaginationItemsProps.ElementProps
 
 	elementProps.IsDisabled = pp.PageConditions.IsPageDisabled(pageNumber)
-
-	newExtraAttributes := elementProps.ExtraAttributes
+	var newExtraAttributes map[string]any
+	newExtraAttributes = elementProps.ExtraAttributes
 	newExtraAttributes["hx-get"] = fmt.Sprintf(elementProps.ExtraAttributes["hx-get"].(string), pageNumber)
 
 	newHTMXAttributes := elementProps.HTMX
