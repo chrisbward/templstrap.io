@@ -80,13 +80,17 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 
 	elementProps.IsDisabled = pp.PageConditions.IsPageDisabled(pageNumber)
 
-	hxGetFormattedString := elementProps.ExtraAttributes["hx-get"].(string)
-	logrus.Infoln(hxGetFormattedString)
+	newExtraAttributes := elementProps.ExtraAttributes
+	newExtraAttributes["hx-get"] = fmt.Sprintf(elementProps.ExtraAttributes["hx-get"].(string), pageNumber)
 
-	elementProps.ExtraAttributes["hx-get"] = fmt.Sprintf(hxGetFormattedString, pageNumber)
-	elementProps.HTMX.ReplaceURL = fmt.Sprintf(elementProps.HTMX.ReplaceURL, pageNumber)
+	newHTMXAttributes := elementProps.HTMX
+	newHTMXAttributes.ReplaceURL = fmt.Sprintf(elementProps.HTMX.ReplaceURL, pageNumber)
 
-	return elementProps
+	return base.ElementProps{
+		ExtraAttributes: newExtraAttributes,
+		HTMX:            newHTMXAttributes,
+		IsDisabled:      elementProps.IsDisabled,
+	}
 }
 
 func Show(props PaginationProps) templ.Component {
