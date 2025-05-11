@@ -47,11 +47,16 @@ type PreviousButtonOptions struct {
 	IsDisabled    bool
 }
 
+type PaginationItemsProps struct {
+	HTMXAttributes *base.HTMXProps
+}
+
 type PaginationProps struct {
 	base.ElementProps
 	Alignment             AlignmentType
 	PageConditions        PageConditions
 	PreviousButtonOptions PreviousButtonOptions
+	PaginationItemsProps  PaginationItemsProps
 }
 
 func (pc *PaginationProps) IsPreviousButtonDisabled() bool {
@@ -64,6 +69,15 @@ func (pp PaginationProps) BuildClassName() (classes string) {
 	classes = strings.Join(classNames, " ")
 
 	return
+}
+
+func (pp PaginationProps) GetHTMXAttributesForItems() base.HTMXProps {
+
+	if pp.PaginationItemsProps.HTMXAttributes != nil {
+		return *pp.PaginationItemsProps.HTMXAttributes
+	}
+
+	return base.HTMXProps{}
 }
 
 func Show(props PaginationProps) templ.Component {
@@ -128,6 +142,7 @@ func Show(props PaginationProps) templ.Component {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
 				ElementProps: base.ElementProps{
 					IsDisabled: props.PageConditions.IsPageDisabled(iLoopA),
+					HTMX:       props.GetHTMXAttributesForItems(),
 				},
 				IsActive:  props.PageConditions.IsCurrentPage(iLoopA),
 				AriaLabel: fmt.Sprintf("Go to page %d", iLoopA),

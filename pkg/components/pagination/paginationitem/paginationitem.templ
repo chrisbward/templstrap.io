@@ -32,5 +32,13 @@ func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (cl
 templ Show(props PaginationItemProps) {
     <li 
         class={props.BuildClassName(props.IsActive , props.IsDisabled)}
-    ><a class="page-link" href={ templ.SafeURL(props.BuiltURL) } aria-label={ props.AriaLabel }>{ props.TextValue }</a></li>
+    >
+        <a 
+            class="page-link" 
+            href={ templ.SafeURL(props.BuiltURL) } 
+            aria-label={ props.AriaLabel }
+            { props.ExtraAttributes... }
+			{ props.HTMX.GetAttributes()... }
+        >{ props.TextValue }</a>
+    </li>
 }
