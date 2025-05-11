@@ -32,7 +32,7 @@ func (pc *PageConditions) IsCurrentPage(pageNumber int) bool {
 	return pc.CurrentPage == pageNumber
 }
 func (pc *PageConditions) IsPageDisabled(pageNumber int) bool {
-	if pc.PageIsDisabledUnderCondition != nil {
+	if pc.PageIsDisabledUnderCondition == nil {
 		return false
 	}
 	return (*pc.PageIsDisabledUnderCondition)(pageNumber)
