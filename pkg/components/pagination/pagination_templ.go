@@ -54,6 +54,10 @@ type PaginationProps struct {
 	PreviousButtonOptions PreviousButtonOptions
 }
 
+func (pc *PaginationProps) IsPreviousButtonDisabled() bool {
+	return pc.PageConditions.CurrentPage == 1 || pc.PreviousButtonOptions.IsDisabled
+}
+
 func (pp PaginationProps) BuildClassName() (classes string) {
 	classNames := []string{RootClassName}
 
@@ -109,7 +113,7 @@ func Show(props PaginationProps) templ.Component {
 		if props.PreviousButtonOptions.ShouldPersist {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
 				ElementProps: base.ElementProps{
-					IsDisabled: props.PreviousButtonOptions.IsDisabled,
+					IsDisabled: props.IsPreviousButtonDisabled(),
 				},
 				IsActive:  false,
 				AriaLabel: "Visit the previous page",
