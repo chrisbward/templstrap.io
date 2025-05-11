@@ -40,6 +40,7 @@ type HTMXProps struct {
 	Include            string
 	Trigger            string
 	PushURL            bool
+	ReplaceURL         string
 	On                 string
 	HasHTML5Validation bool
 }
@@ -70,6 +71,9 @@ func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
 		if hp.PushURL {
 			htmxAttributes["hx-push-url"] = "true"
 		}
+	}
+	if hp.ReplaceURL != "" {
+		htmxAttributes["hx-replace-url"] = hp.ReplaceURL
 	}
 	if hp.DeleteDestination != "" {
 		htmxAttributes["hx-delete"] = hp.DeleteDestination
