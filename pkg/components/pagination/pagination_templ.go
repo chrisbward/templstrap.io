@@ -11,11 +11,11 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"fmt"
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/components/pagination/paginationitem"
 	"strings"
 )
 
 const RootClassName = "pagination"
-const RootClassNamePageItem = "page-item"
 
 type AlignmentType string
 
@@ -56,21 +56,6 @@ type PaginationProps struct {
 
 func (pp PaginationProps) BuildClassName() (classes string) {
 	classNames := []string{RootClassName}
-
-	classes = strings.Join(classNames, " ")
-
-	return
-}
-
-func (pp PaginationProps) BuildPageItemClassName(isActive bool, isDisabled bool) (classes string) {
-	classNames := []string{RootClassNamePageItem}
-
-	if isDisabled {
-		classNames = append(classNames, "disabled")
-	}
-	if isActive {
-		classNames = append(classNames, "active")
-	}
 
 	classes = strings.Join(classNames, " ")
 
@@ -122,91 +107,40 @@ func Show(props PaginationProps) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if props.PreviousButtonOptions.ShouldPersist {
-			var templ_7745c5c3_Var4 = []any{props.BuildPageItemClassName(false, props.PreviousButtonOptions.IsDisabled)}
-			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var5 string
-			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var4).String())
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/pagination/pagination.templ`, Line: 1, Col: 0}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><a class=\"page-link\" href=\"#\" aria-label=\"Visit the previous page\">Previous</a></li>")
+			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
+				ElementProps: base.ElementProps{
+					IsDisabled: props.PreviousButtonOptions.IsDisabled,
+				},
+				IsActive:  false,
+				AriaLabel: "Visit the previous page",
+				TextValue: "Previous",
+				BuiltURL:  "#",
+			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		for iLoopA := 0; iLoopA < props.PageConditions.TotalPageCount; iLoopA++ {
-			var templ_7745c5c3_Var6 = []any{
-				props.BuildPageItemClassName(
-					props.PageConditions.IsCurrentPage(iLoopA),
-					props.PageConditions.IsPageDisabled(iLoopA),
-				),
-			}
-			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var6).String())
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/pagination/pagination.templ`, Line: 1, Col: 0}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><a class=\"page-link\" href=\"#\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var8 string
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", iLoopA))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/pagination/pagination.templ`, Line: 84, Col: 63}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></li>")
+		for iLoopA := 1; iLoopA < props.PageConditions.TotalPageCount+1; iLoopA++ {
+			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
+				ElementProps: base.ElementProps{
+					IsDisabled: props.PageConditions.IsPageDisabled(iLoopA),
+				},
+				IsActive:  props.PageConditions.IsCurrentPage(iLoopA),
+				AriaLabel: fmt.Sprintf("Go to page %d", iLoopA),
+				TextValue: fmt.Sprintf("%d", iLoopA),
+				BuiltURL:  "#",
+			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if props.PageConditions.HasNextPage() {
-			var templ_7745c5c3_Var9 = []any{props.BuildPageItemClassName(false, false)}
-			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var9...)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var10 string
-			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var9).String())
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/pagination/pagination.templ`, Line: 1, Col: 0}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><a class=\"page-link\" href=\"#\">Next</a></li>")
+			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
+				IsActive:  false,
+				AriaLabel: "Visit the next page",
+				TextValue: "Next",
+				BuiltURL:  "#",
+			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

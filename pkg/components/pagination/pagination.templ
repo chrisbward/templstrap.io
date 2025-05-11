@@ -4,10 +4,10 @@ import (
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"strings"
 	"fmt" 
+	"github.com/chrisbward/templstrap.io/pkg/components/pagination/paginationitem"
 )
 
 const RootClassName = "pagination"
-const RootClassNamePageItem = "page-item"
 
 type AlignmentType string
 
@@ -52,39 +52,38 @@ func (pp PaginationProps) BuildClassName() (classes string) {
 	return
 }
 
-
-func (pp PaginationProps) BuildPageItemClassName(isActive bool, isDisabled bool) (classes string) {
-	classNames := []string{RootClassNamePageItem}
-
-	if isDisabled { 
-		classNames = append(classNames, "disabled")
-	}
-	if isActive { 
-		classNames = append(classNames, "active")
-	}
-
-	classes = strings.Join(classNames, " ")
-
-	return
-}
-
-
 templ Show(props PaginationProps) {
 	<nav aria-label="Pagination">
 		<ul class={ props.BuildClassName() }>
 			if props.PreviousButtonOptions.ShouldPersist {
-				<li class={props.BuildPageItemClassName(false , props.PreviousButtonOptions.IsDisabled)}><a class="page-link" href="#" aria-label="Visit the previous page">Previous</a></li>
+				@paginationitem.Show(paginationitem.PaginationItemProps{
+					ElementProps: base.ElementProps{
+						IsDisabled: props.PreviousButtonOptions.IsDisabled,
+					},
+					IsActive: false,
+					AriaLabel: "Visit the previous page",
+					TextValue: "Previous",
+					BuiltURL: "#",
+				})
 			}
-			for iLoopA := 0; iLoopA < props.PageConditions.TotalPageCount; iLoopA++ { 
-				<li class={
-					props.BuildPageItemClassName(
-						props.PageConditions.IsCurrentPage(iLoopA),
-						props.PageConditions.IsPageDisabled(iLoopA), 
-					),
-				}><a class="page-link" href="#">{ fmt.Sprintf("%d", iLoopA) } </a></li>
+			for iLoopA := 1; iLoopA < props.PageConditions.TotalPageCount+1; iLoopA++ { 
+				@paginationitem.Show(paginationitem.PaginationItemProps{
+					ElementProps: base.ElementProps{
+						IsDisabled: props.PageConditions.IsPageDisabled(iLoopA),
+					},
+					IsActive: props.PageConditions.IsCurrentPage(iLoopA),
+					AriaLabel: fmt.Sprintf("Go to page %d", iLoopA),
+					TextValue: fmt.Sprintf("%d", iLoopA),
+					BuiltURL: "#",
+				})
 			}
 			if props.PageConditions.HasNextPage() {
-				<li class={props.BuildPageItemClassName(false , false)}><a class="page-link" href="#">Next</a></li>
+				@paginationitem.Show(paginationitem.PaginationItemProps{
+					IsActive: false,
+					AriaLabel: "Visit the next page",
+					TextValue: "Next",
+					BuiltURL: "#",
+				})
 			}
 		</ul>
 	</nav>

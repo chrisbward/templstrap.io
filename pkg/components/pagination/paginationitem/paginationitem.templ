@@ -1,0 +1,36 @@
+package paginationitem
+
+import "github.com/chrisbward/templstrap.io/pkg/base"
+import "strings"
+
+type PaginationItemProps struct {
+	base.ElementProps
+    IsActive bool
+    AriaLabel string
+    TextValue string
+    BuiltURL string
+}
+const RootClassNamePageItem = "page-item"
+
+
+func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (classes string) {
+	classNames := []string{RootClassNamePageItem}
+
+	if isDisabled { 
+		classNames = append(classNames, "disabled")
+	}
+	if isActive { 
+		classNames = append(classNames, "active")
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+
+templ Show(props PaginationItemProps) {
+    <li 
+        class={props.BuildClassName(props.IsActive , props.IsDisabled)}
+    ><a class="page-link" href={ templ.SafeURL(props.BuiltURL) } aria-label={ props.AriaLabel }>{ props.TextValue }</a></li>
+}
