@@ -38,7 +38,9 @@ type PreviousButtonOptions struct {
 }
 
 type PaginationItemsProps struct {
-	HTMXAttributes *base.HTMXProps
+	base.ElementProps
+
+	// HTMXAttributes *base.HTMXProps
 }
 
 type PaginationProps struct {
@@ -62,14 +64,15 @@ func (pp PaginationProps) BuildClassName() (classes string) {
 	return
 }
 
-func (pp PaginationProps) GetHTMXAttributesForItems() base.HTMXProps {
+func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementProps {
 
-	if pp.PaginationItemsProps.HTMXAttributes != nil {
-		return *pp.PaginationItemsProps.HTMXAttributes
-	}
+	elementProps := pp.PaginationItemsProps.ElementProps
 
-	return base.HTMXProps{}
+	elementProps.IsDisabled = pp.PageConditions.IsPageDisabled(pageNumber)
+
+	return elementProps
 }
+ 
 
 templ Show(props PaginationProps) {
 	<nav aria-label="Pagination">
@@ -87,10 +90,7 @@ templ Show(props PaginationProps) {
 			}
 			for iLoopA := 1; iLoopA < props.PageConditions.TotalPageCount+1; iLoopA++ { 
 				@paginationitem.Show(paginationitem.PaginationItemProps{
-					ElementProps: base.ElementProps{
-						IsDisabled: props.PageConditions.IsPageDisabled(iLoopA),
-						HTMX: props.GetHTMXAttributesForItems(),
-					},
+					ElementProps: props.GetElementPropsForItem(iLoopA),
 					IsActive: props.PageConditions.IsCurrentPage(iLoopA),
 					AriaLabel: fmt.Sprintf("Go to page %d", iLoopA),
 					TextValue: fmt.Sprintf("%d", iLoopA),
