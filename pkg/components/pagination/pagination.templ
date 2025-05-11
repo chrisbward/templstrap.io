@@ -1,0 +1,91 @@
+package pagination
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
+	"fmt" 
+)
+
+const RootClassName = "pagination"
+const RootClassNamePageItem = "page-item"
+
+type AlignmentType string
+
+const JustifyContentCenterAlignmentType AlignmentType = "justify-content-center"
+const JustifyContentEndAlignmentType AlignmentType = "justify-content-end"
+
+type PageConditions struct {
+	CurrentPage int
+	TotalPageCount int
+	PageIsDisabledUnderCondition *func(pageNumber int) bool
+}
+func (pc *PageConditions) IsCurrentPage(pageNumber int) bool { 
+	return pc.CurrentPage == pageNumber
+}
+func (pc *PageConditions) IsPageDisabled(pageNumber int) bool {
+	if pc.PageIsDisabledUnderCondition != nil {
+		return false
+	}
+	return (*pc.PageIsDisabledUnderCondition)(pageNumber)
+}
+
+func (pc *PageConditions) HasNextPage() bool {
+	return pc.CurrentPage < pc.TotalPageCount 
+}
+type PreviousButtonOptions struct {
+	ShouldPersist bool
+	IsDisabled bool
+}
+
+type PaginationProps struct {
+	base.ElementProps
+	Alignment AlignmentType
+	PageConditions PageConditions
+	PreviousButtonOptions PreviousButtonOptions
+}
+
+func (pp PaginationProps) BuildClassName() (classes string) {
+	classNames := []string{RootClassName} 
+	
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+
+func (pp PaginationProps) BuildPageItemClassName(isActive bool, isDisabled bool) (classes string) {
+	classNames := []string{RootClassNamePageItem}
+
+	if isDisabled { 
+		classNames = append(classNames, "disabled")
+	}
+	if isActive { 
+		classNames = append(classNames, "active")
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+
+templ Show(props PaginationProps) {
+	<nav aria-label="Pagination">
+		<ul class={ props.BuildClassName() }>
+			if props.PreviousButtonOptions.ShouldPersist {
+				<li class={props.BuildPageItemClassName(false , props.PreviousButtonOptions.IsDisabled)}><a class="page-link" href="#" aria-label="Visit the previous page">Previous</a></li>
+			}
+			for iLoopA := 0; iLoopA < props.PageConditions.TotalPageCount; iLoopA++ { 
+				<li class={
+					props.BuildPageItemClassName(
+						props.PageConditions.IsPageDisabled(iLoopA), 
+						props.PageConditions.IsCurrentPage(iLoopA),
+					),
+				}><a class="page-link" href="#">{ fmt.Sprintf("%d", iLoopA) } </a></li>
+			}
+			if props.PageConditions.HasNextPage() {
+				<li class={props.BuildPageItemClassName(false , false)}><a class="page-link" href="#">Next</a></li>
+			}
+		</ul>
+	</nav>
+}
