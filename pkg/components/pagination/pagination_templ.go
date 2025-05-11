@@ -148,8 +148,8 @@ func Show(props PaginationProps) templ.Component {
 		for iLoopA := 0; iLoopA < props.PageConditions.TotalPageCount; iLoopA++ {
 			var templ_7745c5c3_Var6 = []any{
 				props.BuildPageItemClassName(
-					props.PageConditions.IsPageDisabled(iLoopA),
 					props.PageConditions.IsCurrentPage(iLoopA),
+					props.PageConditions.IsPageDisabled(iLoopA),
 				),
 			}
 			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)

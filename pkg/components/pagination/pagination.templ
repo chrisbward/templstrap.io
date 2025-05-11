@@ -78,8 +78,8 @@ templ Show(props PaginationProps) {
 			for iLoopA := 0; iLoopA < props.PageConditions.TotalPageCount; iLoopA++ { 
 				<li class={
 					props.BuildPageItemClassName(
-						props.PageConditions.IsPageDisabled(iLoopA), 
 						props.PageConditions.IsCurrentPage(iLoopA),
+						props.PageConditions.IsPageDisabled(iLoopA), 
 					),
 				}><a class="page-link" href="#">{ fmt.Sprintf("%d", iLoopA) } </a></li>
 			}
