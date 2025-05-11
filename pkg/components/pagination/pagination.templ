@@ -71,6 +71,7 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 	elementProps.IsDisabled = pp.PageConditions.IsPageDisabled(pageNumber)
 
 	elementProps.ExtraAttributes["hx-get"] = fmt.Sprintf(elementProps.ExtraAttributes["hx-get"].(string), pageNumber )
+	elementProps.HTMX.ReplaceURL =  fmt.Sprintf(elementProps.HTMX.ReplaceURL, pageNumber )
 
 	return elementProps
 }
