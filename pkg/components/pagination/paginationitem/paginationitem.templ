@@ -32,6 +32,14 @@ func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (cl
 	return
 }
 
+func (pp PaginationItemProps) RebuildHTMXAttributes() (htmxAttributes map[string]any) {
+
+    htmxAttrs := pp.HTMX.GetAttributes()
+    htmxAttrs["hx-replace-url"] = templ.SafeURL(pp.BuiltURL)
+
+    return 
+}
+
 
 templ Show(props PaginationItemProps) {
     <li 
@@ -42,7 +50,7 @@ templ Show(props PaginationItemProps) {
             href={ templ.SafeURL(props.BuiltURL) } 
             aria-label={ props.AriaLabel }
             { props.ExtraAttributes... }
-			{ props.HTMX.GetAttributes()... }
+			{ props.RebuildHTMXAttributes()... }
         >@templ.Raw(props.Content)</a>
     </li>
 }
