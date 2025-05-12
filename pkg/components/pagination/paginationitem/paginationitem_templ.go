@@ -15,7 +15,7 @@ type PaginationItemProps struct {
 	base.ElementProps
 	IsActive  bool
 	AriaLabel string
-	TextValue string
+	Content   string
 	BuiltURL  string
 }
 
@@ -114,12 +114,7 @@ func Show(props PaginationItemProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(props.TextValue)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/pagination/paginationitem/paginationitem.templ`, Line: 46, Col: 26}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		templ_7745c5c3_Err = templ.Raw(props.Content).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

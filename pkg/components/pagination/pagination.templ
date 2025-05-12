@@ -32,9 +32,10 @@ func (pc *PageConditions) IsPageDisabled(pageNumber int) bool {
 func (pc *PageConditions) HasNextPage() bool {
 	return pc.CurrentPage < pc.TotalPageCount 
 }
-type PreviousButtonOptions struct {
+type PaginationButtonOptions struct {
 	ShouldPersist bool
 	IsDisabled bool
+	Content string
 }
 
 type PaginationItemsProps struct {
@@ -43,16 +44,37 @@ type PaginationItemsProps struct {
 	// HTMXAttributes *base.HTMXProps
 }
 
+type PaginationContolsOptions struct {
+	PreviousButtonOptions PaginationButtonOptions
+	NextButtonOptions PaginationButtonOptions
+}
+
+func (pco PaginationContolsOptions) GetPreviousButtonContent() string {
+
+	if pco.PreviousButtonOptions.Content == "" {
+		return "Previous"
+	}
+	return pco.PreviousButtonOptions.Content
+}
+
+func (pco PaginationContolsOptions) GetNextButtonContent() string {
+
+	if pco.NextButtonOptions.Content == "" {
+		return "Next"
+	}
+	return pco.NextButtonOptions.Content
+}
+
 type PaginationProps struct {
 	base.ElementProps
 	Alignment AlignmentType
 	PageConditions PageConditions
-	PreviousButtonOptions PreviousButtonOptions
+	PaginationContolsOptions PaginationContolsOptions
 	PaginationItemsProps PaginationItemsProps
 }
 
 func (pc *PaginationProps) IsPreviousButtonDisabled() bool { 
-	return pc.PageConditions.CurrentPage == 1 || pc.PreviousButtonOptions.IsDisabled
+	return pc.PageConditions.CurrentPage == 1 || pc.PaginationContolsOptions.PreviousButtonOptions.IsDisabled
 }
 
 
@@ -95,7 +117,7 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 templ Show(props PaginationProps) {
 	<nav aria-label="Pagination">
 		<ul class={ props.BuildClassName() }>
-			if props.PreviousButtonOptions.ShouldPersist  {
+			if props.PaginationContolsOptions.PreviousButtonOptions.ShouldPersist  {
 				@paginationitem.Show(paginationitem.PaginationItemProps{
 					ElementProps: base.ElementProps{
 						IsDisabled: props.IsPreviousButtonDisabled(),
@@ -103,7 +125,7 @@ templ Show(props PaginationProps) {
 					},
 					IsActive: false,
 					AriaLabel: "Visit the previous page",
-					TextValue: "Previous",
+					Content: props.PaginationContolsOptions.GetPreviousButtonContent(),
 					BuiltURL: "#",
 				})
 			}
@@ -112,7 +134,7 @@ templ Show(props PaginationProps) {
 					ElementProps: props.GetElementPropsForItem(iLoopA),
 					IsActive: props.PageConditions.IsCurrentPage(iLoopA),
 					AriaLabel: fmt.Sprintf("Go to page %d", iLoopA),
-					TextValue: fmt.Sprintf("%d", iLoopA),
+					Content: fmt.Sprintf("%d", iLoopA),
 					BuiltURL: "#",
 				})
 			}
@@ -123,7 +145,7 @@ templ Show(props PaginationProps) {
 					},
 					IsActive: false,
 					AriaLabel: "Visit the next page",
-					TextValue: "Next",
+					Content: props.PaginationContolsOptions.GetNextButtonContent(),
 					BuiltURL: "#",
 				})
 			}

@@ -42,9 +42,10 @@ func (pc *PageConditions) HasNextPage() bool {
 	return pc.CurrentPage < pc.TotalPageCount
 }
 
-type PreviousButtonOptions struct {
+type PaginationButtonOptions struct {
 	ShouldPersist bool
 	IsDisabled    bool
+	Content       string
 }
 
 type PaginationItemsProps struct {
@@ -53,16 +54,37 @@ type PaginationItemsProps struct {
 	// HTMXAttributes *base.HTMXProps
 }
 
+type PaginationContolsOptions struct {
+	PreviousButtonOptions PaginationButtonOptions
+	NextButtonOptions     PaginationButtonOptions
+}
+
+func (pco PaginationContolsOptions) GetPreviousButtonContent() string {
+
+	if pco.PreviousButtonOptions.Content == "" {
+		return "Previous"
+	}
+	return pco.PreviousButtonOptions.Content
+}
+
+func (pco PaginationContolsOptions) GetNextButtonContent() string {
+
+	if pco.NextButtonOptions.Content == "" {
+		return "Next"
+	}
+	return pco.NextButtonOptions.Content
+}
+
 type PaginationProps struct {
 	base.ElementProps
-	Alignment             AlignmentType
-	PageConditions        PageConditions
-	PreviousButtonOptions PreviousButtonOptions
-	PaginationItemsProps  PaginationItemsProps
+	Alignment                AlignmentType
+	PageConditions           PageConditions
+	PaginationContolsOptions PaginationContolsOptions
+	PaginationItemsProps     PaginationItemsProps
 }
 
 func (pc *PaginationProps) IsPreviousButtonDisabled() bool {
-	return pc.PageConditions.CurrentPage == 1 || pc.PreviousButtonOptions.IsDisabled
+	return pc.PageConditions.CurrentPage == 1 || pc.PaginationContolsOptions.PreviousButtonOptions.IsDisabled
 }
 
 func (pp PaginationProps) BuildClassName() (classes string) {
@@ -143,7 +165,7 @@ func Show(props PaginationProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if props.PreviousButtonOptions.ShouldPersist {
+		if props.PaginationContolsOptions.PreviousButtonOptions.ShouldPersist {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
 				ElementProps: base.ElementProps{
 					IsDisabled:        props.IsPreviousButtonDisabled(),
@@ -151,7 +173,7 @@ func Show(props PaginationProps) templ.Component {
 				},
 				IsActive:  false,
 				AriaLabel: "Visit the previous page",
-				TextValue: "Previous",
+				Content:   props.PaginationContolsOptions.GetPreviousButtonContent(),
 				BuiltURL:  "#",
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
@@ -163,7 +185,7 @@ func Show(props PaginationProps) templ.Component {
 				ElementProps: props.GetElementPropsForItem(iLoopA),
 				IsActive:     props.PageConditions.IsCurrentPage(iLoopA),
 				AriaLabel:    fmt.Sprintf("Go to page %d", iLoopA),
-				TextValue:    fmt.Sprintf("%d", iLoopA),
+				Content:      fmt.Sprintf("%d", iLoopA),
 				BuiltURL:     "#",
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
@@ -177,7 +199,7 @@ func Show(props PaginationProps) templ.Component {
 				},
 				IsActive:  false,
 				AriaLabel: "Visit the next page",
-				TextValue: "Next",
+				Content:   props.PaginationContolsOptions.GetNextButtonContent(),
 				BuiltURL:  "#",
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {

@@ -7,7 +7,7 @@ type PaginationItemProps struct {
 	base.ElementProps
     IsActive bool
     AriaLabel string
-    TextValue string
+    Content string
     BuiltURL string
 }
 const RootClassNamePageItem = "page-item"
@@ -43,6 +43,6 @@ templ Show(props PaginationItemProps) {
             aria-label={ props.AriaLabel }
             { props.ExtraAttributes... }
 			{ props.HTMX.GetAttributes()... }
-        >{ props.TextValue }</a>
+        >@templ.Raw(props.Content)</a>
     </li>
 }
