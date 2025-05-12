@@ -42,7 +42,7 @@ func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (cl
 }
 
 func (pp PaginationItemProps) RebuildHTMXAttributes() (htmxAttributes map[string]any) {
-
+	htmxAttributes = make(map[string]any)
 	htmxAttributes = pp.HTMX.GetAttributes()
 	htmxAttributes["hx-replace-url"] = templ.SafeURL(pp.BuiltURL)
 	logrus.Infoln("hx-replace-url value", htmxAttributes["hx-replace-url"])
