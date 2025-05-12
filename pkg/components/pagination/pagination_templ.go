@@ -142,7 +142,8 @@ func Show(props PaginationProps) templ.Component {
 		if props.PreviousButtonOptions.ShouldPersist {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
 				ElementProps: base.ElementProps{
-					IsDisabled: props.IsPreviousButtonDisabled(),
+					IsDisabled:        props.IsPreviousButtonDisabled(),
+					AdditionalClasses: []string{"previous"},
 				},
 				IsActive:  false,
 				AriaLabel: "Visit the previous page",
@@ -167,6 +168,9 @@ func Show(props PaginationProps) templ.Component {
 		}
 		if props.PageConditions.HasNextPage() {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
+				ElementProps: base.ElementProps{
+					AdditionalClasses: []string{"next"},
+				},
 				IsActive:  false,
 				AriaLabel: "Visit the next page",
 				TextValue: "Next",

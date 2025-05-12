@@ -95,6 +95,7 @@ templ Show(props PaginationProps) {
 				@paginationitem.Show(paginationitem.PaginationItemProps{
 					ElementProps: base.ElementProps{
 						IsDisabled: props.IsPreviousButtonDisabled(),
+						AdditionalClasses: []string{"previous"},
 					},
 					IsActive: false,
 					AriaLabel: "Visit the previous page",
@@ -113,6 +114,9 @@ templ Show(props PaginationProps) {
 			}
 			if props.PageConditions.HasNextPage() {
 				@paginationitem.Show(paginationitem.PaginationItemProps{
+					ElementProps: base.ElementProps{
+						AdditionalClasses: []string{"next"},
+					},
 					IsActive: false,
 					AriaLabel: "Visit the next page",
 					TextValue: "Next",
