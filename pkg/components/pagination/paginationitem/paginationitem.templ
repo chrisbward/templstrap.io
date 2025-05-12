@@ -23,6 +23,10 @@ func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (cl
 		classNames = append(classNames, "active")
 	}
 
+    if pp.AdditionalClasses != nil {
+		classNames = append(classNames, pp.AdditionalClasses...)
+	}
+
 	classes = strings.Join(classNames, " ")
 
 	return

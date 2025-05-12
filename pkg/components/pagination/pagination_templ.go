@@ -68,6 +68,10 @@ func (pc *PaginationProps) IsPreviousButtonDisabled() bool {
 func (pp PaginationProps) BuildClassName() (classes string) {
 	classNames := []string{RootClassName}
 
+	if pp.AdditionalClasses != nil {
+		classNames = append(classNames, pp.AdditionalClasses...)
+	}
+
 	classes = strings.Join(classNames, " ")
 
 	return
