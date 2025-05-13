@@ -34,14 +34,12 @@ func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (cl
 }
 
 func (pp PaginationItemProps) RebuildHTMXAttributes() (htmxAttributes map[string]any) {
-    // pp.HTMX.ReplaceURL = pp.BuiltURL 
-    
-    htmxAttributes = make(map[string]any)
-    for k, v := range pp.HTMX.GetAttributes() {
-		htmxAttributes[k] = v
-	}
+    // htmxAttributes = make(map[string]any)
+    // for k, v := range pp.HTMX.GetAttributes() {
+	// 	htmxAttributes[k] = v
+	// }
+    htmxAttributes = pp.HTMX.GetAttributes()
     htmxAttributes["hx-replace-url"] = pp.BuiltURL 
-    logrus.Infoln("hx-replace-url value", htmxAttributes["hx-replace-url"])
 
     return 
 }
