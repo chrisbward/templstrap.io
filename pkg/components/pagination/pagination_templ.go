@@ -141,9 +141,11 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 		for k, v := range elementProps.ExtraAttributes {
 			newExtraAttributes[k] = v
 		}
-		newExtraAttributes["hx-getx"] = fmt.Sprintf("%s%s", pp.RootResultsURL, pp.ReconstructURL(pageNumber))
-		logrus.Infoln("hx-getx", newExtraAttributes["hx-getx"])
+		newExtraAttributes["hx-get"] = fmt.Sprintf("%s%s", pp.RootResultsURL, pp.ReconstructURL(pageNumber))
+		logrus.Infoln("hx-get", newExtraAttributes["hx-get"])
 	}
+
+	logrus.Infoln("newExtraAttributes", newExtraAttributes)
 
 	return base.ElementProps{
 		ExtraAttributes: newExtraAttributes,
