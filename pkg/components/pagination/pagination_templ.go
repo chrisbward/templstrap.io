@@ -106,7 +106,7 @@ func (pp *PaginationProps) ReconstructURL(desiredPageNumber int) string {
 	if pp.BuildURLCallback == nil {
 		return fmt.Sprintf("?pagination=true&page=%d", desiredPageNumber)
 	}
-	return pp.RootURL + (*pp.BuildURLCallback)(desiredPageNumber)
+	return (*pp.BuildURLCallback)(desiredPageNumber)
 }
 
 func (pc *PaginationProps) IsPreviousButtonDisabled() bool {
