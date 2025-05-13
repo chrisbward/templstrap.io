@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/components/pagination/paginationitem"
-	"github.com/sirupsen/logrus"
 	"strings"
 )
 
@@ -131,16 +130,11 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 	for k, v := range elementProps.ExtraAttributes {
 		newExtraAttributes[k] = v
 	}
-	newExtraAttributes["hx-get"] = fmt.Sprintf(newExtraAttributes["hx-get"].(string), pageNumber)
-
-	newHTMXAttributes := elementProps.HTMX
-	newHTMXAttributes.ReplaceURL = fmt.Sprintf(elementProps.HTMX.ReplaceURL, pageNumber)
-
-	logrus.Infoln("SETTING NEW REPLACEURL", newHTMXAttributes.ReplaceURL)
+	newExtraAttributes["hx-get"] = fmt.Sprintf("%s%s", newExtraAttributes["hx-get"].(string), pp.ReconstructURL(pageNumber))
 
 	return base.ElementProps{
 		ExtraAttributes: newExtraAttributes,
-		HTMX:            newHTMXAttributes,
+		HTMX:            elementProps.HTMX,
 		IsDisabled:      elementProps.IsDisabled,
 	}
 }

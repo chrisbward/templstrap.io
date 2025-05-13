@@ -33,10 +33,6 @@ func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (cl
 }
 
 func (pp PaginationItemProps) RebuildHTMXAttributes() (htmxAttributes map[string]any) {
-    // htmxAttributes = make(map[string]any)
-    // for k, v := range pp.HTMX.GetAttributes() {
-	// 	htmxAttributes[k] = v
-	// }
     htmxAttributes = pp.HTMX.GetAttributes()
     htmxAttributes["hx-replace-url"] = pp.BuiltURL 
 
