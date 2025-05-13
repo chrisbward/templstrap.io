@@ -94,7 +94,7 @@ func (pp *PaginationProps) ReconstructURL(desiredPageNumber int) string {
 		desiredPageNumber = pp.PageConditions.CurrentPage + 1
 	}
 	if pp.BuildURLCallback == nil {
-		return fmt.Sprintf("%s?pagination=true&page=%d", pp.RootURL, desiredPageNumber)
+		return fmt.Sprintf("?pagination=true&page=%d",  desiredPageNumber)
 	}
 	return pp.RootURL + (*pp.BuildURLCallback)(desiredPageNumber)
 }
@@ -158,7 +158,7 @@ templ Show(props PaginationProps) {
 					IsActive: false,
 					AriaLabel: "Visit the previous page",
 					Content: props.PaginationContolsOptions.GetPreviousButtonContent(),
-					BuiltURL: props.ReconstructURL(PreviousPagePaginationPageReferenceType),
+					BuiltURL: props.RootURL + props.ReconstructURL(PreviousPagePaginationPageReferenceType),
 				})
 			}
 			for iLoopA := 1; iLoopA < props.PageConditions.TotalPageCount+1; iLoopA++ { 
@@ -167,7 +167,7 @@ templ Show(props PaginationProps) {
 					IsActive: props.PageConditions.IsCurrentPage(iLoopA),
 					AriaLabel: fmt.Sprintf("Go to page %d", iLoopA),
 					Content: fmt.Sprintf("%d", iLoopA),
-					BuiltURL: props.ReconstructURL(iLoopA),
+					BuiltURL: props.RootURL + props.ReconstructURL(iLoopA),
 				})
 			}
 			if props.PageConditions.HasNextPage() {
@@ -177,7 +177,7 @@ templ Show(props PaginationProps) {
 					IsActive: false,
 					AriaLabel: "Visit the next page",
 					Content: props.PaginationContolsOptions.GetNextButtonContent(),
-					BuiltURL: props.ReconstructURL(NextPagePaginationPageReferenceType),
+					BuiltURL: props.RootURL + props.ReconstructURL(NextPagePaginationPageReferenceType),
 				})
 			}
 		</ul>

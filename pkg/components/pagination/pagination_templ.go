@@ -104,7 +104,7 @@ func (pp *PaginationProps) ReconstructURL(desiredPageNumber int) string {
 		desiredPageNumber = pp.PageConditions.CurrentPage + 1
 	}
 	if pp.BuildURLCallback == nil {
-		return fmt.Sprintf("%s?pagination=true&page=%d", pp.RootURL, desiredPageNumber)
+		return fmt.Sprintf("?pagination=true&page=%d", desiredPageNumber)
 	}
 	return pp.RootURL + (*pp.BuildURLCallback)(desiredPageNumber)
 }
@@ -209,7 +209,7 @@ func Show(props PaginationProps) templ.Component {
 				IsActive:         false,
 				AriaLabel:        "Visit the previous page",
 				Content:          props.PaginationContolsOptions.GetPreviousButtonContent(),
-				BuiltURL:         props.ReconstructURL(PreviousPagePaginationPageReferenceType),
+				BuiltURL:         props.RootURL + props.ReconstructURL(PreviousPagePaginationPageReferenceType),
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -221,7 +221,7 @@ func Show(props PaginationProps) templ.Component {
 				IsActive:     props.PageConditions.IsCurrentPage(iLoopA),
 				AriaLabel:    fmt.Sprintf("Go to page %d", iLoopA),
 				Content:      fmt.Sprintf("%d", iLoopA),
-				BuiltURL:     props.ReconstructURL(iLoopA),
+				BuiltURL:     props.RootURL + props.ReconstructURL(iLoopA),
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -234,7 +234,7 @@ func Show(props PaginationProps) templ.Component {
 				IsActive:     false,
 				AriaLabel:    "Visit the next page",
 				Content:      props.PaginationContolsOptions.GetNextButtonContent(),
-				BuiltURL:     props.ReconstructURL(NextPagePaginationPageReferenceType),
+				BuiltURL:     props.RootURL + props.ReconstructURL(NextPagePaginationPageReferenceType),
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
