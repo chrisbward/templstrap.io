@@ -188,13 +188,13 @@ func Show(props PaginationProps) templ.Component {
 		if props.PaginationContolsOptions.PreviousButtonOptions.ShouldPersist {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
 				ElementProps: base.ElementProps{
-					IsDisabled:        props.IsPreviousButtonDisabled(),
-					AdditionalClasses: []string{"previous"},
+					IsDisabled: props.IsPreviousButtonDisabled(),
 				},
-				IsActive:  false,
-				AriaLabel: "Visit the previous page",
-				Content:   props.PaginationContolsOptions.GetPreviousButtonContent(),
-				BuiltURL:  props.ReconstructURL(PreviousPagePaginationPageReferenceType),
+				IsPreviousButton: true,
+				IsActive:         false,
+				AriaLabel:        "Visit the previous page",
+				Content:          props.PaginationContolsOptions.GetPreviousButtonContent(),
+				BuiltURL:         props.ReconstructURL(PreviousPagePaginationPageReferenceType),
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -214,11 +214,11 @@ func Show(props PaginationProps) templ.Component {
 		}
 		if props.PageConditions.HasNextPage() {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
-
-				IsActive:  false,
-				AriaLabel: "Visit the next page",
-				Content:   props.PaginationContolsOptions.GetNextButtonContent(),
-				BuiltURL:  props.ReconstructURL(NextPagePaginationPageReferenceType),
+				IsNextButton: true,
+				IsActive:     false,
+				AriaLabel:    "Visit the next page",
+				Content:      props.PaginationContolsOptions.GetNextButtonContent(),
+				BuiltURL:     props.ReconstructURL(NextPagePaginationPageReferenceType),
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
