@@ -68,6 +68,8 @@ func (pco PaginationContolsOptions) GetNextButtonContent() string {
 
 type PaginationProps struct {
 	base.ElementProps
+	RootURL string
+	RootResultsURL string
 	Alignment AlignmentType
 	PageConditions PageConditions
 	PaginationContolsOptions PaginationContolsOptions
@@ -91,7 +93,7 @@ func (pp *PaginationProps) ReconstructURL(desiredPageNumber int) string {
 		desiredPageNumber = pp.PageConditions.CurrentPage + 1
 	}
 	if pp.BuildURLCallback == nil {
-		return fmt.Sprintf("?hasPagination=true&page=%d",desiredPageNumber)
+		return fmt.Sprintf("%s?pagination=true&page=%d", pp.RootURL, desiredPageNumber)
 	}
 	return (*pp.BuildURLCallback)(desiredPageNumber)
 }
@@ -128,7 +130,7 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 	for k, v := range elementProps.ExtraAttributes {
 		newExtraAttributes[k] = v
 	}
-	newExtraAttributes["hx-get"] = fmt.Sprintf("%s%s", newExtraAttributes["hx-get"].(string), pp.ReconstructURL(pageNumber))
+	newExtraAttributes["hx-get"] = fmt.Sprintf("%s%s", pp.RootResultsURL, pp.ReconstructURL(pageNumber))
  
 	return base.ElementProps{
 		ExtraAttributes: newExtraAttributes,
