@@ -2,7 +2,6 @@ package paginationitem
 
 import "github.com/chrisbward/templstrap.io/pkg/base"
 import "strings"
-import "github.com/sirupsen/logrus"
 
 type PaginationItemProps struct {
 	base.ElementProps
@@ -47,19 +46,9 @@ func (pp PaginationItemProps) RebuildHTMXAttributes() (htmxAttributes map[string
     htmxAttributes["hx-replace-url"] = pp.BuiltURL 
 
     return 
-}
-func Debug(props PaginationItemProps) templ.Component {
-	logrus.Debugln("debugging props")
-	logrus.Infoln(props)
-	logrus.Infoln(props.ExtraAttributes)
-
-	return templ.ComponentFunc(templ.NopComponent)
-}
-
+} 
 
 templ Show(props PaginationItemProps) {
-	@Debug(props)
-
     <li 
         class={props.BuildClassName()}
     >
