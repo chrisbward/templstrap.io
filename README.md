@@ -21,10 +21,8 @@ and will need further testing
 components to finish;
 - collapse
 - listgroup
-- modal
-- pagination
+- modal 
 - placeholders
 - popovers
 - toasts
-- tooltips
-- blockquote
+- tooltips 
