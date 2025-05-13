@@ -13,22 +13,30 @@ import "strings"
 
 type PaginationItemProps struct {
 	base.ElementProps
-	IsActive  bool
-	AriaLabel string
-	Content   string
-	BuiltURL  string
+	IsPreviousButton bool
+	IsNextButton     bool
+	IsActive         bool
+	AriaLabel        string
+	Content          string
+	BuiltURL         string
 }
 
 const RootClassNamePageItem = "page-item"
 
-func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (classes string) {
+func (pp PaginationItemProps) BuildClassName() (classes string) {
 	classNames := []string{RootClassNamePageItem}
 
-	if isDisabled {
+	if pp.IsDisabled {
 		classNames = append(classNames, "disabled")
 	}
-	if isActive {
+	if pp.IsActive {
 		classNames = append(classNames, "active")
+	}
+	if pp.IsPreviousButton {
+		classNames = append(classNames, "previous")
+	}
+	if pp.IsNextButton {
+		classNames = append(classNames, "next")
 	}
 
 	if pp.AdditionalClasses != nil {
@@ -65,7 +73,7 @@ func Show(props PaginationItemProps) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{props.BuildClassName(props.IsActive, props.IsDisabled)}
+		var templ_7745c5c3_Var2 = []any{props.BuildClassName()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -99,7 +107,7 @@ func Show(props PaginationItemProps) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(props.AriaLabel)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/pagination/paginationitem/paginationitem.templ`, Line: 50, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/pagination/paginationitem/paginationitem.templ`, Line: 59, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {

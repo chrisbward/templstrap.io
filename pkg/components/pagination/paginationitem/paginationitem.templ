@@ -5,6 +5,8 @@ import "strings"
 
 type PaginationItemProps struct {
 	base.ElementProps
+    IsPreviousButton bool
+    IsNextButton bool
     IsActive bool
     AriaLabel string
     Content string
@@ -13,15 +15,22 @@ type PaginationItemProps struct {
 const RootClassNamePageItem = "page-item"
 
 
-func (pp PaginationItemProps) BuildClassName(isActive bool, isDisabled bool) (classes string) {
+func (pp PaginationItemProps) BuildClassName() (classes string) {
 	classNames := []string{RootClassNamePageItem}
 
-	if isDisabled { 
+	if pp.IsDisabled { 
 		classNames = append(classNames, "disabled")
 	}
-	if isActive { 
+	if pp.IsActive { 
 		classNames = append(classNames, "active")
 	}
+    if pp.IsPreviousButton {
+		classNames = append(classNames, "previous")
+    }
+    if pp.IsNextButton {
+		classNames = append(classNames, "next")
+    }
+
 
     if pp.AdditionalClasses != nil {
 		classNames = append(classNames, pp.AdditionalClasses...)
@@ -42,7 +51,7 @@ func (pp PaginationItemProps) RebuildHTMXAttributes() (htmxAttributes map[string
 
 templ Show(props PaginationItemProps) {
     <li 
-        class={props.BuildClassName(props.IsActive , props.IsDisabled)}
+        class={props.BuildClassName()}
     >
         <a 
             class="page-link" 

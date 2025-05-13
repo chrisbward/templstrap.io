@@ -44,6 +44,8 @@ type PaginationItemsProps struct {
 }
 
 type PaginationContolsOptions struct {
+	IsPreviousButton bool
+	IsNextButton bool
 	PreviousButtonOptions PaginationButtonOptions
 	NextButtonOptions PaginationButtonOptions
 }
@@ -156,10 +158,8 @@ templ Show(props PaginationProps) {
 				})
 			}
 			if props.PageConditions.HasNextPage() {
-				@paginationitem.Show(paginationitem.PaginationItemProps{
-					ElementProps: base.ElementProps{
-						AdditionalClasses: []string{"next"},
-					},
+				@paginationitem.Show(paginationitem.PaginationItemProps{ 
+					
 					IsActive: false,
 					AriaLabel: "Visit the next page",
 					Content: props.PaginationContolsOptions.GetNextButtonContent(),
