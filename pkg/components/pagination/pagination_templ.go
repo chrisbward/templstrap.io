@@ -126,7 +126,11 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 
 	elementProps := pp.PaginationItemsProps.ElementProps
 
-	elementProps.IsDisabled = pp.PageConditions.IsPageDisabled(pageNumber)
+	if pageNumber == PreviousPagePaginationPageReferenceType {
+		elementProps.IsDisabled = pp.IsPreviousButtonDisabled()
+	} else {
+		elementProps.IsDisabled = pp.PageConditions.IsPageDisabled(pageNumber)
+	}
 
 	newExtraAttributes := make(map[string]any, len(elementProps.ExtraAttributes))
 	for k, v := range elementProps.ExtraAttributes {
@@ -187,9 +191,10 @@ func Show(props PaginationProps) templ.Component {
 		}
 		if props.PaginationContolsOptions.PreviousButtonOptions.ShouldPersist {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
-				ElementProps: base.ElementProps{
-					IsDisabled: props.IsPreviousButtonDisabled(),
-				},
+				ElementProps: props.GetElementPropsForItem(PreviousPagePaginationPageReferenceType),
+				// ElementProps: base.ElementProps{
+				// 	IsDisabled: props.IsPreviousButtonDisabled(),
+				// },
 				IsPreviousButton: true,
 				IsActive:         false,
 				AriaLabel:        "Visit the previous page",
@@ -214,6 +219,7 @@ func Show(props PaginationProps) templ.Component {
 		}
 		if props.PageConditions.HasNextPage() {
 			templ_7745c5c3_Err = paginationitem.Show(paginationitem.PaginationItemProps{
+				ElementProps: props.GetElementPropsForItem(NextPagePaginationPageReferenceType),
 				IsNextButton: true,
 				IsActive:     false,
 				AriaLabel:    "Visit the next page",
