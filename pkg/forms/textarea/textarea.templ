@@ -39,6 +39,7 @@ templ Show(props TextAreaProps) {
 		class="form-control"
 		class={ props.BuildClassNames() }
 		id={ props.Id }
+		placeholder={ props.Placeholder }
 		name={ props.Id }
 		rows={ fmt.Sprint(props.Rows) }
 		readonly?={ props.IsReadOnly }
