@@ -1,91 +1,94 @@
 package navitem 
 
 import (
-    "strings"
-    "github.com/chrisbward/templstrap.io/pkg/base" 
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
 )
 
 type NavsAndTabsContextProps struct {
 	//  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
-	Toggle string
-	Target string
-	Role string
+	Toggle       string
+	Target       string
+	Role         string
 	AriaSelected bool
 }
 
 type NavItemProps struct {
 	base.ElementProps
-	Name          string
-	Link          string
-	IsActive      bool
-	IsDisabled    bool
-	IsDropdown    bool
-	ChildNavItems []NavItemProps
+	Name                    string
+	Link                    string
+	IsActive                bool
+	IsDisabled              bool
+	IsDropdown              bool
+	ChildNavItems           []NavItemProps
 	NavsAndTabsContextProps *NavsAndTabsContextProps
 }
+
 const RootClassName = "nav-item"
 const RootClassNameNavLink = "nav-link"
 
 func (nip NavItemProps) BuildClassNames() (classes string) {
-    classNames := []string{RootClassName}
+	classNames := []string{RootClassName}
 
-    if nip.IsDropdown {
-        classNames = append(classNames, "dropdown")
-    }
+	if nip.IsDropdown {
+		classNames = append(classNames, "dropdown")
+	}
 
 	classes = strings.Join(classNames, " ")
 
-    return
+	return
 }
 
 func (nip NavItemProps) BuildClassNamesNavLink() (classes string) {
-    classNames := []string{RootClassNameNavLink}
+	classNames := []string{RootClassNameNavLink}
 
-    if nip.IsActive {
-        classNames = append(classNames, "active")
-    }
-    if nip.IsDisabled {
-        classNames = append(classNames, "disabled")
-    }
+	if nip.IsActive {
+		classNames = append(classNames, "active")
+	}
+	if nip.IsDisabled {
+		classNames = append(classNames, "disabled")
+	}
 
 	classes = strings.Join(classNames, " ")
 
-    return
+	return
 }
 
 templ Show(props NavItemProps) {
 	if props.IsDropdown {
 		<li class={ props.BuildClassNames() }>
-			<a 
-				class="nav-link dropdown-toggle" 
-				href="#" 
-				role="button" 
-				data-bs-toggle="dropdown" 
+			<a
+				class="nav-link dropdown-toggle"
+				href="#"
+				role="button"
+				data-bs-toggle="dropdown"
 				aria-expanded="false"
 				if props.NavsAndTabsContextProps != nil {
 					data-bs-toggle="tab"
-					data-bs-target={ "#" + props.NavsAndTabsContextProps.Target}
+					data-bs-target={ "#" + props.NavsAndTabsContextProps.Target }
 				}
+				{ props.ExtraAttributes... }
 			>
 				{ props.Name }
 			</a>
 			<ul class="dropdown-menu">
-                for _, childNavItem := range props.ChildNavItems {
-                    <li><a class="dropdown-item" href={templ.SafeURL(childNavItem.Link)}>{childNavItem.Name}</a></li>
-                }
+				for _, childNavItem := range props.ChildNavItems {
+					<li><a class="dropdown-item" href={ templ.SafeURL(childNavItem.Link) }>{ childNavItem.Name }</a></li>
+				}
 			</ul>
 		</li>
 	} else {
 		<li class={ props.BuildClassNames() }>
-			<a 
-				class={ props.BuildClassNamesNavLink() } 
-				aria-current="page" 
+			<a
+				class={ props.BuildClassNamesNavLink() }
+				aria-current="page"
 				if props.NavsAndTabsContextProps != nil {
 					data-bs-toggle="tab"
-					data-bs-target={ "#" + props.NavsAndTabsContextProps.Target}
+					data-bs-target={ "#" + props.NavsAndTabsContextProps.Target }
 				} else {
 					href={ templ.SafeURL(props.Link) }
 				}
+				{ props.ExtraAttributes... }
 			>{ props.Name }</a>
 		</li>
 	}
