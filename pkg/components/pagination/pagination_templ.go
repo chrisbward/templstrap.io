@@ -134,7 +134,7 @@ func (pp PaginationProps) GetElementPropsForItem(pageNumber int) base.ElementPro
 		elementProps.IsDisabled = pp.PageConditions.IsPageDisabled(pageNumber)
 	}
 
-	newExtraAttributes := make(map[string]any, len(elementProps.ExtraAttributes))
+	newExtraAttributes := make(templ.Attributes, len(elementProps.ExtraAttributes))
 	if pp.RootResultsURL != "" {
 		for k, v := range elementProps.ExtraAttributes {
 			newExtraAttributes[k] = v

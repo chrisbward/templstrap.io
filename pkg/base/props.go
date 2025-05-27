@@ -45,8 +45,8 @@ type HTMXProps struct {
 	HasHTML5Validation bool
 }
 
-func (hp *HTMXProps) GetAttributes() (htmxAttributes map[string]any) {
-	htmxAttributes = make(map[string]any)
+func (hp *HTMXProps) GetAttributes() (htmxAttributes templ.Attributes) {
+	htmxAttributes = make(templ.Attributes)
 
 	var htmxVersion HTMXVersion
 
@@ -113,7 +113,7 @@ type ElementProps struct {
 	AriaLabel         string
 	AriaDescribedById string
 	HTMX              HTMXProps
-	ExtraAttributes   map[string]any
+	ExtraAttributes   templ.Attributes
 }
 
 type FormElementProps struct {

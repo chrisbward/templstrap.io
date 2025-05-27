@@ -2,9 +2,9 @@ package inputfield
 
 import (
 	"fmt"
-	"strings"
-	"github.com/chrisbward/templstrap.io/pkg/base" 
+	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/testsuite/entities"
+	"strings"
 )
 
 const RootClassName = "form-control"
@@ -27,11 +27,10 @@ type InputProps struct {
 	Size                           SizeType
 	FieldValidationFeedbackMessage string
 	Validation                     entities.FormFieldValidation
-	ExtraAttributes                map[string]any
 
-	Min   float32
-	Max   float32
-	Step  float32
+	Min  float32
+	Max  float32
+	Step float32
 }
 
 func (ip InputProps) GetInputType() (inputType entities.FormFieldType) {
@@ -42,7 +41,7 @@ func (ip InputProps) GetInputType() (inputType entities.FormFieldType) {
 	}
 	return ip.Type
 }
- 
+
 func (ip InputProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
@@ -75,13 +74,13 @@ templ Show(props InputProps) {
 		required?={ props.Validation.IsRequired }
 		if props.GetInputType().InputType == entities.NumberType {
 			if props.Min != 0 {
-				min={fmt.Sprintf("%v",props.Min)}
+				min={ fmt.Sprintf("%v", props.Min) }
 			}
 			if props.Max != 0 {
-				max={fmt.Sprintf("%v",props.Max)}
+				max={ fmt.Sprintf("%v", props.Max) }
 			}
 			if props.Step != 0 {
-				step={fmt.Sprintf("%v",props.Step)}
+				step={ fmt.Sprintf("%v", props.Step) }
 			}
 		}
 		{ props.ExtraAttributes... }

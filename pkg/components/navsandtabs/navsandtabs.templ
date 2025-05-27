@@ -1,9 +1,9 @@
 package navsandtabs
 
 import (
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/components/navbar/navitem"
+	"strings"
 )
 
 const RootClassName = "nav"
@@ -27,7 +27,6 @@ type NavsAndTabsProps struct {
 	IsVertical          bool
 	HorizontalAlignment HorizontalAlignment
 	IsInteractive       bool
-	ExtraAttributes     map[string]any
 }
 
 func (natp NavsAndTabsProps) BuildClassNames() (classes string) {

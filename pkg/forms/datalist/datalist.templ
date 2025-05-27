@@ -1,28 +1,27 @@
 package datalist 
 
 import (
-    "fmt"
-    "strings"
+	"fmt"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/forms/inputfield"
 	"github.com/chrisbward/templstrap.io/testsuite/entities"
+	"strings"
 )
 
 const RootClassName = "form-control"
 
-
 type DatalistProps struct {
 	base.FormElementProps
-    Value                          string
+	Value                          string
 	Placeholder                    string
 	Type                           entities.FormFieldType
 	Size                           inputfield.SizeType
 	FieldValidationFeedbackMessage string
 	Validation                     entities.FormFieldValidation
-	ExtraAttributes                map[string]any
-	Items                          []base.FormListProps 
+	Items                          []base.FormListProps
 }
- func (dlp DatalistProps) GetInputType() (inputType entities.FormFieldType) {
+
+func (dlp DatalistProps) GetInputType() (inputType entities.FormFieldType) {
 	if dlp.Type.InputType == "" {
 		return entities.FormFieldType{
 			InputType: entities.TextType,
@@ -30,7 +29,7 @@ type DatalistProps struct {
 	}
 	return dlp.Type
 }
- 
+
 func (dlp DatalistProps) BuildClassNames() (classes string) {
 	classNames := []string{RootClassName}
 
@@ -49,8 +48,9 @@ func (dlp DatalistProps) BuildClassNames() (classes string) {
 
 	return
 }
+
 templ Show(props DatalistProps) {
-    <input
+	<input
 		type={ string(props.GetInputType().InputType) }
 		class={ props.BuildClassNames() }
 		value={ props.Value }
@@ -60,7 +60,7 @@ templ Show(props DatalistProps) {
 		readonly?={ props.IsReadOnly }
 		disabled?={ props.IsDisabled }
 		required?={ props.Validation.IsRequired }
-        list={ "datalist_" + props.Id }
+		list={ "datalist_" + props.Id }
 		{ props.ExtraAttributes... }
 		{ props.HTMX.GetAttributes()... }
 	/>
