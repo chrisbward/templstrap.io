@@ -1,0 +1,25 @@
+package tooltips
+
+type PlacementType string
+
+const TopPlacementType PlacementType = "top"
+const RightPlacementType PlacementType = "right"
+const BottomPlacementType PlacementType = "bottom"
+const LeftPlacementType PlacementType = "left"
+
+type TooptipProps struct {
+	LinkText    string
+	TooltipText string
+	Placement   PlacementType
+	WithHTML    string
+}
+
+templ Show(props TooptipProps) {
+	<a
+		href="#"
+		data-bs-toggle="tooltip"
+		data-bs-placement={ string(props.Placement) }
+		data-bs-html?={ props.WithHTML != "" }
+		data-bs-title={ props.TooltipText }
+	>@templ.Raw(props.LinkText)</a>
+}
