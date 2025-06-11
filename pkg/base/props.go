@@ -58,7 +58,7 @@ func (hp *HTMXProps) GetAttributes() (htmxAttributes templ.Attributes) {
 	fmt.Println(string(htmxVersion))
 
 	if hp.IsBoosted {
-		htmxAttributes["hx-boosted"] = "true"
+		htmxAttributes["hx-boost"] = "true"
 	}
 	if hp.Encoding != "" {
 		htmxAttributes["hx-encoding"] = hp.Encoding
