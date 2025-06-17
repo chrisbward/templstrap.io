@@ -1,8 +1,8 @@
 package formfield
 
 import (
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
 )
 
 type LayoutType string
@@ -29,6 +29,7 @@ type FormFieldProps struct {
 	FormTip        templ.Component
 	FloatingLabels bool
 	IsHidden       bool
+	IsInErroredState bool
 }
 
 func (ffp FormFieldProps) BuildClassNames() (classes string) {
@@ -61,6 +62,13 @@ func (ffp FormFieldProps) BuildClassNames() (classes string) {
 		classNames = append(
 			classNames,
 			"d-none",
+		)
+	}
+	
+	if ffp.IsInErroredState {
+		classNames = append(
+			classNames,
+			"in-error",
 		)
 	}
 
