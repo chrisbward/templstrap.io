@@ -46,7 +46,7 @@ templ Show(props TextAreaProps) {
 		required?={ props.Validation.IsRequired }
 		{ props.ExtraAttributes... }
 		{ props.HTMX.GetAttributes()... }
-	></textarea>
+	>{ props.Value }</textarea>
 	if props.Validation.ValidationState == entities.FieldIsInvalidValidationStatusType {
 		<div class="invalid-feedback">
 			{ props.FieldValidationFeedbackMessage }
