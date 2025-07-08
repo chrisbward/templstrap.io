@@ -61,7 +61,7 @@ func SelectOptions(options []*selectoption.SelectOptionProps, selectedItemValue 
 
 templ Show(props SelectProps) {
 	<select
-		class="form-select"
+		class={ props.BuildClassNames() }
 		aria-label={ props.AriaLabel }
 		disabled?={ props.IsDisabled }
 		required?={ props.Validation.IsRequired }
@@ -73,8 +73,11 @@ templ Show(props SelectProps) {
 		if props.SelectAnItemCue != "" {
 			<option value="" disabled required>{ props.SelectAnItemCue }</option>
 		}
-		for _, selectOptionProps := range SelectOptions(props.Options, props.SelectedItemValue) {
-			@selectoption.Show(*selectOptionProps)
+		if len(SelectOptions(props.Options, props.SelectedItemValue)) > 0 {
+			for _, selectOptionProps := range SelectOptions(props.Options, props.SelectedItemValue) {
+				@selectoption.Show(*selectOptionProps)
+			}
 		}
+		@templ.GetChildren(ctx)
 	</select>
 }
