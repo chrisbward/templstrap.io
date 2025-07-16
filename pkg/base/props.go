@@ -1,8 +1,6 @@
 package base
 
 import (
-	"fmt"
-
 	"github.com/a-h/templ"
 )
 
@@ -47,15 +45,6 @@ type HTMXProps struct {
 
 func (hp *HTMXProps) GetAttributes() (htmxAttributes templ.Attributes) {
 	htmxAttributes = make(templ.Attributes)
-
-	var htmxVersion HTMXVersion
-
-	if hp.HTMXVersion == "" {
-		htmxVersion = HTMX_V1
-	} else {
-		htmxVersion = hp.HTMXVersion
-	}
-	fmt.Println(string(htmxVersion))
 
 	if hp.IsBoosted {
 		htmxAttributes["hx-boost"] = "true"
