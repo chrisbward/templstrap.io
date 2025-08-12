@@ -1,16 +1,16 @@
 package accordionheader 
 
 import (
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
 )
 
 type AccordionHeaderProps struct {
 	base.ElementProps
-	TargetId string
+	TargetId         string
 	TargetIdSelector string
-	Title       string
-	IsCollapsed bool
+	Title            string
+	IsCollapsed      bool
 }
 
 const RootClassName = "accordion-button"
@@ -29,8 +29,16 @@ func (ahp AccordionHeaderProps) BuildClassName() (classes string) {
 
 templ Show(props AccordionHeaderProps) {
 	<h2 class="accordion-header">
-		<button class={ props.BuildClassName() } type="button" data-bs-toggle="collapse" data-bs-target={ props.TargetIdSelector } aria-expanded="true" aria-controls={props.TargetId}>
-			{ props.Title }
+		<button 
+			class={ props.BuildClassName() } 
+			type="button" 
+			data-bs-toggle="collapse" 
+			data-bs-target={ props.TargetIdSelector } 
+			aria-expanded="true" 
+			aria-controls={ props.TargetId }
+		>
+			<span class="title">{ props.Title }</span>
+			{ children... } 
 		</button>
 	</h2>
 }
