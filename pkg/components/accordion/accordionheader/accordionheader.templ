@@ -9,7 +9,7 @@ type AccordionHeaderProps struct {
 	base.ElementProps
 	TargetId         string
 	TargetIdSelector string
-	Title            string
+	Title            interface{}
 	IsCollapsed      bool
 }
 
@@ -37,8 +37,13 @@ templ Show(props AccordionHeaderProps) {
 			aria-expanded="true" 
 			aria-controls={ props.TargetId }
 		>
-			<span class="title">{ props.Title }</span>
-			{ children... } 
+			if titleContent, ok :=  props.Title.(string); ok {
+				@templ.Raw(titleContent)
+			} 
+
+			if titleComponent, ok :=  props.Title.(templ.Component); ok {
+				@titleComponent
+			}
 		</button>
 	</h2>
 }
