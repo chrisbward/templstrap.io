@@ -23,4 +23,9 @@ generate:
 
 test:
 	@echo "+ $@" 
+	@go test -v -tags "$(BUILDTAGS) cgo" $(shell go list ./pkg/...) 
+
+
+test-testsuite:
+	@echo "+ $@" 
 	@go test -v -tags "$(BUILDTAGS) cgo" $(shell go list ./testsuite/...) 
