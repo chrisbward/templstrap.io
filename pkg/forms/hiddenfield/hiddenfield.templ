@@ -1,16 +1,16 @@
 package hiddenfield
 
-import ( 
+import (
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/testsuite/entities"
 )
 
-const RootClassName = "form-control" 
+const RootClassName = "form-control"
 
 type InputProps struct {
 	base.FormElementProps
-	Value                          string
-	Type                           entities.InputType
+	Value string
+	Type  entities.InputType
 }
 
 func (ip InputProps) GetInputType() (inputType entities.InputType) {
@@ -22,10 +22,10 @@ func (ip InputProps) GetInputType() (inputType entities.InputType) {
 
 templ Show(props InputProps) {
 	<input
-		type={ string(props.GetInputType()) } 
+		type={ string(props.GetInputType()) }
 		value={ props.Value }
 		id={ props.Id }
-		name={ props.Id } 
-		readonly="true" 
-	/>  
+		name={ props.Id }
+		readonly="true"
+	/>
 }

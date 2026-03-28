@@ -1,8 +1,8 @@
 package spinners 
 
 import (
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
 )
 
 const RootClassName = "spinner-"
@@ -44,11 +44,11 @@ func (sp SpinnerProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props SpinnerProps) {
-	<div 
+	<div
 		if props.ElementProps.Id != "" {
-			id={ props.ElementProps.Id } 
+			id={ props.ElementProps.Id }
 		}
-		class={ props.BuildClassNames() } 
+		class={ props.BuildClassNames() }
 		role="status"
 	>
 		<span class="visually-hidden">{ props.Text }</span>

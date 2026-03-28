@@ -47,6 +47,14 @@ func (ct CardText) BuildClassNames() (classes string) {
 	return
 }
 
+type AlignTextType string
+
+const(
+	LeftAlignTextType AlignTextType = ""
+	CenterAlignTextType AlignTextType = "text-center"
+	RightAlignTextType AlignTextType = "text-end"
+)
+
 const CardRootClassName = "card"
 
 type CardProps struct {
@@ -54,7 +62,9 @@ type CardProps struct {
 	Title    CardTitle
 	Text     CardText
 	ImageCap templ.Component
+	Header   templ.Component
 	Footer   templ.Component
+	AlignText AlignTextType
 }
 
 func (cp CardProps) BuildClassNames() (classes string) {
@@ -76,6 +86,11 @@ templ Show(props CardProps) {
 		class={ props.BuildClassNames() }
 		{ props.ElementProps.DataAttributes... }
 	>
+		if props.Header != nil {
+			<div class="card-header">
+				@props.Header
+			</div>
+		}
 		if props.ImageCap != nil {
 			@props.ImageCap
 		}

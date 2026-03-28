@@ -1,8 +1,6 @@
 package closebutton
 
-import (
-	"github.com/chrisbward/templstrap.io/pkg/base"
-)
+import "github.com/chrisbward/templstrap.io/pkg/base"
 
 type CloseButtonProps struct {
 	base.ElementProps
@@ -10,7 +8,7 @@ type CloseButtonProps struct {
 
 templ Show(props CloseButtonProps) {
 	<button
-		id={props.Id}
+		id={ props.Id }
 		type="button"
 		class="btn-close"
 		aria-label="Close"

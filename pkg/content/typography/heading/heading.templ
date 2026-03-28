@@ -1,9 +1,9 @@
 package heading
 
 import (
-    "strings"
-    "github.com/chrisbward/templstrap.io/pkg/base"
-) 
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
+)
 
 type HeadingClass string
 
@@ -24,30 +24,30 @@ const display5Class DisplayClass = "display-5"
 const display6Class DisplayClass = "display-6"
 
 type HeadingProps struct {
-    base.ElementProps
+	base.ElementProps
 	HeadingClass HeadingClass
 	DisplayClass DisplayClass
-    IsLead bool
+	IsLead       bool
 }
 
 func (hp *HeadingProps) CalculateClassNames() (classNames string) {
 
-    classValues := []string{
-        string(hp.HeadingClass), 
-        string(hp.DisplayClass),
-    }
+	classValues := []string{
+		string(hp.HeadingClass),
+		string(hp.DisplayClass),
+	}
 
-    if hp.IsLead {
-        classValues = append(classValues, "lead" )
-    }
+	if hp.IsLead {
+		classValues = append(classValues, "lead")
+	}
 
-    if len(hp.AdditionalClasses) > 0 {
-        classValues = append(classValues, hp.AdditionalClasses...)
-    }
+	if len(hp.AdditionalClasses) > 0 {
+		classValues = append(classValues, hp.AdditionalClasses...)
+	}
 
-    classNames = strings.Join(classValues, " ")
+	classNames = strings.Join(classValues, " ")
 
-	return 
+	return
 }
 
 templ Show(props HeadingProps) {

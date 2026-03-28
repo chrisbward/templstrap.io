@@ -1,10 +1,10 @@
 package navbar
 
 import (
-	"strings"
 	"fmt"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/components/navbar/navitem"
+	"strings"
 )
 
 type PlacementType string
@@ -71,15 +71,15 @@ templ Show(props NavbarProps) {
 					<span class="navbar-toggler-icon"></span>
 				</button>
 			}
-			<div  class="collapse navbar-collapse"  id="navbarSupportedContent" hx-boost={fmt.Sprintf("%v",props.HTMX.IsBoosted)} >
+			<div class="collapse navbar-collapse" id="navbarSupportedContent" hx-boost={ fmt.Sprintf("%v", props.HTMX.IsBoosted) }>
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					for _, NavItem := range props.NavItems {
 						@navitem.Show(navitem.NavItemProps{
-							Name: NavItem.Name,
-							Link: NavItem.Link,
-							IsActive: NavItem.IsActive,
-							IsDisabled: NavItem.IsDisabled,
-							IsDropdown: NavItem.IsDropdown,
+							Name:          NavItem.Name,
+							Link:          NavItem.Link,
+							IsActive:      NavItem.IsActive,
+							IsDisabled:    NavItem.IsDisabled,
+							IsDropdown:    NavItem.IsDropdown,
 							ChildNavItems: NavItem.ChildNavItems,
 						})
 					}

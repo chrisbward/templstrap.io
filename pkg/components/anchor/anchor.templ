@@ -1,8 +1,8 @@
 package anchor 
 
 import (
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/components/buttons"
+	"strings"
 )
 
 type AnchorType string
@@ -36,8 +36,9 @@ func (ap AnchorProps) BuildClassName() (classes string) {
 		)
 	}
 	classes = strings.Join(classNames, " ")
+	
 
-	return
+	return strings.TrimSpace(classes)
 }
 
 templ Show(props AnchorProps) {
