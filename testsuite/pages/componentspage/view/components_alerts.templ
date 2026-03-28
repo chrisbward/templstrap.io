@@ -1,0 +1,46 @@
+package componentspage
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/components/alerts"
+	"github.com/chrisbward/templstrap.io/testsuite/components/example"
+)
+
+templ ShowAlerts() {
+	<section id="alertsComponent">
+		<h2>Alerts</h2>
+		@example.Show(example.ExampleProps{
+			Title: "Alerts",
+		}) {
+			@alerts.Show(alerts.AlertProps{
+				AlertType: alerts.PrimaryAlert,
+			}) {
+				This is a primary alert.
+			}
+			@alerts.Show(alerts.AlertProps{
+				AlertType: alerts.SecondaryAlert,
+			}) {
+				This is a secondary alert.
+			}
+			@alerts.Show(alerts.AlertProps{
+				AlertType: alerts.SuccessAlert,
+			}) {
+				This is a success alert.
+			}
+			@alerts.Show(alerts.AlertProps{
+				AlertType: alerts.DangerAlert,
+			}) {
+				This is a danger alert.
+			}
+			@alerts.Show(alerts.AlertProps{
+				AlertType: alerts.WarningAlert,
+			}) {
+				This is a warning alert.
+			}
+			@alerts.Show(alerts.AlertProps{
+				AlertType: alerts.InfoAlert,
+			}) {
+				This is an info alert.
+			}
+		}
+	</section>
+}

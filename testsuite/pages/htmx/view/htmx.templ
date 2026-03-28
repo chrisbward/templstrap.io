@@ -1,19 +1,19 @@
 package htmx
 
 import (
+	defaulttemplate "github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
 	"github.com/chrisbward/templstrap.io/testsuite/entities"
 	htmxpagemodel "github.com/chrisbward/templstrap.io/testsuite/pages/htmx/model"
 
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/base/head"
-	"github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
 	"github.com/chrisbward/templstrap.io/pkg/components/card"
 )
 
 templ Head() {
 	@head.Show(head.HeadProps{
-        Title: "TemplStrap.io",
-    }) {
+		Title: "TemplStrap.io",
+	}) {
 		<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"/>
 	}
 }
@@ -21,12 +21,12 @@ templ Head() {
 templ Show(view htmxpagemodel.HTMXPageModel, props entities.IPageProps) {
 	if !view.IsPostback {
 		@base.Show(base.BaseProps{
-			Title: "",
+			Title:         "",
 			HeadComponent: Head(),
 		}) {
 			@defaulttemplate.Show(defaulttemplate.DefaultTemplateProps{
 				ComponentsNavItems: props.GetNavItems("htmx"),
-				BreadCrumbItems: props.GetBreadcrumbs(),
+				BreadCrumbItems:    props.GetBreadcrumbs(),
 			}) {
 				<p>
 					A quick demonstration of htmx-powered templstrap, username and password are both "admin"
@@ -46,8 +46,8 @@ templ Show(view htmxpagemodel.HTMXPageModel, props entities.IPageProps) {
 				}
 			}
 		}
-	} 
+	}
 	if view.IsPostback {
 		@view.ValidateAndGetFormOrSuccess()
-	} 
+	}
 }
