@@ -26,3 +26,30 @@ components to finish;
 - popovers
 - toasts
 - tooltips 
+
+## Quickstart
+
+### Templ Installation
+Install `v0.3.1001` runtime with the following;
+```bash
+go install github.com/a-h/templ/cmd/templ@v0.3.1001
+```
+
+### Using TemplStrap.io
+
+On your project, include the CLI template engine;
+```bash
+go get -tool github.com/a-h/templ/cmd/templ
+```
+
+Add the following to your Makefile;
+```make
+templ:
+    @go tool templ generate
+```
+
+If you wish to generate templates, execute `make templ` in your project folder.
+
+
+
+

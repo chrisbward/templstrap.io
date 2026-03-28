@@ -15,7 +15,7 @@ build:
 
 templ:
 	@echo "+ $@"
-	@templ generate
+	@go tool templ generate
 
 generate:
 	@echo "+ $@"
