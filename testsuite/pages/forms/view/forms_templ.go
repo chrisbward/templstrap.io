@@ -399,7 +399,7 @@ func Show(props entities.IPageProps) templ.Component {
 								Type: entities.FormFieldType{
 									InputType: entities.DatalistType,
 								},
-								DatalistItems: []string{"chris", "squeak", "steve"},
+								// DatalistItems: []string{"chris", "squeak", "steve"},
 							}),
 						}).Render(ctx, templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
