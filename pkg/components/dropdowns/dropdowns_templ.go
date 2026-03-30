@@ -63,7 +63,7 @@ func Show(props DropdownProps) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(props.Text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/dropdowns/dropdowns.templ`, Line: 32, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/dropdowns/dropdowns.templ`, Line: 33, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {

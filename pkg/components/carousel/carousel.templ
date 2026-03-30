@@ -1,9 +1,9 @@
 package carousel
 
 import (
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/components/carousel/carouselcontrol"
+	"strings"
 )
 
 const RootClassName = "carousel"
@@ -31,14 +31,14 @@ templ Show(props CarouselProps) {
 			{ children... }
 		</div>
 		if props.HasControls {
-      @carouselcontrol.Show(carouselcontrol.CarouselControlProps{
-        CarouselId: props.Id,
-        Direction: carouselcontrol.PreviousDirectionType,
-      })
-      @carouselcontrol.Show(carouselcontrol.CarouselControlProps{
-        CarouselId: props.Id,
-        Direction: carouselcontrol.NextDirectionType,
-      }) 
+			@carouselcontrol.Show(carouselcontrol.CarouselControlProps{
+				CarouselId: props.Id,
+				Direction:  carouselcontrol.PreviousDirectionType,
+			})
+			@carouselcontrol.Show(carouselcontrol.CarouselControlProps{
+				CarouselId: props.Id,
+				Direction:  carouselcontrol.NextDirectionType,
+			})
 		}
 	</div>
 }

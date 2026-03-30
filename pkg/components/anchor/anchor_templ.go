@@ -45,7 +45,7 @@ func (ap AnchorProps) BuildClassName() (classes string) {
 	}
 	classes = strings.Join(classNames, " ")
 
-	return
+	return strings.TrimSpace(classes)
 }
 
 func Show(props AnchorProps) templ.Component {
@@ -81,7 +81,7 @@ func Show(props AnchorProps) templ.Component {
 		var templ_7745c5c3_Var3 templ.SafeURL
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(props.Link))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/anchor/anchor.templ`, Line: 44, Col: 36}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/anchor/anchor.templ`, Line: 45, Col: 36}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -107,7 +107,7 @@ func Show(props AnchorProps) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(props.Text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/anchor/anchor.templ`, Line: 44, Col: 84}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/anchor/anchor.templ`, Line: 45, Col: 84}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {

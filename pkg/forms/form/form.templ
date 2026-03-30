@@ -68,12 +68,12 @@ templ Show(props FormProps) {
 				hx-encoding={ props.ElementProps.HTMX.Encoding }
 			}
 			if props.ElementProps.HTMX.Verb == base.PostVerbType {
-				hx-post={ props.Action.Action + "?requesttype=htmx" } 
+				hx-post={ props.Action.Action + "?requesttype=htmx" }
 			}
 			if props.ElementProps.HTMX.Verb == base.GetVerbType {
-				hx-get={ props.Action.Action + "?requesttype=htmx" } 
+				hx-get={ props.Action.Action + "?requesttype=htmx" }
 				if props.ElementProps.HTMX.PushURL {
-					hx-push-url="true" 
+					hx-push-url="true"
 				}
 			}
 			if props.ElementProps.HTMX.TargetSelector != "" {
@@ -91,7 +91,7 @@ templ Show(props FormProps) {
 			if props.ElementProps.HTMX.Trigger != "" {
 				hx-trigger={ props.ElementProps.HTMX.Trigger }
 			}
-			{ props.ExtraAttributes... }	
+			{ props.ExtraAttributes... }
 		>
 			{ children... }
 			if props.Action.Actions[PrimaryFormAction].Name != "" {

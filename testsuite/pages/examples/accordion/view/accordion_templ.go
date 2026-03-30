@@ -11,11 +11,10 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/base/head"
+
+	accordionexample "github.com/chrisbward/templstrap.io/testsuite/components/example/accordion"
+	defaulttemplate "github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
 	"github.com/chrisbward/templstrap.io/testsuite/entities"
-
-	"github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
-
-	"github.com/chrisbward/templstrap.io/testsuite/components/example/accordion"
 )
 
 func Head() templ.Component {

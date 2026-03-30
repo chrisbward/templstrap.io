@@ -1,0 +1,30 @@
+package listgroup
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/pkg/components/listgroup/listgroupitem"
+	"strings"
+)
+
+const RootClassName = "list-group"
+
+type ListGroupProps struct {
+	base.ElementProps
+	ListItems []listgroupitem.ListGroupItemProps
+}
+
+func (lgp ListGroupProps) BuildClassName() (classes string) {
+	classNames := []string{RootClassName}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props ListGroupProps) {
+	<ul class={ props.BuildClassName() }>
+		for _, listItemProps := range props.ListItems {
+			@listgroupitem.Show(listItemProps)
+		}
+	</ul>
+}

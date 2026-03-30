@@ -2,19 +2,19 @@ package checks
 
 import (
 	"fmt"
-	"strings"
-	"github.com/chrisbward/templstrap.io/testsuite/entities"
 	"github.com/chrisbward/templstrap.io/pkg/base"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
+	"strings"
 )
 
 const RootClassName = "form-check"
 
 type ChecksProps struct {
 	base.FormElementProps
-	LabelText string
-	IsChecked bool
-	AsSwitch bool
-	Validation                     entities.FormFieldValidation
+	LabelText  string
+	IsChecked  bool
+	AsSwitch   bool
+	Validation entities.FormFieldValidation
 }
 
 func (cp ChecksProps) BuildClassNames() (classes string) {
@@ -37,15 +37,15 @@ func (cp ChecksProps) BuildClassNames() (classes string) {
 
 templ Show(props ChecksProps) {
 	<div class={ props.BuildClassNames() }>
-		<input 
-			class="form-check-input" 
-			type="checkbox" 
-			id={ props.Id } 
+		<input
+			class="form-check-input"
+			type="checkbox"
+			id={ props.Id }
 			name={ props.Id }
 			value="true"
 			checked?={ props.IsChecked }
 		/>
-		<label class="form-check-label" for={ props.Id } >
+		<label class="form-check-label" for={ props.Id }>
 			{ props.LabelText }
 		</label>
 	</div>

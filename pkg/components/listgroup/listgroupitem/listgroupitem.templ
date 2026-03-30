@@ -1,0 +1,33 @@
+package listgroupitem
+
+import (
+	"github.com/chrisbward/templstrap.io/pkg/base"
+	"strings"
+)
+
+const RootClassName = "list-group-item"
+
+type ListGroupItemProps struct {
+	base.ElementProps
+	Text     string
+	IsActive bool
+}
+
+func (li ListGroupItemProps) BuildClassName() (classes string) {
+	classNames := []string{RootClassName}
+
+	if li.IsActive {
+		classNames = append(classNames, "active")
+	}
+	if li.IsDisabled {
+		classNames = append(classNames, "disabled")
+	}
+
+	classes = strings.Join(classNames, " ")
+
+	return
+}
+
+templ Show(props ListGroupItemProps) {
+	<li class={ props.BuildClassName() } aria-current?={ props.IsActive } aria-disabled?={ props.IsDisabled }>{ props.Text }</li>
+}

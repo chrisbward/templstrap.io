@@ -8,9 +8,7 @@ package scrollspy
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import (
-	"github.com/chrisbward/templstrap.io/pkg/base"
-)
+import "github.com/chrisbward/templstrap.io/pkg/base"
 
 type ScrollspyProps struct {
 	base.ElementProps

@@ -1,18 +1,18 @@
 package radio
 
 import (
-	"strings"
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/testsuite/entities"
-
+	"strings"
 )
+
 const RootClassName = "form-check-input"
 
 type RadioProps struct {
 	base.FormElementProps
-	Validation                     entities.FormFieldValidation
-	IsSelected bool 
-	GroupName string
+	Validation entities.FormFieldValidation
+	IsSelected bool
+	GroupName  string
 }
 
 func (rp RadioProps) BuildClassNames() (classes string) {
@@ -30,13 +30,12 @@ func (rp RadioProps) BuildClassNames() (classes string) {
 	return
 }
 
-
 templ Show(props RadioProps) {
-	<input 
-		class={ props.BuildClassNames() } 
-		type="radio" 
-		name={ props.GroupName } 
-		id={ props.ElementProps.Id } 
+	<input
+		class={ props.BuildClassNames() }
+		type="radio"
+		name={ props.GroupName }
+		id={ props.ElementProps.Id }
 		value={ props.Value }
 		checked?={ props.IsSelected }
 	/>

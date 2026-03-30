@@ -8,9 +8,7 @@ package code
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type CodeProps struct {
 	Language string

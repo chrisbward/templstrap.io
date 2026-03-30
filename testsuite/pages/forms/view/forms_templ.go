@@ -9,23 +9,22 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/chrisbward/templstrap.io/testsuite/entities"
-
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/base/head"
+	"github.com/chrisbward/templstrap.io/pkg/components/card"
 	"github.com/chrisbward/templstrap.io/pkg/forms/form"
 	"github.com/chrisbward/templstrap.io/pkg/forms/formfield"
 	"github.com/chrisbward/templstrap.io/pkg/forms/formlabel"
 	"github.com/chrisbward/templstrap.io/pkg/forms/formtip"
 	"github.com/chrisbward/templstrap.io/pkg/forms/inputfield"
-	"github.com/chrisbward/templstrap.io/pkg/forms/range"
-	"github.com/chrisbward/templstrap.io/pkg/forms/select"
+	"github.com/chrisbward/templstrap.io/pkg/forms/inputgrouptext"
+	rangeeelement "github.com/chrisbward/templstrap.io/pkg/forms/range"
+	selectx "github.com/chrisbward/templstrap.io/pkg/forms/select"
 	"github.com/chrisbward/templstrap.io/pkg/forms/select/selectoption"
-	"github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
+	defaulttemplate "github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
 	"net/http"
 	// "github.com/chrisbward/templstrap.io/pkg/forms/inputgroup"
-	"github.com/chrisbward/templstrap.io/pkg/components/card"
-	"github.com/chrisbward/templstrap.io/pkg/forms/inputgrouptext"
 )
 
 func Head() templ.Component {
@@ -397,7 +396,7 @@ func Show(props entities.IPageProps) templ.Component {
 									},
 								},
 								Type: entities.FormFieldType{
-									InputType: entities.DatalistType,
+									InputType: entities.TextType,
 								},
 								// DatalistItems: []string{"chris", "squeak", "steve"},
 							}),

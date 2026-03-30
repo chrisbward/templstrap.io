@@ -11,7 +11,6 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/base/head"
-
 	"github.com/chrisbward/templstrap.io/pkg/components/card"
 	"github.com/chrisbward/templstrap.io/testsuite/components/example"
 )

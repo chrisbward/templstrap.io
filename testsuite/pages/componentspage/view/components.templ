@@ -3,72 +3,54 @@ package componentspage
 import (
 	"fmt"
 	"strings"
-	"github.com/chrisbward/templstrap.io/testsuite/entities"
 
 	"github.com/chrisbward/templstrap.io/pkg/base"
 	"github.com/chrisbward/templstrap.io/pkg/base/head"
-	"github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
-
 	"github.com/chrisbward/templstrap.io/pkg/content/typography/heading"
+	accordionexample "github.com/chrisbward/templstrap.io/testsuite/components/example/accordion"
+	defaulttemplate "github.com/chrisbward/templstrap.io/testsuite/components/templates/default"
+	"github.com/chrisbward/templstrap.io/testsuite/entities"
 
 	"github.com/chrisbward/templstrap.io/testsuite/components/example"
 
 	/* components below */
-	"github.com/chrisbward/templstrap.io/testsuite/components/example/accordion"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/alerts"
 
 	"github.com/chrisbward/templstrap.io/pkg/components/badge"
-
 	"github.com/chrisbward/templstrap.io/pkg/components/breadcrumb"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/buttons"
 	"github.com/chrisbward/templstrap.io/pkg/components/buttongroup"
-	"github.com/chrisbward/templstrap.io/pkg/components/buttontoolbar"
-
+	"github.com/chrisbward/templstrap.io/pkg/components/buttons"
 	"github.com/chrisbward/templstrap.io/pkg/components/card"
-
 	"github.com/chrisbward/templstrap.io/pkg/components/carousel"
-
+	"github.com/chrisbward/templstrap.io/pkg/components/carousel/carouselitem"
 	"github.com/chrisbward/templstrap.io/pkg/components/closebutton"
+	"github.com/chrisbward/templstrap.io/pkg/components/dropdowns"
+	"github.com/chrisbward/templstrap.io/pkg/components/listgroup"
+	"github.com/chrisbward/templstrap.io/pkg/components/modal"
+	"github.com/chrisbward/templstrap.io/pkg/components/navbar/navitem"
+	"github.com/chrisbward/templstrap.io/pkg/components/navsandtabs"
+	"github.com/chrisbward/templstrap.io/pkg/components/offcanvas"
+	"github.com/chrisbward/templstrap.io/pkg/components/placeholders"
+	"github.com/chrisbward/templstrap.io/pkg/components/popovers"
+	"github.com/chrisbward/templstrap.io/pkg/components/progress"
+	"github.com/chrisbward/templstrap.io/pkg/components/spinners"
+	"github.com/chrisbward/templstrap.io/pkg/components/toasts"
+	"github.com/chrisbward/templstrap.io/pkg/components/tooltips"
+
+	"github.com/chrisbward/templstrap.io/pkg/components/buttontoolbar"
 
 	"github.com/chrisbward/templstrap.io/pkg/components/collapse"
 
-	"github.com/chrisbward/templstrap.io/pkg/components/dropdowns"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/listgroup"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/modal"
-
 	"github.com/chrisbward/templstrap.io/pkg/components/navbar"
-	"github.com/chrisbward/templstrap.io/pkg/components/navbar/navitem"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/navsandtabs"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/offcanvas"
 
 	"github.com/chrisbward/templstrap.io/pkg/components/pagination"
 
-	"github.com/chrisbward/templstrap.io/pkg/components/placeholders"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/popovers"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/progress"
-
 	"github.com/chrisbward/templstrap.io/pkg/components/scrollspy"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/spinners"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/toasts"
-
-	"github.com/chrisbward/templstrap.io/pkg/components/tooltips"
-	"github.com/chrisbward/templstrap.io/pkg/components/carousel/carouselitem"
 )
 
 templ Head() {
 	@head.Show(head.HeadProps{
-        Title: "TemplStrap.io",
-    }) {
+		Title: "TemplStrap.io",
+	}) {
 		<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"/>
 	}
 }
@@ -117,18 +99,18 @@ func (pp PageProps) GetComponentLinksForSidebarNavigation() (items []navitem.Nav
 
 templ Show(props entities.IPageProps) {
 	@base.Show(base.BaseProps{
-        Title: "",
-        HeadComponent: Head(),
-    }) {
+		Title:         "",
+		HeadComponent: Head(),
+	}) {
 		@base.Show(base.BaseProps{
-        Title: "",
-        HeadComponent: Head(),
-    }) {
-			@defaulttemplate.Show(defaulttemplate.DefaultTemplateProps{
-			ComponentsNavItems: props.GetNavItems("Components"),
-			BreadCrumbItems: props.GetBreadcrumbs(),
+			Title:         "",
+			HeadComponent: Head(),
 		}) {
-				@heading.Show(heading.HeadingProps{ }) {
+			@defaulttemplate.Show(defaulttemplate.DefaultTemplateProps{
+				ComponentsNavItems: props.GetNavItems("Components"),
+				BreadCrumbItems:    props.GetBreadcrumbs(),
+			}) {
+				@heading.Show(heading.HeadingProps{}) {
 					{ props.GetTitle() }
 				}
 				<p>This is the components page</p>
@@ -136,43 +118,7 @@ templ Show(props entities.IPageProps) {
 					<h2>Accordion</h2>
 					@accordionexample.Show()
 				</section>
-				<section id="alertsComponent">
-					<h2>Alerts</h2>
-					@example.Show(example.ExampleProps{
-                        Title: "Alerts",
-                    }) {
-						@alerts.Show(alerts.AlertProps{
-                                AlertType: alerts.PrimaryAlert,
-                            }) {
-							This is a primary alert.
-						}
-						@alerts.Show(alerts.AlertProps{
-                                AlertType: alerts.SecondaryAlert,
-                            }) {
-							This is a secondary alert.
-						}
-						@alerts.Show(alerts.AlertProps{
-                                AlertType: alerts.SuccessAlert,
-                            }) {
-							This is a success alert.
-						}
-						@alerts.Show(alerts.AlertProps{
-                                AlertType: alerts.DangerAlert,
-                            }) {
-							This is a danger alert.
-						}
-						@alerts.Show(alerts.AlertProps{
-                                AlertType: alerts.WarningAlert,
-                            }) {
-							This is a warning alert.
-						}
-						@alerts.Show(alerts.AlertProps{
-                                AlertType: alerts.InfoAlert,
-                            }) {
-							This is an info alert.
-						}
-					}
-				</section>
+				@ShowAlerts()
 				<h2>Badge</h2>
 				@example.Show(example.ExampleProps{
                     Title: "Badge",
@@ -181,121 +127,122 @@ templ Show(props entities.IPageProps) {
 				}
 				<h2>Breadcrumb</h2>
 				@example.Show(example.ExampleProps{
-                    Title: "Breadcrumb",
-                }) {
+					Title: "Breadcrumb",
+				}) {
 					@breadcrumb.Show(breadcrumb.BreadcrumbProps{})
 				}
 				<h2>Buttons</h2>
 				@example.Show(example.ExampleProps{
-                    Title: "Buttons",
-                }) {
+					Title: "Buttons",
+				}) {
 					@buttons.Show(buttons.ButtonProps{
-                        ButtonClassType: buttons.PrimaryButton,
-                    }) {
+						ButtonClassType: buttons.PrimaryButton,
+					}) {
 						Button
 					}
 					@buttons.Show(buttons.ButtonProps{
-                        ButtonClassType: buttons.PrimaryButton,
-                        IsDisabled: true,
-                    }) {
+						ButtonClassType: buttons.PrimaryButton,
+						IsDisabled:      true,
+					}) {
 						Disabled Button
 					}
 				}
 				<h2>Button Group</h2>
-				@buttongroup.Show(buttongroup.ButtonGroupProps{ 
-                    }) {
+				@buttongroup.Show(buttongroup.ButtonGroupProps{}) {
 					@buttons.Show(buttons.ButtonProps{
-                        ButtonClassType: buttons.PrimaryButton,
-                    }) {
+						ButtonClassType: buttons.PrimaryButton,
+					}) {
 						Button
 					}
 					@buttons.Show(buttons.ButtonProps{
-                        ButtonClassType: buttons.PrimaryButton,
-                    }) {
+						ButtonClassType: buttons.PrimaryButton,
+					}) {
 						Button
 					}
 					@buttons.Show(buttons.ButtonProps{
-                        ButtonClassType: buttons.PrimaryButton,
-                    }) {
+						ButtonClassType: buttons.PrimaryButton,
+					}) {
 						Button
 					}
 				}
 				@buttontoolbar.Show() {
 					@buttongroup.Show(buttongroup.ButtonGroupProps{
-                        ElementProps: base.ElementProps{
-                            AdditionalClasses: strings.Split("me-2", " "),
-                        },
-                    }) {
+						ElementProps: base.ElementProps{
+							AdditionalClasses: strings.Split("me-2", " "),
+						},
+					}) {
 						@buttons.Show(buttons.ButtonProps{
-                            ButtonClassType: buttons.PrimaryButton,
-                        }) {
+							ButtonClassType: buttons.PrimaryButton,
+						}) {
 							Button
 						}
 						@buttons.Show(buttons.ButtonProps{
-                            ButtonClassType: buttons.PrimaryButton,
-                        }) {
+							ButtonClassType: buttons.PrimaryButton,
+						}) {
 							Button
 						}
 						@buttons.Show(buttons.ButtonProps{
-                            ButtonClassType: buttons.PrimaryButton,
-                        }) {
+							ButtonClassType: buttons.PrimaryButton,
+						}) {
 							Button
 						}
 					}
 					@buttongroup.Show(buttongroup.ButtonGroupProps{
-                        ElementProps: base.ElementProps{
-                            AdditionalClasses: strings.Split("me-2", " "),
-                        },
-                    }) {
+						ElementProps: base.ElementProps{
+							AdditionalClasses: strings.Split("me-2", " "),
+						},
+					}) {
 						@buttons.Show(buttons.ButtonProps{
-                            ButtonClassType: buttons.PrimaryButton,
-                        })
+							ButtonClassType: buttons.PrimaryButton,
+						})
 						@buttons.Show(buttons.ButtonProps{
-                            ButtonClassType: buttons.PrimaryButton,
-                        })
+							ButtonClassType: buttons.PrimaryButton,
+						})
 						@buttons.Show(buttons.ButtonProps{
-                            ButtonClassType: buttons.PrimaryButton,
-                        })
+							ButtonClassType: buttons.PrimaryButton,
+						})
 					}
 				}
 				<h2>Card</h2>
 				@example.Show(example.ExampleProps{
-                    Title: "Card",
-                }) {
+					Title: "Card",
+				}) {
 					@card.Show(card.CardProps{
-                        Title: card.CardTitle{
+						Title: card.CardTitle{
 							Text: "Test",
-						}, 
-                    })
+						},
+					})
 				}
 				<h2>Carousel</h2>
 				@carousel.Show(carousel.CarouselProps{
-						HasControls: true, 
-						ElementProps: base.ElementProps{
-							Id: "myCarousel",
-						},
-					}) {
+					HasControls: true,
+					ElementProps: base.ElementProps{
+						Id: "myCarousel",
+					},
+				}) {
 					@carouselitem.Show(carouselitem.CarouselItemProps{
-							IsActive: true,
-						}) {
+						IsActive: true,
+					}) {
 						<p>item1</p>
 					}
-					@carouselitem.Show(carouselitem.CarouselItemProps{
-						}) {
+					@carouselitem.Show(carouselitem.CarouselItemProps{}) {
 						<p>item2</p>
 					}
-					@carouselitem.Show(carouselitem.CarouselItemProps{
-						}) {
+					@carouselitem.Show(carouselitem.CarouselItemProps{}) {
 						<p>item3</p>
 					}
 				}
 				<h2>Close Button</h2>
 				@closebutton.Show(closebutton.CloseButtonProps{})
+				@closebutton.Show(closebutton.CloseButtonProps{})
 				<h2>Collapse</h2>
+				@collapse.Show(collapse.CollapseProps{})
 				@collapse.Show(collapse.CollapseProps{})
 				<h2>Dropdowns</h2>
 				@dropdowns.Show(dropdowns.DropdownProps{})
+				@dropdowns.Show(dropdowns.DropdownProps{})
 				<h2>List Group</h2>
+				@listgroup.Show(listgroup.ListGroupProps{})
 				@listgroup.Show(listgroup.ListGroupProps{})
 				<h2>Modal</h2>
 				@modal.Show()
@@ -303,9 +250,12 @@ templ Show(props entities.IPageProps) {
 				@navbar.Show(navbar.NavbarProps{})
 				<h2>Navs &amp; Tabs</h2>
 				@navsandtabs.Show(navsandtabs.NavsAndTabsProps{})
+				@navsandtabs.Show(navsandtabs.NavsAndTabsProps{})
 				<h2>Offcanvas</h2>
 				@offcanvas.Show(offcanvas.OffCanvasProps{})
+				@offcanvas.Show(offcanvas.OffCanvasProps{})
 				<h2>Pagination</h2>
+				@pagination.Show(pagination.PaginationProps{})
 				@pagination.Show(pagination.PaginationProps{})
 				<h2>Placeholders</h2>
 				@placeholders.Show()
@@ -313,19 +263,21 @@ templ Show(props entities.IPageProps) {
 				@popovers.Show()
 				<h2>Progress</h2>
 				@progress.Show(progress.ProgressProps{
-                        Percentage: 40,
-                    })
+					Percentage: 40,
+				})
 				<h2>Scrollspy</h2>
 				@scrollspy.Show(scrollspy.ScrollspyProps{
-                        ElementProps: base.ElementProps{
-                            Id: "",
-                        },
-                    })
+					ElementProps: base.ElementProps{
+						Id: "",
+					},
+				})
 				<h2>Spinners</h2>
 				@spinners.Show(spinners.SpinnerProps{})
 				<h2>Toasts</h2>
 				@toasts.Show(toasts.ToastProps{})
+				@toasts.Show(toasts.ToastProps{})
 				<h2>Tooltips</h2>
+				@tooltips.Show(tooltips.TooptipProps{})
 				@tooltips.Show(tooltips.TooptipProps{})
 				// @scrollspy.Show(scrollspy.ScrollspyProps{
 				//     ElementProps: base.ElementProps{

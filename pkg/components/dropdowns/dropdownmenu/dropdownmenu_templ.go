@@ -8,9 +8,7 @@ package dropdownmenu
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import (
-	"github.com/chrisbward/templstrap.io/pkg/base"
-)
+import "github.com/chrisbward/templstrap.io/pkg/base"
 
 const RootClassName = "dropdown-menu"
 
@@ -75,7 +73,7 @@ func Show(props DropdownMenuProps) templ.Component {
 			var templ_7745c5c3_Var4 templ.SafeURL
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(dropdownMenuItem.URL))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/dropdowns/dropdownmenu/dropdownmenu.templ`, Line: 22, Col: 74}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/dropdowns/dropdownmenu/dropdownmenu.templ`, Line: 20, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -88,7 +86,7 @@ func Show(props DropdownMenuProps) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(dropdownMenuItem.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/dropdowns/dropdownmenu/dropdownmenu.templ`, Line: 22, Col: 100}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/components/dropdowns/dropdownmenu/dropdownmenu.templ`, Line: 20, Col: 100}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {

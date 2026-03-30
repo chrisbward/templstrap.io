@@ -70,7 +70,10 @@ func Show(props DefaultTemplateProps) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = navbar.Show(navbar.NavbarProps{
-			Brand:    "TemplStrap.io",
+			Brand: &navbar.BrandProps{
+				BrandName: "TemplStrap.io",
+				BrandLink: "/",
+			},
 			NavItems: props.ComponentsNavItems,
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
