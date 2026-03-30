@@ -177,7 +177,7 @@ templ Show(props entities.IPageProps) {
 				@example.Show(example.ExampleProps{
                     Title: "Badge",
                 }) {
-					@badge.Show()
+					@badge.Show(badge.BadgeProps{})
 				}
 				<h2>Breadcrumb</h2>
 				@example.Show(example.ExampleProps{
@@ -290,23 +290,23 @@ templ Show(props entities.IPageProps) {
 					}
 				}
 				<h2>Close Button</h2>
-				@closebutton.Show()
+				@closebutton.Show(closebutton.CloseButtonProps{})
 				<h2>Collapse</h2>
-				@collapse.Show()
+				@collapse.Show(collapse.CollapseProps{})
 				<h2>Dropdowns</h2>
-				@dropdowns.Show()
+				@dropdowns.Show(dropdowns.DropdownProps{})
 				<h2>List Group</h2>
-				@listgroup.Show()
+				@listgroup.Show(listgroup.ListGroupProps{})
 				<h2>Modal</h2>
 				@modal.Show()
 				<h2>Navbar</h2>
 				@navbar.Show(navbar.NavbarProps{})
 				<h2>Navs &amp; Tabs</h2>
-				@navsandtabs.Show()
+				@navsandtabs.Show(navsandtabs.NavsAndTabsProps{})
 				<h2>Offcanvas</h2>
-				@offcanvas.Show()
+				@offcanvas.Show(offcanvas.OffCanvasProps{})
 				<h2>Pagination</h2>
-				@pagination.Show()
+				@pagination.Show(pagination.PaginationProps{})
 				<h2>Placeholders</h2>
 				@placeholders.Show()
 				<h2>Popovers</h2>
@@ -324,9 +324,9 @@ templ Show(props entities.IPageProps) {
 				<h2>Spinners</h2>
 				@spinners.Show(spinners.SpinnerProps{})
 				<h2>Toasts</h2>
-				@toasts.Show()
+				@toasts.Show(toasts.ToastProps{})
 				<h2>Tooltips</h2>
-				@tooltips.Show()
+				@tooltips.Show(tooltips.TooptipProps{})
 				// @scrollspy.Show(scrollspy.ScrollspyProps{
 				//     ElementProps: base.ElementProps{
 				//         Id: scrollSpyId,
