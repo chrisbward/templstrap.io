@@ -107,6 +107,7 @@ type ElementProps struct {
 
 type FormElementProps struct {
 	ElementProps
+	Name       string
 	IsReadOnly bool
 	Value      string
 }
