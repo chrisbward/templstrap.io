@@ -34,12 +34,18 @@ func (ip TextAreaProps) BuildClassNames() (classes string) {
 }
 
 templ Show(props TextAreaProps) {
+	{{
+		nameValue := props.Id
+		if props.Name != "" {
+			nameValue = props.Name
+		}
+	}}
 	<textarea
 		class="form-control"
 		class={ props.BuildClassNames() }
 		id={ props.Id }
 		placeholder={ props.Placeholder }
-		name={ props.Id }
+		name={ nameValue }
 		rows={ fmt.Sprint(props.Rows) }
 		readonly?={ props.IsReadOnly }
 		disabled?={ props.IsDisabled }
