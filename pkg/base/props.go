@@ -9,6 +9,7 @@ type ScrollSpyProps struct {
 
 type HTMXSwapType string
 
+const NoneSwapType HTMXSwapType = "none"
 const OuterSwapType HTMXSwapType = "outerHTML"
 const InnerSwapType HTMXSwapType = "innerHTML"
 
