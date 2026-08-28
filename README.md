@@ -1,3 +1,5 @@
+
+
 # TemplStrap.io - PROJECT IS IN ALPHA, DO NOT USE FOR PRODUCTION
 
 A component framework for Templ that aligns to the Twitter Bootstrap design system.
@@ -39,7 +41,7 @@ go install github.com/a-h/templ/cmd/templ@v0.3.1001
 
 On your project, include the CLI template engine;
 ```bash
-go get -tool github.com/a-h/templ/cmd/templ
+go get -tool github.com/a-h/templ/cmd/templ@v0.3.1001
 ```
 
 Add the following to your Makefile;
@@ -49,7 +51,3 @@ templ:
 ```
 
 If you wish to generate templates, execute `make templ` in your project folder.
-
-
-
-
