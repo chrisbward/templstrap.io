@@ -39,6 +39,14 @@ templ Show(props TextAreaProps) {
 		if props.Name != "" {
 			nameValue = props.Name
 		}
+
+		rows := "0"
+		if props.ExtraAttributes["rows"] != nil {
+			rows = props.ExtraAttributes["rows"].(string)
+		}
+		if props.Rows > 0{
+			rows = fmt.Sprint(props.Rows)
+		}
 	}}
 	<textarea
 		class="form-control"
@@ -46,7 +54,7 @@ templ Show(props TextAreaProps) {
 		id={ props.Id }
 		placeholder={ props.Placeholder }
 		name={ nameValue }
-		rows={ fmt.Sprint(props.Rows) }
+		rows={ rows }
 		readonly?={ props.IsReadOnly }
 		disabled?={ props.IsDisabled }
 		required?={ props.Validation.IsRequired }
